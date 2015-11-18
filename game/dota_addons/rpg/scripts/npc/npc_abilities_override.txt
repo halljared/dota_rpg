@@ -1,0 +1,49 @@
+
+// Dota Abilities Override File
+"DOTAAbilities"
+{
+	"Version"   "1"
+	
+	"lycan_shapeshift"
+	{
+		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"30"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		"MaxLevel"						"1"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"duration"					"18.0"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"speed"						"650"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"bonus_night_vision"		"1000"
+			}
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"crit_chance"				"30"
+			}
+			"05"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"crit_damage"				"170"
+			}
+			"06"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"transformation_time"		"1.5"
+			}
+		}
+	}
+}

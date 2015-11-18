@@ -1,0 +1,104 @@
+"DOTAHeroes"
+{
+	"npc_dota_hero_witch_doctor_custom"
+	{
+		"AbilityLayout"		"5"
+		"override_hero"		"npc_dota_hero_witch_doctor"
+		"Ability1"			"" 
+		"Ability2"			"" 
+		"Ability3"			""
+		"Ability4"			""
+		"Ability5"			"" 
+		"Ability6"			""
+		"Ability7"			""
+
+		"ArmorPhysical"				"0"                 // Physical protection.
+		"MagicalResistance"			"0"                 // Magical protection (percentage).
+
+		"AttackDamageMin"			"100"                   // Damage range min.
+		"AttackDamageMax"			"100"                   // Damage range max.
+		"AttackRate"				"1.0"
+
+		//"AttributePrimary"		"DOTA_ATTRIBUTE_INTELLIGENCE"
+		"AttributeBaseStrength"		"0"                   // Base strength
+		"AttributeStrengthGain"		"0"                   // Strength bonus per level.
+		"AttributeBaseIntelligence"	"0"                   // Base intelligence
+		"AttributeIntelligenceGain"	"0"                   // Intelligence bonus per level.
+		"AttributeBaseAgility"		"0"                   // Base agility
+		"AttributeAgilityGain"		"0"                   // Agility bonus per level.
+
+		"BountyXP"				"0"                 // Experience earn.
+		"BountyGoldMin"			"0"                   // Gold earned min.
+		"BountyGoldMax"			"0"                   // Gold earned max.
+
+		//"BoundsHullName"		"DOTA_HULL_SIZE_HERO"
+		//"RingRadius"			"70"
+
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"360"                 // Speed.
+		"MovementTurnRate"		"1.0"                 // Turning rate.
+
+		"StatusHealth"			"1000"
+		"StatusHealthRegen"		"5.0"
+		"StatusMana"			"100"
+		"StatusManaRegen"		"10.0"
+
+		"VisionDaytimeRange"	"1800"                  // Range of vision at night time.
+		"VisionNighttimeRange"	"1800"                  // Range of vision at night time.
+
+		"SoundSet"				"Hero_Invoker"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
+	}
+
+	"npc_dota_hero_lycan_custom"
+	{
+		"AbilityLayout"		"5"
+		"override_hero"		"npc_dota_hero_lycan"
+
+		"Ability1"			"lycan_shapeshift" 
+		"Ability2"			""
+		"Ability3"			""
+		"Ability4"			""
+		"Ability5"			"" 
+		"Ability6"			""
+		"Ability7"			""
+
+
+		"ArmorPhysical"				"0"                 // Physical protection.
+		"MagicalResistance"			"0"                 // Magical protection (percentage).
+
+		"AttackDamageMin"			"100"                   // Damage range min.
+		"AttackDamageMax"			"100"                   // Damage range max.
+		"AttackRate"				"1.0"
+
+		//"AttributePrimary"		"DOTA_ATTRIBUTE_INTELLIGENCE"
+		"AttributeBaseStrength"		"0"                   // Base strength
+		"AttributeStrengthGain"		"0"                   // Strength bonus per level.
+		"AttributeBaseIntelligence"	"0"                   // Base intelligence
+		"AttributeIntelligenceGain"	"0"                   // Intelligence bonus per level.
+		"AttributeBaseAgility"		"0"                   // Base agility
+		"AttributeAgilityGain"		"0"                   // Agility bonus per level.
+
+		"BountyXP"					"0"                 // Experience earn.
+		"BountyGoldMin"				"0"                   // Gold earned min.
+		"BountyGoldMax"				"0"                   // Gold earned max.
+
+		//"BoundsHullName"		"DOTA_HULL_SIZE_HERO"
+		//"RingRadius"			"70"
+
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"360"                 // Speed.
+		"MovementTurnRate"		"1.0"                 // Turning rate.
+
+		"StatusHealth"			"1000"
+		"StatusHealthRegen"		"5.0"
+		"StatusMana"			"100"
+		"StatusManaRegen"		"10.0"
+
+		"VisionDaytimeRange"	"1800"                  // Range of vision at night time.
+		"VisionNighttimeRange"	"1800"                  // Range of vision at night time.
+
+		"SoundSet"				"Hero_Lycan"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_lycan.vsndevts"
+	}
+}
