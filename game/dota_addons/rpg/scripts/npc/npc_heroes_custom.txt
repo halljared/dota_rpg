@@ -4,7 +4,7 @@
 	{
 		"AbilityLayout"		"5"
 		"override_hero"		"npc_dota_hero_witch_doctor"
-		"Ability1"			"" 
+		"Ability1"			"basic_leap" 
 		"Ability2"			"" 
 		"Ability3"			""
 		"Ability4"			""
@@ -61,7 +61,7 @@
 		"Ability4"			""
 		"Ability5"			"" 
 		"Ability6"			""
-		"Ability7"			""
+		"Ability7"			"stay_dead_passive"
 
 
 		"ArmorPhysical"				"0"                 // Physical protection.
@@ -100,5 +100,7 @@
 
 		"SoundSet"				"Hero_Lycan"
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_lycan.vsndevts"
+
+		"vscripts"				"ai/ai_abilities.lua"
 	}
 }

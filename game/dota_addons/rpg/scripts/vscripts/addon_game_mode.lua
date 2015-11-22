@@ -1,7 +1,7 @@
 -- This is the entry-point to your game mode and should be used primarily to precache models/particles/sounds/etc
 
---require('internal/util')
---require('gamemode')
+require('internal/util')
+require('gamemode')
 
 function Precache( context )
 --[[
@@ -14,7 +14,7 @@ function Precache( context )
 	See GameMode:PostLoadPrecache() in gamemode.lua for more information
 	]]
 
-	--DebugPrint("[BAREBONES] Performing pre-load precache")
+	DebugPrint("[BAREBONES] Performing pre-load precache")
 
 	-- Particles can be precached individually or by folder
 	-- It it likely that precaching a single particle system will precache all of its children, but this may not be guaranteed
@@ -32,10 +32,18 @@ function Precache( context )
 
 	-- Entire heroes (sound effects/voice/models/particles) can be precached with PrecacheUnitByNameSync
 	-- Custom units from npc_units_custom.txt can also have all of their abilities and precache{} blocks precached in this way
+	PrecacheUnitByNameSync("npc_dota_hero_witch_doctor", function(...) end)
+	PrecacheUnitByNameAsync("npc_dota_hero_lycan",  function(...) end)
+	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin",  function(...) end)
+	PrecacheUnitByNameSync("npc_dota_hero_invoker",  function(...) end)
+	PrecacheUnitByNameSync("npc_dota_hero_omniknight",  function(...) end)
+--	PrecacheUnitByNameAsync("npc_dota_creature_corpselord", function(...) end)
+--	PrecacheUnitByNameAsync("npc_dota_creature_ancient_apparition", function(...) end)
+--	PrecacheUnitByNameAsync("npc_dota_creature_berserk_zombie", function(...) end)
 end
 
 -- Create the game mode when we activate
 function Activate()
-	--GameRules.GameMode = GameMode()
-	--GameRules.GameMode:InitGameMode()
+	GameRules.GameMode = GameMode()
+	GameRules.GameMode:InitGameMode()
 end

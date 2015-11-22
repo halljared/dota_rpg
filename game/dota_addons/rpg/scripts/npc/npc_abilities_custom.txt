@@ -3,5 +3,164 @@
 "DOTAAbilities"
 {
 	"Version"	"1"
+
+	"basic_leap"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"sandking_epicenter"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"particle"		"particles/leap_landing/leap_landing.vpcf"
+			"particle"		"particles/flying_trail_yellow.vpcf"
+		}
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"30"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"leap_distance"			"500"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"leap_speed"			"1000.0"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stun_duration"			"3.0"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stun_radius"			"200"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage"				"500"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"leap_vertical_ratio"	"3"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Ability.Leap"
+				"Target"		"CASTER"
+			}
+			
+			"RunScript"
+			{
+				"ScriptFile"	"heroes/test.lua"
+				"Function"		"Leap"
+			}
+
+			"ApplyMotionController"
+			// For this: gfycat.com/BraveHideousGiantschnauzer -> check: bit.ly/1KWulqA
+			{
+			    "Target" 					"CASTER"
+			    "ScriptFile"    			"heroes/test.lua"
+			    "HorizontalControlFunction" "LeapHorizonal"
+			    "VerticalControlFunction" 	"LeapVertical"         
+			}
+
+			"DelayedAction"
+			{
+				"Delay"		"%leap_distance / %leap_speed"
+				"Action"
+				{
+					"FireEffect"
+					{
+						"EffectName"		"particles/leap_landing/leap_landing.vpcf"
+						"Target"			"CASTER"
+						"EffectAttachType"	"world_origin"
+						"EffectRadius"		"100"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"%stun_radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+						}
+						"Action"
+						{
+							"Stun"
+							{
+								"Target"		"TARGET"
+								"Duration"		"%stun_duration"
+							}
+							"Damage"
+							{
+								"Target"		"TARGET"
+								"Type"			"DAMAGE_TYPE_PHYSICAL"
+								"Damage"		"%damage"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		"Modifiers"
+		{
+			
+		}
+	}
+
+	"stay_dead_passive"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityTextureName"			"harpy_storm_chain_lightning"
+
+		"MaxLevel"						"1"
+
+		"Modifiers"
+		{
+			"modifier_stay_dead"
+			{
+				"Passive"		"1"
+				"IsHidden"		"1"
+				"OnDeath"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"StayDead"
+					}	
+				}
+			}
+		}
+	}
 }
 
