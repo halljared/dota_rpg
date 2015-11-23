@@ -135,6 +135,11 @@
 		}
 	}
 
+	// HEALER
+	//=============================================================
+	//-------------------------------------------------------------
+	//=============================================================
+
 	"shadow_bolt"
 	{
 		// General
@@ -224,6 +229,178 @@
 				"Target"		"TARGET"
 				"Type"			"DAMAGE_TYPE_MAGICAL"
 				"Damage"		"%AbilityDamage"
+			}
+		}
+	}
+
+	"holy_form"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"keeper_of_the_light_spirit_form"
+
+		"AbilityDamage"					"100"
+
+		"MaxLevel"						"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.0"	// All about the damage
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"duration_tooltip"			"5"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"speed_bonus_percent"		"100"
+			}
+		}
+
+		"precache"
+		{
+			"particle"	"particles/status_fx/status_effect_keeper_spirit_form.vpcf"
+			"particle"	"particles/status_fx/status_effect_ghost.vpcf"
+			"particle"	"particles/units/unit_greevil/loot_greevil_ambient_glow.vpcf"
+			"particle"	"particles/units/heroes/hero_chen/chen_cast_4.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_bounty_hunter.vsndevts"
+			"particle"	"particles/witch_doctor_spirit.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_holy_form"
+				"Target"		"CASTER"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_invisible"
+				"Target"		"CASTER"
+			}
+
+			"FireSound"
+			{
+				"EffectName"	"Hero_BountyHunter.WindWalk"
+				"Target"		"CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_holy_form"
+			{
+				"IsDebuff"				"0"
+				"Duration"				"%duration_tooltip"
+				"TextureName"			"keeper_of_the_light_spirit_form"
+				"IsPurgable"			"1"
+
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION" 	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_ATTACK_IMMUNE"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_SILENCED"			"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"		"%speed_bonus_percent"
+				}
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"			"particles/witch_doctor_spirit.vpcf"
+						"EffectAttachType"		"follow_origin"
+						"Target"				"CASTER"
+						"ControlPoints"
+						{
+							"00" "follow_origin"
+							"01" "follow_origin"
+						}
+					}
+				}
+
+				"OnDestroy"
+				{
+					"RemoveModifier"
+					{
+						"Target"		"CASTER"
+						"ModifierName"	"modifier_invisible"
+					}
+				}
+
+				"OnAttack"
+				{
+					"RemoveModifier"
+					{
+						"Target"		"CASTER"
+						"ModifierName"	"modifier_holy_form"
+					}
+				}
+
+				"OnDealDamage"
+				{
+					"FireEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_chen/chen_cast_4.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"UNIT"
+					}
+				}
+
+				"ThinkInterval"			".25"
+				"OnIntervalThink"
+				{
+					"Heal"
+					{
+						"HealAmount"	"25"
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"100"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+						}
+					}
+
+					"Damage"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"100"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+						}
+						"Type"							"DAMAGE_TYPE_MAGICAL"
+						"Damage"						"%AbilityDamage"
+					}
+
+				}
 			}
 		}
 	}
