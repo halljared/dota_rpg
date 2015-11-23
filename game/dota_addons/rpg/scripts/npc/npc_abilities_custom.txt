@@ -215,7 +215,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"magic_missile_speed"	"1250"
+				"magic_missile_speed"	"900"
 			}
 			"02"
 			{
@@ -265,30 +265,31 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"FightRecapLevel"				"1"
-		"AbilityTextureName"			"keeper_of_the_light_spirit_form"
+		"BaseClass"							"ability_datadriven"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitDamageType"				"DAMAGE_TYPE_MAGICAL"
+		"FightRecapLevel"					"1"
+		"AbilityTextureName"				"keeper_of_the_light_spirit_form"
 
-		"AbilityDamage"					"100"
+		"AbilityDamage"						"100"
 
-		"MaxLevel"						"1"
+		"MaxLevel"							"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0"
+		"AbilityCastPoint"					"0"
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"0"
+		"AbilityCooldown"					"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"					"0"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportValue"	"0.0"	// All about the damage
+		"AbilityModifierSupportValue"		"0.0"	// All about the damage
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -304,36 +305,46 @@
 				"var_type"					"FIELD_INTEGER"
 				"speed_bonus_percent"		"100"
 			}
+			"03"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"think_interval"			".25"
+			}
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"ability_heal"				"50"
+			}
 		}
 
 		"precache"
 		{
-			"particle"	"particles/status_fx/status_effect_keeper_spirit_form.vpcf"
-			"particle"	"particles/status_fx/status_effect_ghost.vpcf"
-			"particle"	"particles/units/unit_greevil/loot_greevil_ambient_glow.vpcf"
-			"particle"	"particles/units/heroes/hero_chen/chen_cast_4.vpcf"
-			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_bounty_hunter.vsndevts"
-			"particle"	"particles/witch_doctor_spirit.vpcf"
+			"particle"						"particles/status_fx/status_effect_keeper_spirit_form.vpcf"
+			"particle"						"particles/status_fx/status_effect_ghost.vpcf"
+			"particle"						"particles/units/unit_greevil/loot_greevil_ambient_glow.vpcf"
+			"particle"						"particles/units/heroes/hero_chen/chen_cast_4.vpcf"
+			"soundfile"						"soundevents/game_sounds_heroes/game_sounds_bounty_hunter.vsndevts"
+			"particle"						"particles/witch_doctor_spirit.vpcf"
 		}
 
 		"OnSpellStart"
 		{
 			"ApplyModifier"
 			{
-				"ModifierName"	"modifier_holy_form"
-				"Target"		"CASTER"
+				"ModifierName"				"modifier_holy_form"
+				"Target"					"CASTER"
 			}
 
 			"ApplyModifier"
 			{
-				"ModifierName"	"modifier_invisible"
-				"Target"		"CASTER"
+				"ModifierName"				"modifier_invisible"
+				"Target"					"CASTER"
 			}
 
 			"FireSound"
 			{
-				"EffectName"	"Hero_BountyHunter.WindWalk"
-				"Target"		"CASTER"
+				"EffectName"				"Hero_BountyHunter.WindWalk"
+				"Target"					"CASTER"
 			}
 		}
 
@@ -341,10 +352,10 @@
 		{
 			"modifier_holy_form"
 			{
-				"IsDebuff"				"0"
-				"Duration"				"%duration_tooltip"
-				"TextureName"			"keeper_of_the_light_spirit_form"
-				"IsPurgable"			"1"
+				"IsDebuff"					"0"
+				"Duration"					"%duration_tooltip"
+				"TextureName"				"keeper_of_the_light_spirit_form"
+				"IsPurgable"				"1"
 
 				"States"
 				{
@@ -363,13 +374,13 @@
 				{
 					"AttachEffect"
 					{
-						"EffectName"			"particles/witch_doctor_spirit.vpcf"
-						"EffectAttachType"		"follow_origin"
-						"Target"				"CASTER"
+						"EffectName"		"particles/witch_doctor_spirit.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"CASTER"
 						"ControlPoints"
 						{
-							"00" "follow_origin"
-							"01" "follow_origin"
+							"00"			"follow_origin"
+							"01"			"follow_origin"
 						}
 					}
 				}
@@ -378,8 +389,8 @@
 				{
 					"RemoveModifier"
 					{
-						"Target"		"CASTER"
-						"ModifierName"	"modifier_invisible"
+						"Target"			"CASTER"
+						"ModifierName"		"modifier_invisible"
 					}
 				}
 
@@ -387,8 +398,8 @@
 				{
 					"RemoveModifier"
 					{
-						"Target"		"CASTER"
-						"ModifierName"	"modifier_holy_form"
+						"Target"			"CASTER"
+						"ModifierName"		"modifier_holy_form"
 					}
 				}
 
@@ -402,17 +413,17 @@
 					}
 				}
 
-				"ThinkInterval"			".25"
+				"ThinkInterval"				"%think_interval"
 				"OnIntervalThink"
 				{
 					"Heal"
 					{
-						"HealAmount"	"25"
+						"HealAmount"		"%ability_heal"
 						"Target"
 						{
-							"Center"	"CASTER"
-							"Radius"	"100"
-							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Center"		"CASTER"
+							"Radius"		"100"
+							"Teams"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 						}
 					}
 
@@ -420,12 +431,12 @@
 					{
 						"Target"
 						{
-							"Center"	"CASTER"
-							"Radius"	"100"
-							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Center"		"CASTER"
+							"Radius"		"100"
+							"Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 						}
-						"Type"							"DAMAGE_TYPE_MAGICAL"
-						"Damage"						"%AbilityDamage"
+						"Type"				"DAMAGE_TYPE_MAGICAL"
+						"Damage"			"%AbilityDamage"
 					}
 
 				}
@@ -439,27 +450,27 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"1999"
-		"BaseClass"						"ability_datadriven"
-		"AbilityName"					"holy_nova"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityTextureName"			"omniknight_guardian_angel"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"5"
-		"AbilityChannelTime"			"4.0"
-		"AbilityCastPoint"				"0.1"
-		"AbilityModifierSupportValue"	"0.35"  // Primarily about the damage
-		"AbilityDamage"					"1000"
+		"ID"								"1999"
+		"BaseClass"							"ability_datadriven"
+		"AbilityName"						"holy_nova"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityTextureName"				"omniknight_guardian_angel"
+		"AbilityUnitDamageType"				"DAMAGE_TYPE_PURE"
+		"AbilityCooldown"					"8.0"
+		"AbilityManaCost"					"5"
+		"AbilityChannelTime"				"4.0"
+		"AbilityCastPoint"					"0.1"
+		"AbilityModifierSupportValue"		"0.35"  // Primarily about the damage
+		"AbilityDamage"						"1000"
 
-		"MaxLevel"						"1"
+		"MaxLevel"							"1"
 
 		"precache"
 		{
-			"particle"                  "particles/holy_nova.vpcf"
-			"particle"                  "particles/bright_light.vpcf"
-			"soundfile"                 "soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
-			"soundfile"                 "soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+			"particle"                  	"particles/holy_nova.vpcf"
+			"particle"                  	"particles/bright_light.vpcf"
+			"soundfile"                 	"soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
+			"soundfile"                 	"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
 		}
 
 		// Special
@@ -468,28 +479,28 @@
 		{
 			"01"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"channel_time"			"4.0"
+				"var_type"					"FIELD_FLOAT"
+				"channel_time"				"4.0"
 			}
 			"02"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"				"800"
+				"var_type"					"FIELD_INTEGER"
+				"radius"					"800"
 			}
 			"03"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"knockback_distance"	"300"
+				"var_type"					"FIELD_INTEGER"
+				"knockback_distance"		"300"
 			}
 			"04"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"think_interval"		"1"
+				"var_type"					"FIELD_INTEGER"
+				"think_interval"			"1"
 			}
 			"05"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"ability_heal"			"100"
+				"var_type"					"FIELD_INTEGER"
+				"ability_heal"				"100"
 			}
 		}
 
@@ -497,20 +508,20 @@
 		{
 			"ApplyModifier"
 			{
-				"ModifierName"			"holy_nova_modifier"
-				"Target"				"CASTER"
+				"ModifierName"				"holy_nova_modifier"
+				"Target"					"CASTER"
 			}
 
 			"FireSound"
 			{
-				"EffectName"			"Hero_Omniknight.GuardianAngel.Cast"
-				"Target"				"CASTER"
+				"EffectName"				"Hero_Omniknight.GuardianAngel.Cast"
+				"Target"					"CASTER"
 			}
 
 			"FireSound"
 			{
-				"EffectName"			"Hero_WitchDoctor.Voodoo_Restoration.Loop"
-				"Target"				"CASTER"
+				"EffectName"				"Hero_WitchDoctor.Voodoo_Restoration.Loop"
+				"Target"					"CASTER"
 			}
 		}
 
@@ -518,21 +529,21 @@
 		{
 			"RemoveModifier"
 			{
-				"Target"				"CASTER"
-				"ModifierName"			"holy_nova_modifier"
+				"Target"					"CASTER"
+				"ModifierName"				"holy_nova_modifier"
 			}
 
 			"RunScript"
 			{
-				"ScriptFile"			"heroes/test.lua"
-				"Function"				"StopLoopSound"
-				"Target"				"CASTER"
+				"ScriptFile"				"heroes/test.lua"
+				"Function"					"StopLoopSound"
+				"Target"					"CASTER"
 			}
 
 			"FireSound"
 			{
-				"EffectName"			"Hero_WitchDoctor.Voodoo_Restoration.Off"
-				"Target"				"CASTER"
+				"EffectName"				"Hero_WitchDoctor.Voodoo_Restoration.Off"
+				"Target"					"CASTER"
 			}
 		}
 
@@ -541,13 +552,13 @@
 
 			"holy_nova_modifier"
 			{
-				"Duration"              "%channel_time"
-				"IsDebuff"              "0"
-				"IsPurgable"            "0"
-				"IsHidden"              "1"
-				"EffectName"            "particles/holy_nova.vpcf"
-				"EffectAttachType"      "follow_origin"
-				"OverrideAnimation"     "ACT_DOTA_CAST_ABILITY_4"
+				"Duration"              	"%channel_time"
+				"IsDebuff"              	"0"
+				"IsPurgable"            	"0"
+				"IsHidden"              	"1"
+				"EffectName"            	"particles/holy_nova.vpcf"
+				"EffectAttachType"      	"follow_origin"
+				"OverrideAnimation"     	"ACT_DOTA_CAST_ABILITY_4"
 
 				"OnCreated"
 				{
@@ -555,9 +566,9 @@
 					{
 						"Target"
 						{
-							"Center"	"CASTER"
-							"Radius"	"%radius"
-							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Center"		"CASTER"
+							"Radius"		"%radius"
+							"Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 						}
 						"Center"			"CASTER"
 						"Duration"			".5"
@@ -570,39 +581,39 @@
 					{
 						"Target"
 						{
-							"Center"	"CASTER"
-							"Radius"	"%radius"
-							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Center"		"CASTER"
+							"Radius"		"%radius"
+							"Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 						}
-						"Type"			"DAMAGE_TYPE_MAGICAL"
-						"Damage"		"%AbilityDamage"
+						"Type"				"DAMAGE_TYPE_MAGICAL"
+						"Damage"			"%AbilityDamage"
 					}
 
 					"Heal"
 					{
-						"HealAmount"	"%ability_heal"
+						"HealAmount"		"%ability_heal"
 						"Target"
 						{
-							"Center"	"CASTER"
-							"Radius"	"%radius"
-							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Center"		"CASTER"
+							"Radius"		"%radius"
+							"Teams"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 						}
 					}
 
 				}
 
-				"ThinkInterval"			"%think_interval"
+				"ThinkInterval"				"%think_interval"
 				"OnIntervalThink"
 				{
 
 					"Heal"
 					{
-						"HealAmount"	"%ability_heal"
+						"HealAmount"		"%ability_heal"
 						"Target"
 						{
-							"Center"	"CASTER"
-							"Radius"	"%radius"
-							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Center"		"CASTER"
+							"Radius"		"%radius"
+							"Teams"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 						}
 					}
 				}
@@ -639,10 +650,6 @@
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"0"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"800"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
