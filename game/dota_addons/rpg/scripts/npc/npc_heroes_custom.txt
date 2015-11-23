@@ -8,7 +8,7 @@
 		"Ability2"			"holy_form"
 		"Ability3"			"dazzle_shadow_wave"
 		"Ability4"			"holy_nova"
-		"Ability5"			""
+		"Ability5"			"purge_heal"
 		"Ability6"			""
 		"Ability7"			""
 

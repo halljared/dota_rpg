@@ -4,6 +4,34 @@
 {
 	"Version"	"1"
 
+	"stay_dead_passive"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityTextureName"			"harpy_storm_chain_lightning"
+
+		"MaxLevel"						"1"
+
+		"Modifiers"
+		{
+			"modifier_stay_dead"
+			{
+				"Passive"		"1"
+				"IsHidden"		"1"
+				"OnDeath"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"StayDead"
+					}
+				}
+			}
+		}
+	}
+
 	"basic_leap"
 	{
 		// General
@@ -405,33 +433,7 @@
 		}
 	}
 
-	"stay_dead_passive"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"AbilityTextureName"			"harpy_storm_chain_lightning"
 
-		"MaxLevel"						"1"
-
-		"Modifiers"
-		{
-			"modifier_stay_dead"
-			{
-				"Passive"		"1"
-				"IsHidden"		"1"
-				"OnDeath"
-				{
-					"RunScript"
-					{
-						"ScriptFile"			"heroes/test.lua"
-						"Function"				"StayDead"
-					}
-				}
-			}
-		}
-	}
 
 	"holy_nova"
 	{
@@ -604,6 +606,92 @@
 						}
 					}
 				}
+			}
+		}
+	}
+
+	"purge_heal"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"invoker_sun_strike"
+
+		"MaxLevel"						"1"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_omniknight/omniknight_purification.vpcf"
+			"soundfile" 				"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+		}
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.3"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"800"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"20"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"heal_amount"			"300"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"260"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"Heal"
+			{
+				"HealAmount"			"%heal_amount"
+				"Target"				"TARGET"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"PurgeTarget"
+				"target"				"TARGET"
+			}
+			"FireEffect"
+			{
+				"EffectName"			"particles/units/heroes/hero_omniknight/omniknight_purification.vpcf"
+				"EffectAttachType"		"follow_origin"
+				"Target"				"TARGET"
+				"ControlPoints"
+				{
+					"00"				"0 0 0"
+					"01"				"%radius %radius %radius"
+				}
+			}
+			"FireSound"
+			{
+				"EffectName"			"Hero_Omniknight.Purification"
+				"Target"				"TARGET"
 			}
 		}
 	}
