@@ -6,7 +6,7 @@
 		"override_hero"		"npc_dota_hero_witch_doctor"
 		"Ability1"			"shadow_bolt"
 		"Ability2"			"holy_form"
-		"Ability3"			""
+		"Ability3"			"dazzle_shadow_wave"
 		"Ability4"			""
 		"Ability5"			""
 		"Ability6"			""
