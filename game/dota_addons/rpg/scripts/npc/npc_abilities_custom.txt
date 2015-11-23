@@ -432,5 +432,180 @@
 			}
 		}
 	}
+
+	"holy_nova"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"1999"
+		"BaseClass"						"ability_datadriven"
+		"AbilityName"					"holy_nova"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityTextureName"			"omniknight_guardian_angel"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
+		"AbilityCooldown"				"8.0"
+		"AbilityManaCost"				"5"
+		"AbilityChannelTime"			"4.0"
+		"AbilityCastPoint"				"0.1"
+		"AbilityModifierSupportValue"	"0.35"  // Primarily about the damage
+		"AbilityDamage"					"1000"
+
+		"MaxLevel"						"1"
+
+		"precache"
+		{
+			"particle"                  "particles/holy_nova.vpcf"
+			"particle"                  "particles/bright_light.vpcf"
+			"soundfile"                 "soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
+			"soundfile"                 "soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+		}
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"channel_time"			"4.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"800"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"knockback_distance"	"300"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"think_interval"		"1"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"ability_heal"			"100"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"			"holy_nova_modifier"
+				"Target"				"CASTER"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_Omniknight.GuardianAngel.Cast"
+				"Target"				"CASTER"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_WitchDoctor.Voodoo_Restoration.Loop"
+				"Target"				"CASTER"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"Target"				"CASTER"
+				"ModifierName"			"holy_nova_modifier"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"StopLoopSound"
+				"Target"				"CASTER"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_WitchDoctor.Voodoo_Restoration.Off"
+				"Target"				"CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+
+			"holy_nova_modifier"
+			{
+				"Duration"              "%channel_time"
+				"IsDebuff"              "0"
+				"IsPurgable"            "0"
+				"IsHidden"              "1"
+				"EffectName"            "particles/holy_nova.vpcf"
+				"EffectAttachType"      "follow_origin"
+				"OverrideAnimation"     "ACT_DOTA_CAST_ABILITY_4"
+
+				"OnCreated"
+				{
+					"Knockback"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+						}
+						"Center"			"CASTER"
+						"Duration"			".5"
+						"Distance"			"%knockback_distance"
+						"ShouldStun"		"0"
+					}
+
+
+					"Damage"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+						}
+						"Type"			"DAMAGE_TYPE_MAGICAL"
+						"Damage"		"%AbilityDamage"
+					}
+
+					"Heal"
+					{
+						"HealAmount"	"%ability_heal"
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+						}
+					}
+
+				}
+
+				"ThinkInterval"			"%think_interval"
+				"OnIntervalThink"
+				{
+
+					"Heal"
+					{
+						"HealAmount"	"%ability_heal"
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
