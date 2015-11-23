@@ -4,11 +4,11 @@
 	{
 		"AbilityLayout"		"5"
 		"override_hero"		"npc_dota_hero_witch_doctor"
-		"Ability1"			"basic_leap" 
-		"Ability2"			"" 
+		"Ability1"			"shadow_bolt"
+		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			""
-		"Ability5"			"" 
+		"Ability5"			""
 		"Ability6"			""
 		"Ability7"			""
 
@@ -55,11 +55,11 @@
 		"AbilityLayout"		"5"
 		"override_hero"		"npc_dota_hero_lycan"
 
-		"Ability1"			"lycan_shapeshift" 
+		"Ability1"			"lycan_shapeshift"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			""
-		"Ability5"			"" 
+		"Ability5"			""
 		"Ability6"			""
 		"Ability7"			"stay_dead_passive"
 
