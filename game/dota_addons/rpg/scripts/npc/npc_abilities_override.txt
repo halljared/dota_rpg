@@ -54,6 +54,15 @@
 		}
 	}
 
+	"antimage_blink"
+	{
+		"AbilityManaCost"				"40"
+		"AbilityCooldown"				"0"
+		"AbilityCastPoint"				".1"
+		"MaxLevel"						"1"
+		"AbilityCastRange"				"1000"
+	}
+
 	"lycan_shapeshift"
 	{
 		"AbilityManaCost"				"0"

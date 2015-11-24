@@ -101,26 +101,24 @@
 		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_templar_assassin.vsndevts"
 	}
 
-	"npc_dota_hero_lycan_custom"
+	"npc_dota_hero_invoker_custom"
 	{
 		"AbilityLayout"					"5"
-		"override_hero"					"npc_dota_hero_lycan"
-
-		"Ability1"						"lycan_shapeshift"
-		"Ability2"						""
-		"Ability3"						""
+		"override_hero"					"npc_dota_hero_invoker"
+		"Ability1"						"deafening_blast_datadriven"
+		"Ability2"						"antimage_blink"
+		"Ability3"						"red_fireball_datadriven"
 		"Ability4"						""
 		"Ability5"						""
 		"Ability6"						""
-		"Ability7"						"stay_dead_passive"
-
+		"Ability7"						""
 
 		"ArmorPhysical"					"0"
 		"MagicalResistance"				"0"
 
 		"AttackDamageMin"				"100"
 		"AttackDamageMax"				"100"
-		"AttackRate"					"1.0
+		"AttackRate"					"1.0"
 
 		//"AttributePrimary"			"DOTA_ATTRIBUTE_INTELLIGENCE"
 		"AttributeBaseStrength"			"0"
@@ -149,9 +147,7 @@
 		"VisionDaytimeRange"			"1800"
 		"VisionNighttimeRange"			"1800"
 
-		"SoundSet"						"Hero_Lycan"
-		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_lycan.vsndevts"
-
-		"vscripts"						"ai/ai_abilities.lua"
+		"SoundSet"						"Hero_Invoker"
+		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
 	}
 }
