@@ -20,6 +20,40 @@
 		}
 	}
 
+	"riki_smoke_screen"
+	{
+		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"OverrideAnimation"				"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+
+		"MaxLevel"						"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"radius"					"325"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"miss_rate"					"60"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"movement_speed_reduction"	"25"
+			}
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"attack_speed_reduction"	"25"
+			}
+		}
+	}
+
 	"lycan_shapeshift"
 	{
 		"AbilityManaCost"				"0"

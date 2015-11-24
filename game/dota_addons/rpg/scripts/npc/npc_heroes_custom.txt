@@ -2,105 +2,156 @@
 {
 	"npc_dota_hero_witch_doctor_custom"
 	{
-		"AbilityLayout"		"5"
-		"override_hero"		"npc_dota_hero_witch_doctor"
-		"Ability1"			"shadow_bolt"
-		"Ability2"			"holy_form"
-		"Ability3"			"dazzle_shadow_wave"
-		"Ability4"			"holy_nova"
-		"Ability5"			"purge_heal"
-		"Ability6"			""
-		"Ability7"			""
+		"AbilityLayout"					"5"
+		"override_hero"					"npc_dota_hero_witch_doctor"
+		"Ability1"						"shadow_bolt"
+		"Ability2"						"holy_form"
+		"Ability3"						"dazzle_shadow_wave"
+		"Ability4"						"holy_nova"
+		"Ability5"						"purge_heal"
+		"Ability6"						""
+		"Ability7"						""
 
-		"ArmorPhysical"				"0"                 // Physical protection.
-		"MagicalResistance"			"0"                 // Magical protection (percentage).
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
 
-		"AttackDamageMin"			"100"                   // Damage range min.
-		"AttackDamageMax"			"100"                   // Damage range max.
-		"AttackRate"				"1.0"
+		"AttackDamageMin"				"100"
+		"AttackDamageMax"				"100"
+		"AttackRate"					"1.0"
 
-		//"AttributePrimary"		"DOTA_ATTRIBUTE_INTELLIGENCE"
-		"AttributeBaseStrength"		"0"                   // Base strength
-		"AttributeStrengthGain"		"0"                   // Strength bonus per level.
-		"AttributeBaseIntelligence"	"0"                   // Base intelligence
-		"AttributeIntelligenceGain"	"0"                   // Intelligence bonus per level.
-		"AttributeBaseAgility"		"0"                   // Base agility
-		"AttributeAgilityGain"		"0"                   // Agility bonus per level.
+		//"AttributePrimary"			"DOTA_ATTRIBUTE_INTELLIGENCE"
+		"AttributeBaseStrength"			"0"
+		"AttributeStrengthGain"			"0"
+		"AttributeBaseIntelligence"		"0"
+		"AttributeIntelligenceGain"		"0"
+		"AttributeBaseAgility"			"0"
+		"AttributeAgilityGain"			"0"
 
-		"BountyXP"				"0"                 // Experience earn.
-		"BountyGoldMin"			"0"                   // Gold earned min.
-		"BountyGoldMax"			"0"                   // Gold earned max.
+		"BountyXP"						"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
 
-		//"BoundsHullName"		"DOTA_HULL_SIZE_HERO"
-		//"RingRadius"			"70"
+		//"BoundsHullName"				"DOTA_HULL_SIZE_HERO"
+		//"RingRadius"					"70"
 
-		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"			"360"                 // Speed.
-		"MovementTurnRate"		"1.0"                 // Turning rate.
+		"MovementCapabilities"			"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"360"
+		"MovementTurnRate"				"1.0"
 
-		"StatusHealth"			"1000"
-		"StatusHealthRegen"		"5.0"
-		"StatusMana"			"100"
-		"StatusManaRegen"		"10.0"
+		"StatusHealth"					"1000"
+		"StatusHealthRegen"				"5.0"
+		"StatusMana"					"100"
+		"StatusManaRegen"				"10.0"
 
-		"VisionDaytimeRange"	"1800"                  // Range of vision at night time.
-		"VisionNighttimeRange"	"1800"                  // Range of vision at night time.
+		"VisionDaytimeRange"			"1800"
+		"VisionNighttimeRange"			"1800"
 
-		"SoundSet"				"Hero_Invoker"
-		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
+		"SoundSet"						"Hero_Invoker"
+		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
+	}
+
+	"npc_dota_hero_templar_assassin_custom"
+	{
+		"AbilityLayout"					"5"
+		"override_hero"					"npc_dota_hero_templar_assassin"
+		"Ability1"						"electric_fence"
+		"Ability2"						"templar_assassin_blink"
+		"Ability3"						"riki_smoke_screen"
+		"Ability4"						"fury_swipes"
+		"Ability5"						"crippling_attacks"
+		"Ability6"						""
+		"Ability7"						""
+
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
+
+		"AttackCapabilities"			"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"				"100"
+		"AttackDamageMax"				"100"
+		"AttackRate"					"1.0"
+
+		//"AttributePrimary"			"DOTA_ATTRIBUTE_AGILITY"
+		"AttributeBaseStrength"			"0"
+		"AttributeStrengthGain"			"0"
+		"AttributeBaseIntelligence"		"0"
+		"AttributeIntelligenceGain"		"0"
+		"AttributeBaseAgility"			"0"
+		"AttributeAgilityGain"			"0"
+
+		"BountyXP"						"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
+
+		//"BoundsHullName"				"DOTA_HULL_SIZE_HERO"
+		//"RingRadius"					"70"
+
+		"MovementCapabilities"			"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"360"
+		"MovementTurnRate"				"1.0"
+
+		"StatusHealth"					"1000"
+		"StatusHealthRegen"				"5.0"
+		"StatusMana"					"100"
+		"StatusManaRegen"				"10.0"
+
+		"VisionDaytimeRange"			"1800"
+		"VisionNighttimeRange"			"1800"
+
+		"SoundSet"						"Hero_TemplarAssassin"
+		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_templar_assassin.vsndevts"
 	}
 
 	"npc_dota_hero_lycan_custom"
 	{
-		"AbilityLayout"		"5"
-		"override_hero"		"npc_dota_hero_lycan"
+		"AbilityLayout"					"5"
+		"override_hero"					"npc_dota_hero_lycan"
 
-		"Ability1"			"lycan_shapeshift"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability4"			""
-		"Ability5"			""
-		"Ability6"			""
-		"Ability7"			"stay_dead_passive"
+		"Ability1"						"lycan_shapeshift"
+		"Ability2"						""
+		"Ability3"						""
+		"Ability4"						""
+		"Ability5"						""
+		"Ability6"						""
+		"Ability7"						"stay_dead_passive"
 
 
-		"ArmorPhysical"				"0"                 // Physical protection.
-		"MagicalResistance"			"0"                 // Magical protection (percentage).
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
 
-		"AttackDamageMin"			"100"                   // Damage range min.
-		"AttackDamageMax"			"100"                   // Damage range max.
-		"AttackRate"				"1.0"
+		"AttackDamageMin"				"100"
+		"AttackDamageMax"				"100"
+		"AttackRate"					"1.0
 
-		//"AttributePrimary"		"DOTA_ATTRIBUTE_INTELLIGENCE"
-		"AttributeBaseStrength"		"0"                   // Base strength
-		"AttributeStrengthGain"		"0"                   // Strength bonus per level.
-		"AttributeBaseIntelligence"	"0"                   // Base intelligence
-		"AttributeIntelligenceGain"	"0"                   // Intelligence bonus per level.
-		"AttributeBaseAgility"		"0"                   // Base agility
-		"AttributeAgilityGain"		"0"                   // Agility bonus per level.
+		//"AttributePrimary"			"DOTA_ATTRIBUTE_INTELLIGENCE"
+		"AttributeBaseStrength"			"0"
+		"AttributeStrengthGain"			"0"
+		"AttributeBaseIntelligence"		"0"
+		"AttributeIntelligenceGain"		"0"
+		"AttributeBaseAgility"			"0"
+		"AttributeAgilityGain"			"0"
 
-		"BountyXP"					"0"                 // Experience earn.
-		"BountyGoldMin"				"0"                   // Gold earned min.
-		"BountyGoldMax"				"0"                   // Gold earned max.
+		"BountyXP"						"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
 
-		//"BoundsHullName"		"DOTA_HULL_SIZE_HERO"
-		//"RingRadius"			"70"
+		//"BoundsHullName"				"DOTA_HULL_SIZE_HERO"
+		//"RingRadius"					"70"
 
-		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"			"360"                 // Speed.
-		"MovementTurnRate"		"1.0"                 // Turning rate.
+		"MovementCapabilities"			"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"360"
+		"MovementTurnRate"				"1.0"
 
-		"StatusHealth"			"1000"
-		"StatusHealthRegen"		"5.0"
-		"StatusMana"			"100"
-		"StatusManaRegen"		"10.0"
+		"StatusHealth"					"1000"
+		"StatusHealthRegen"				"5.0"
+		"StatusMana"					"100"
+		"StatusManaRegen"				"10.0"
 
-		"VisionDaytimeRange"	"1800"                  // Range of vision at night time.
-		"VisionNighttimeRange"	"1800"                  // Range of vision at night time.
+		"VisionDaytimeRange"			"1800"
+		"VisionNighttimeRange"			"1800"
 
-		"SoundSet"				"Hero_Lycan"
-		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_lycan.vsndevts"
+		"SoundSet"						"Hero_Lycan"
+		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_lycan.vsndevts"
 
-		"vscripts"				"ai/ai_abilities.lua"
+		"vscripts"						"ai/ai_abilities.lua"
 	}
 }
