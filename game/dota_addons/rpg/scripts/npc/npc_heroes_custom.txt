@@ -7,8 +7,8 @@
 		"Ability1"						"shadow_bolt"
 		"Ability2"						"holy_form"
 		"Ability3"						"dazzle_shadow_wave"
-		"Ability4"						"holy_nova"
-		"Ability5"						"purge_heal"
+		"Ability4"						"purge_heal"
+		"Ability5"						"holy_nova"
 		"Ability6"						""
 		"Ability7"						""
 
@@ -108,8 +108,8 @@
 		"Ability1"						"deafening_blast_datadriven"
 		"Ability2"						"antimage_blink"
 		"Ability3"						"red_fireball_datadriven"
-		"Ability4"						""
-		"Ability5"						""
+		"Ability4"						"flamestrike_datadriven"
+		"Ability5"						"crystal_maiden_freezing_field_datadriven"
 		"Ability6"						""
 		"Ability7"						""
 
