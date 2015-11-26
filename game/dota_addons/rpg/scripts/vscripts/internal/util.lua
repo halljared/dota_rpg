@@ -5,8 +5,12 @@ function DebugPrint(...)
 --  end
 
 --  if spew == 1 then
-    print(...)
+--    print(...)
  -- end
+  local spew = BAREBONES_DEBUG_SPEW
+  if spew then
+    print(...)
+  end
 end
 
 function DebugPrintTable(...)
@@ -16,8 +20,12 @@ function DebugPrintTable(...)
 --  end
 
 --  if spew == 1 then
-    PrintTable(...)
+--    PrintTable(...)
 --  end
+  local spew = BAREBONES_DEBUG_SPEW
+  if spew then
+    print(...)
+  end
 end
 
 function PrintTable(t, indent, done)

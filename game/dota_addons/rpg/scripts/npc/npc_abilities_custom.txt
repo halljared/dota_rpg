@@ -715,7 +715,7 @@
 		"BaseClass"							"ability_datadriven"
 		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilityCastAnimation"     			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastAnimation"				"ACT_DOTA_CAST_ABILITY_4"
 		"AbilityUnitDamageType"				"DAMAGE_TYPE_MAGICAL"
 		"FightRecapLevel"					"1"
 		"AbilityTextureName"				"wisp_tether"
@@ -1543,6 +1543,7 @@
 		"AbilityCastPoint"					"0"
 		"AbilityCooldown"					"0"
 		"AbilityManaCost"					"30"
+		"AbilityDamage"						"400"
 
 		"AbilitySpecial"
 		{
@@ -1575,11 +1576,6 @@
 			{
 				"var_type"					"FIELD_INTEGER"
 				"delay"						"1.5"
-			}
-			"07"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"damage_explosion"			"400"
 			}
 		}
 
@@ -1638,7 +1634,7 @@
 							"Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 						}
 						"Type"				"DAMAGE_TYPE_MAGICAL"
-						"Damage"			"%damage_explosion"
+						"Damage"			"%AbilityDamage"
 					}
 				}
 			}
@@ -1688,10 +1684,10 @@
 		"SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityType"						"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityTextureName"				"crystal_maiden_freezing_field"
-		"AbilityChannelTime"				"7.0"
+		"AbilityChannelTime"				"4.0"
 		"AbilityCastPoint"					"0.3"
 		"AbilityCooldown"					"0"
-		"AbilityDuration"					"7.0"
+		"AbilityDuration"					"4.0"
 		"AbilityManaCost"					"50"
 
 		"AbilitySpecial"
@@ -1766,6 +1762,16 @@
 				"Target"				"CASTER"
 				"EffectName"			"hero_Crystal.freezingField.wind"
 			}
+
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"Animate"
+				"duration"				"%AbilityDuration"
+				"animation"				"ACT_DOTA_CAST_SUN_STRIKE"
+				"translate"				"divine_sorrow_sunstrike"
+				"rate"					".15"
+			}
 		}
 
 		"OnChannelFinish"
@@ -1816,7 +1822,6 @@
 			{
 				"IsPurgable"			"0"
 				"IsHidden"				"0"
-				"OverrideAnimation"		"ACT_DOTA_IDLE"
 
 				"Aura"					"modifier_freezing_field_debuff_datadriven"
 				"Aura_Radius"			"%radius"

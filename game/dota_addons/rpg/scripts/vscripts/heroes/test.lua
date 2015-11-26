@@ -530,3 +530,18 @@ end
 function PurgeTarget(keys)
 	keys.target:Purge(false, true, false, true, false)
 end
+
+function Animate(keys)
+	if not keys.duration or not keys.animation then
+		print ('ERROR: Function test.lua:Animate requires duration and animation')
+	else
+		local script = "local x = " .. keys.animation .. "; return x"
+		local f = loadstring(script)
+		local animation = f()
+		local animationTable = {duration=keys.duration, activity=animation, rate=keys.rate or 1}
+		if keys.translate then
+			animationTable.translate = keys.translate
+		end
+		StartAnimation(keys.caster, animationTable)
+	end
+end
