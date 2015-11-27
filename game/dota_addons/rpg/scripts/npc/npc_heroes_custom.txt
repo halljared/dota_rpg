@@ -150,4 +150,52 @@
 		"SoundSet"						"Hero_Invoker"
 		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts"
 	}
+
+	"npc_dota_hero_omniknight_custom"
+	{
+		"AbilityLayout"					"5"
+		"override_hero"					"npc_dota_hero_omniknight"
+
+		"Ability1"						"warrior_shield_wall"
+		"Ability2"						"berserkers_call_datadriven"
+		"Ability3"						"heavy_swing"
+		"Ability4"						"sunder_armor"
+		"Ability5"						"warrior_pounce"
+		"Ability6"						""
+		"Ability7"						""
+
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
+
+		"AttackDamageMin"				"100"
+		"AttackDamageMax"				"100"
+		"AttackRate"					"1.0"
+
+		"AttributePrimary"				"DOTA_ATTRIBUTE_STRENGTH"
+		"AttributeBaseStrength"			"0"
+		"AttributeStrengthGain"			"0"
+		"AttributeBaseIntelligence"		"0"
+		"AttributeIntelligenceGain"		"0"
+		"AttributeBaseAgility"			"0"
+		"AttributeAgilityGain"			"0"
+
+		"BountyXP"						"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
+
+		"MovementCapabilities"			"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"360"
+		"MovementTurnRate"				"1.0"
+
+		"StatusHealth"					"1000"
+		"StatusHealthRegen"				"5.0"
+		"StatusMana"					"100"
+		"StatusManaRegen"				"10.0"
+
+		"VisionDaytimeRange"			"1800"
+		"VisionNighttimeRange"			"1800"
+
+		"SoundSet"						"Hero_Omniknight"
+		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+	}
 }
