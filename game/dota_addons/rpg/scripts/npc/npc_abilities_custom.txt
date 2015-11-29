@@ -2466,12 +2466,13 @@
 	{
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilityTextureName"			"sandking_epicenter"
 		"AbilityCooldown"				"1"
 		"AbilityManaCost"				"30"
+		"AbilityDamage"					"500"
 
 		"precache"
 		{
@@ -2501,14 +2502,9 @@
 			"04"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"stun_radius"			"200"
+				"radius"				"200"
 			}
 			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"damage"				"500"
-			}
-			"06"
 			{
 				"var_type"				"FIELD_FLOAT"
 				"leap_vertical_ratio"	"2"
@@ -2568,7 +2564,7 @@
 						"Target"
 						{
 							"Center"	"CASTER"
-							"Radius"	"%stun_radius"
+							"Radius"	"%radius"
 							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
 						}
 						"Action"
@@ -2582,7 +2578,7 @@
 							{
 								"Target"		"TARGET"
 								"Type"			"DAMAGE_TYPE_PHYSICAL"
-								"Damage"		"%damage"
+								"Damage"		"%AbilityDamage"
 							}
 						}
 					}
