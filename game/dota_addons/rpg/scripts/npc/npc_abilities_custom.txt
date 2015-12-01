@@ -2586,5 +2586,261 @@
 			}
 		}
 	}
+
+	// EVIL MAGE
+	//=============================================================
+	//-------------------------------------------------------------
+	//=============================================================
+	"rift_bolt"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityTextureName"			"vengefulspirit_magic_missile"
+		"AbilityCastAnimation"			"ACT_DOTA_ATTACK"
+
+		"MaxLevel"						"1"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_vengefulspirit.vsndevts"
+			"particle"		"particles/rift_bolt/rift_bolt.vpcf"
+		}
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.45"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"800"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"20"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"magic_missile_speed"	"300"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius_start"			"50"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius_end"			"50"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"travel_distance"		"1000"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"			"Hero_VengefulSpirit.MagicMissile"
+				"Target" 				"CASTER"
+			}
+
+			"LinearProjectile"
+			{
+				"Target"           		"POINT"
+				"EffectName"			"particles/rift_bolt/rift_bolt.vpcf"
+				"ProvidesVision"		"0"
+				"MoveSpeed"        		"%magic_missile_speed"
+				"StartPosition"			"attach_attack1"
+				"StartRadius"			"%radius_start"
+				"EndRadius"				"%radius_end"
+				"FixedDistance"			"%travel_distance"
+				"TargetTeams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+			}
+		}
+
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"1"
+			"FireSound"
+			{
+				"EffectName"			"Hero_VengefulSpirit.MagicMissileImpact"
+				"Target" 				"TARGET"
+			}
+
+			"Damage"
+			{
+				"Target"				"TARGET"
+				"Type"					"DAMAGE_TYPE_MAGICAL"
+				"Damage"				"%AbilityDamage"
+			}
+		}
+	}
+
+	"tractor_beam"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityCastAnimation"     		"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityTextureName"			"pugna_life_drain"
+		"MaxLevel"						"1"
+		"AbilityCastRange"				"2000"
+		"AbilityCastPoint"				"0.2"
+		"AbilityChannelTime"			"10.0"
+		"AbilityDamage"					"50"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"tick_rate"				"0.25"
+			}
+		}
+
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_pugna/pugna_life_drain.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_pugna.vsndevts"
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"			"modifier_tractor_beam"
+				"Target"				"TARGET"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_Pugna.LifeDrain.Target"
+				"Target" 				"TARGET"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName" 			"modifier_tractor_beam"
+				"Target" 				"TARGET"
+			}
+
+			"RemoveModifier"
+			{
+				"ModifierName" 			"modifier_stunned"
+				"Target" 				"TARGET"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"RemoveMotionController"
+				"Target"				"TARGET"
+			}
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"StopDrainSound"
+				"Target"				"TARGET"
+			}
+
+		}
+
+		"Modifiers"
+		{
+			"modifier_tractor_beam"
+			{
+				"IsDebuff"				"1"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"			"particles/units/heroes/hero_pugna/pugna_life_drain.vpcf"
+						"EffectAttachType" 		"follow_origin"
+						"Target" 				"CASTER"
+						"ControlPointEntities"
+						{
+							"CASTER" 	"attach_attack1"
+							"TARGET" 	"attach_hitloc"
+						}
+					}
+
+					"ApplyMotionController"
+					{
+						"TARGET" 						"TARGET"
+						"ScriptFile"	 				"heroes/test.lua"
+						"HorizontalControlFunction"		"TestGravityFunc"
+						"VerticalControlFunction" 		"TestGravityFunc"
+					}
+
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"Animate"
+						"animation"				"ACT_DOTA_FLAIL"
+						"script_target"			"TARGET"
+					}
+				}
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"StopAnimate"
+						"animation"				"ACT_DOTA_FLAIL"
+						"script_target"			"TARGET"
+					}
+				}
+
+				"ThinkInterval"			"%tick_rate"
+				"OnIntervalThink"
+				{
+					"Damage"
+					{
+						"Target"		"TARGET"
+						"Type"			"DAMAGE_TYPE_MAGICAL"
+						"Damage"		"%AbilityDamage"
+					}
+				}
+			}
+		}
+	}
 }
 

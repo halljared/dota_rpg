@@ -1,14 +1,14 @@
 require('../libraries/timers')
 
 function Enable(args)
-	print('enable')
+	DebugPrint('enable')
 	for k,v in pairs(args) do
 		print (args)
 	end
 end
 
 function Spawn(args)
-	print('spawn')
+	DebugPrint('spawn')
 	local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
 	Timers:CreateTimer(0, function()
 			--local units = {'npc_dota_creature_ancient_apparition', 'npc_dota_creature_corpselord'}
@@ -21,7 +21,7 @@ function Spawn(args)
 end
 
 function Activate(args)
-	print('activate')
+	DebugPrint('activate')
 	if args then
 		for k,v in pairs(args) do
 			print (args)
@@ -30,7 +30,7 @@ function Activate(args)
 end
 
 function SpawnNPC(args)
-	print('spawnnpc')
+	DebugPrint('spawnnpc')
 	if args then
 		for k,v in pairs(args) do
 			print (args)

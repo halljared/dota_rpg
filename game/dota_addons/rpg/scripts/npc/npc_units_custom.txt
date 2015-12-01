@@ -11,7 +11,7 @@
 		// General
 		//
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
-		"Model"						"models/heroes/undying/undying_minion_torso.vmdl"	// Model.
+		"Model"						"models/heroes/undying/undying_minion.vmdl"	// Model.
 		"SoundSet"					"Undying_Zombie"					// Name of sound set.
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_undying.vsndevts"
 		"ModelScale"				".8"

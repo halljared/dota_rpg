@@ -198,4 +198,51 @@
 		"SoundSet"						"Hero_Omniknight"
 		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
 	}
+
+	"npc_dota_hero_rubick_custom"
+	{
+		"AbilityLayout"					"5"
+		"override_hero"					"npc_dota_hero_rubick"
+		"Ability1"						"rift_bolt"
+		"Ability2"						"tractor_beam"
+		"Ability3"						""
+		"Ability4"						""
+		"Ability5"						""
+		"Ability6"						""
+		"Ability7"						""
+
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
+
+		"AttackDamageMin"				"100"
+		"AttackDamageMax"				"100"
+		"AttackRate"					"1.0"
+
+		//"AttributePrimary"			"DOTA_ATTRIBUTE_INTELLIGENCE"
+		"AttributeBaseStrength"			"0"
+		"AttributeStrengthGain"			"0"
+		"AttributeBaseIntelligence"		"0"
+		"AttributeIntelligenceGain"		"0"
+		"AttributeBaseAgility"			"0"
+		"AttributeAgilityGain"			"0"
+
+		"BountyXP"						"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
+
+		"MovementCapabilities"			"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"360"
+		"MovementTurnRate"				"1.0"
+
+		"StatusHealth"					"1000"
+		"StatusHealthRegen"				"5.0"
+		"StatusMana"					"100"
+		"StatusManaRegen"				"10.0"
+
+		"VisionDaytimeRange"			"1800"
+		"VisionNighttimeRange"			"1800"
+
+		"SoundSet"						"Hero_Rubick"
+		"GameSoundsFile"				"soundevents/game_sounds_heroes/game_sounds_rubick.vsndevts"
+	}
 }

@@ -531,17 +531,31 @@ function PurgeTarget(keys)
 	keys.target:Purge(false, true, false, true, false)
 end
 
+function ResolveGlobal(unresolved_global)
+	local script = "local x = " .. unresolved_global .. "; return x"
+	local f = loadstring(script)
+	local value = f()
+	return value
+end
+
 function Animate(keys)
-	if not keys.duration or not keys.animation then
-		print ('ERROR: Function test.lua:Animate requires duration and animation')
+	if not keys.animation or not keys.script_target then
+		print ('ERROR: Function test.lua:Animate has missing arguments')
+		PrintTable(keys)
 	else
-		local script = "local x = " .. keys.animation .. "; return x"
-		local f = loadstring(script)
-		local animation = f()
-		local animationTable = {duration=keys.duration, activity=animation, rate=keys.rate or 1}
-		if keys.translate then
-			animationTable.translate = keys.translate
-		end
-		StartAnimation(keys.caster, animationTable)
+		local animation = ResolveGlobal(keys.animation)
+		local target = keys.script_target == 'TARGET' and keys.target or keys.script_target == 'CASTER' and keys.caster
+		target:StartGesture(animation)
+	end
+end
+
+function StopAnimate(keys)
+	if not keys.animation or not keys.script_target then
+		print ('ERROR: Function test.lua:Animate has missing arguments')
+		PrintTable(keys)
+	else
+		local animation = ResolveGlobal(keys.animation)
+		local target = keys.script_target == 'TARGET' and keys.target or keys.script_target == 'CASTER' and keys.caster
+		target:RemoveGesture(animation)
 	end
 end
