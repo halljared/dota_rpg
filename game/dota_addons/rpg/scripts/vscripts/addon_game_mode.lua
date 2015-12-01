@@ -33,13 +33,14 @@ function Precache( context )
 	-- Entire heroes (sound effects/voice/models/particles) can be precached with PrecacheUnitByNameSync
 	-- Custom units from npc_units_custom.txt can also have all of their abilities and precache{} blocks precached in this way
 	PrecacheUnitByNameSync("npc_dota_hero_witch_doctor", context)
-	--PrecacheUnitByNameAsync("npc_dota_hero_lycan",  context)
+	PrecacheUnitByNameSync("npc_dota_hero_lycan", context)
+	--PrecacheUnitByNameAsync("npc_dota_hero_lycan",  function(...) end)
 	--PrecacheUnitByNameSync("npc_dota_hero_templar_assassin",  context)
 	--PrecacheUnitByNameSync("npc_dota_hero_invoker",  context)
 	--PrecacheUnitByNameSync("npc_dota_hero_omniknight",  context)
 --	PrecacheUnitByNameAsync("npc_dota_creature_corpselord", function(...) end)
 --	PrecacheUnitByNameAsync("npc_dota_creature_ancient_apparition", function(...) end)
-	PrecacheUnitByNameAsync("npc_dota_creature_berserk_zombie", function(...) end)
+	--PrecacheUnitByNameAsync("npc_dota_creature_berserk_zombie", function(...) end)
 end
 
 -- Create the game mode when we activate

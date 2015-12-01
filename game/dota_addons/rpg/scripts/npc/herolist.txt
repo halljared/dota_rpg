@@ -76,7 +76,7 @@
   "npc_dota_hero_clinkz" "0"
   "npc_dota_hero_obsidian_destroyer" "0"
   "npc_dota_hero_shadow_demon" "0"
-  "npc_dota_hero_lycan" "0"
+  "npc_dota_hero_lycan" "1"
   "npc_dota_hero_lone_druid" "0"
   "npc_dota_hero_brewmaster" "0"
   "npc_dota_hero_phantom_lancer" "0"

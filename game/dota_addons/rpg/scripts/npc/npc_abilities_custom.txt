@@ -2811,10 +2811,10 @@
 
 					"RunScript"
 					{
-						"ScriptFile"			"heroes/test.lua"
-						"Function"				"Animate"
-						"animation"				"ACT_DOTA_FLAIL"
-						"script_target"			"TARGET"
+						"ScriptFile"	"heroes/test.lua"
+						"Function"		"Animate"
+						"animation"		"ACT_DOTA_FLAIL"
+						"script_target"	"TARGET"
 					}
 				}
 
@@ -2822,10 +2822,10 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"			"heroes/test.lua"
-						"Function"				"StopAnimate"
-						"animation"				"ACT_DOTA_FLAIL"
-						"script_target"			"TARGET"
+						"ScriptFile"	"heroes/test.lua"
+						"Function"		"StopAnimate"
+						"animation"		"ACT_DOTA_FLAIL"
+						"script_target"	"TARGET"
 					}
 				}
 

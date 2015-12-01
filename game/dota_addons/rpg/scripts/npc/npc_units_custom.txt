@@ -1,4 +1,3 @@
-	// Dota Units File
 "DOTAUnits"
 {
 	"Version" "1"
@@ -8,122 +7,94 @@
 	//=================================================================================
 	"npc_dota_creature_berserk_zombie"
 	{
-		// General
-		//
-		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
-		"Model"						"models/heroes/undying/undying_minion.vmdl"	// Model.
-		"SoundSet"					"Undying_Zombie"					// Name of sound set.
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/undying/undying_minion.vmdl"
+		"SoundSet"					"Undying_Zombie"
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_undying.vsndevts"
 		"ModelScale"				".8"
 		"Level"						"1"
 		"CanBeDominated"			"0"
-		
-		// Abilities
-		//----------------------------------------------------------------
-		
-		"Ability1"					""			// Ability 1
-		"Ability2"					""			// Ability 2.
-		"Ability3"					""			// Ability 3.
-		"Ability4"					""			// Ability 4.
-		"Ability5"					""			// Ability 5.
-		"Ability6"					""			// Ability 6 - Extra.
-		"Ability7"					""			// Ability 7 - Extra.
-		"Ability8"					""			// Ability 8 - Extra.
 
-		// Armor
-		//----------------------------------------------------------------
-		"ArmorPhysical"				"4"			// Physical protection.
-		"MagicalResistance"			"33"		// Magical protection.
+		"Ability1"					""
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					""
+		"Ability6"					""
+		"Ability7"					""
+		"Ability8"					""
 
-		// Attack
-		//----------------------------------------------------------------
+		"ArmorPhysical"				"4"
+		"MagicalResistance"			"33"
+
 		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
-		"AttackDamageMin"			"50"		// Damage range min.
-		"AttackDamageMax"			"75"		// Damage range max.
-		"AttackRate"				"1.6"		// Speed of attack.
-		"AttackAnimationPoint"		"0.3"		// Normalized time in animation cycle to attack.
-		"AttackAcquisitionRange"	"800"		// Range within a target can be acquired.
-		"AttackRange"				"128"		// Range within a target can be attacked.
-		"ProjectileModel"			""			// Particle system model for projectile.
-		"ProjectileSpeed"			""			// Speed of projectile.
+		"AttackDamageMin"			"50"
+		"AttackDamageMax"			"75"
+		"AttackRate"				"1.6"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"800"
+		"AttackRange"				"128"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			""
 
-		// Bounty
-		//----------------------------------------------------------------
-		"BountyXP"					"0"		// Experience earn.
-		"BountyGoldMin"				"0"		// Gold earned min.
-		"BountyGoldMax"				"0"		// Gold earned max.
 
-		// Bounds
-		//----------------------------------------------------------------
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
+
 		"RingRadius"				"70"
 		"HealthBarOffset"			"160"
-		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"	
+		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
 
-		// Movement
-		//----------------------------------------------------------------
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"			// Type of locomotion - ground, air
-		"MovementSpeed"				"120"		// Speed
-		"MovementTurnRate"			"0.5"		// Turning rate.
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"120"
+		"MovementTurnRate"			"0.5"
 
-		// Status
-		//----------------------------------------------------------------
-		"StatusHealth"				"1000"		// Base health.
-		"StatusHealthRegen"			"5.0"		// Health regeneration rate.
-		"StatusMana"				"0"			// Base mana.
-		"StatusManaRegen"			"0"			// Mana regeneration rate.
+		"StatusHealth"				"1000"
+		"StatusHealthRegen"			"5.0"
+		"StatusMana"				"0"
+		"StatusManaRegen"			"0"
 
-		// Team
-		//----------------------------------------------------------------
-		"TeamName"					"DOTA_TEAM_BADGUYS"			// Team name.
+		"TeamName"					"DOTA_TEAM_BADGUYS"
 		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
 		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_SOFT"
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
-		
-		// Vision
-		//----------------------------------------------------------------
-		"VisionDaytimeRange"		"1400"		// Range of vision during day light.
-		"VisionNighttimeRange"		"1400"		// Range of vision at night time.
 
-		"vscripts"					"ai/ai_abilities.lua"
+		"VisionDaytimeRange"		"1400"
+		"VisionNighttimeRange"		"1400"
 
-		// Creature Data
-		//----------------------------------------------------------------------------------------------------------------------
+
 		"Creature"
 		{
-			"CanRespawn"				"0"
+			"CanRespawn"			"0"
 
-			//Basic AI State
-			//-----------------------------------------------------------------
-			"DefaultState"				"Invade"
+			"DefaultState"			"Invade"
 			"States"
 			{
 				"Invade"
 				{
-					"Name"				"Invade"
-					"Aggression"		"70.0"
-					"Avoidance"			"0.0"
-					"Support"			"0.0"
+					"Name"			"Invade"
+					"Aggression"	"70.0"
+					"Avoidance"		"0.0"
+					"Support"		"0.0"
 				}
 			}
 
-			"PermanentDesire"			"1"
+			"PermanentDesire"		"1"
 
-			//Level Up Parameters
-			//-----------------------------------------------------------------
-			"HPGain"					"75"
-			"DamageGain"				"10"
-			"ArmorGain"					"1"
-			"MagicResistGain"			"1"
-			"MoveSpeedGain"				"1"
-			"BountyGain"				"5"
-			"XPGain"					"20"
+			"HPGain"				"75"
+			"DamageGain"			"10"
+			"ArmorGain"				"1"
+			"MagicResistGain"		"1"
+			"MoveSpeedGain"			"1"
+			"BountyGain"			"5"
+			"XPGain"				"20"
 
-			//Ability Usage Parameters
-			//-----------------------------------------------------------------
 			"DefensiveAbilities"
 			{
 			}
 		}
+
+		"vscripts"					"ai/ai_abilities.lua"
 	}
 
 	//=================================================================================
@@ -139,7 +110,7 @@
 		"Level"						"0"
 		"UnitLabel"					"healing_ward"
 
-		"Ability1"					"" 
+		"Ability1"					""
 		"Ability2"					""
 		"Ability3"					""
 		"Ability4"					""
@@ -193,7 +164,103 @@
 
 		"VisionDaytimeRange"		"0"
 		"VisionNighttimeRange"		"0"
-		
+
 		"AttackDesire"				"1.5"
+	}
+
+	//=================================================================================
+	// Creature: Werewolf
+	//=================================================================================
+	"npc_dota_creature_werewolf"
+	{
+		"Model"						"models/heroes/lycan/lycan.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Hero_lycan"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_lycan.vsndevts"
+		"VoiceFile"					"soundevents/voscripts/game_sounds_vo_lycan.vsndevts"
+		"IdleSoundLoop"				"Hero_Lycan.IdleLoop"
+
+		"precache"
+		{
+			"particle_folder"		"particles/units/heroes/hero_lycan/"
+			"model_folder"			"models/heroes/lycan/"
+		}
+
+		"ModelScale" 				"1.25"
+		"CanBeDominated"			"0"
+
+		"Ability1"					"lycan_shapeshift"
+
+		"ArmorPhysical"				"3"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"100"
+		"AttackDamageMax"			"150"
+		"AttackRate"				"1.2"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"800"
+		"AttackRange"				"128"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			""
+
+		"RingRadius"				"70"
+		"HealthBarOffset"			"190"
+
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"195"
+		"MovementTurnRate"			"0.6"
+
+		"StatusHealth"				"1500"
+		"StatusHealthRegen"			"25"
+		"StatusMana"				"400"
+		"StatusManaRegen"			"20.0"
+
+		"VisionDaytimeRange"		"1400"
+		"VisionNighttimeRange"		"800"
+
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_STRONG"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"vscripts"					"ai/ai_abilities.lua"
+
+		"Creature"
+		{
+			"CanRespawn"			"0"
+
+			"DefaultState"			"Invade"
+			"States"
+			{
+				"Invade"
+				{
+					"Name"			"Invade"
+					"Aggression"	"70.0"
+					"Avoidance"		"0.0"
+					"Support"		"0.0"
+				}
+			}
+
+			"HPGain"				"75"
+			"DamageGain"			"5"
+			"ArmorGain"				"0.25"
+			"MagicResistGain"		"0.1"
+			"MoveSpeedGain"			"1"
+			"BountyGain"			"3"
+			"XPGain"				"13"
+
+
+			"AttachWearables"
+			{
+				//"Wearable1"	{ "ItemDef"		"206" }		//blades
+				"Wearable2"	{ "ItemDef"		"207" }		//head
+				"Wearable3"	{ "ItemDef"		"208" }		//armor
+				"Wearable4"	{ "ItemDef"		"209" }		//shoulder
+				"Wearable5"	{ "ItemDef"		"210" }		//belt
+				"Wearable6"	{ "ItemDef"		"7046" }
+				"Wearable1"	{ "ItemDef"		"7049" }	//blades
+			}
+		}
 	}
 }
