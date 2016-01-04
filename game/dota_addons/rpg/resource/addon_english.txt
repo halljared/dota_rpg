@@ -2,15 +2,15 @@
 {
 	"Language"		"English"
 	"Tokens"
-	{		
+	{
 		"game_mode_15"				"BAREBONES"
 		"addon_game_name"			"BAREBONES"
-		
+
 		//"DOTA_Basics"							"ABILITIES"
 		//"DOTA_Upgrades"							"ITEMS"
 		//"DOTA_Shop_Category_Basics"				"ABILITIES"
 		//"DOTA_Shop_Category_Upgrades"			"ITEMS"
-		
+
 		//--------------------
 		//Abilities
 		//--------------------
@@ -163,6 +163,13 @@
 		"DOTA_Tooltip_ability_tractor_beam_Description"							"A channeling attack that renders the target immobile, while also tragging them towards the caster."
 		"DOTA_Tooltip_ability_tractor_beam_Lore"								""
 
+		"DOTA_Tooltip_Ability_freezing_explosion"								"Freezing Explosion"
+		"DOTA_Tooltip_freezing_explosion"										"Freezing Explosion"
+		"DOTA_Tooltip_ability_freezing_explosion_Description"					"The earth is chilled. Units standing on the chilled earth are slowed and take damage after a delay."
+		"DOTA_Tooltip_ability_freezing_explosion_Lore"							""
+		"DOTA_Tooltip_ability_freezing_explosion_delay"							"DELAY:"
+		"DOTA_Tooltip_ability_freezing_explosion_radius"						"RADIUS:"
+
 		//------------------------
 		// Modifiers
 		//------------------------
@@ -171,7 +178,7 @@
 
 		"DOTA_Tooltip_modifier_wire_carrier"									"Electric Trap"
 		"DOTA_Tooltip_modifier_wire_carrier_Description"						"Moving faster while placing the trap"
-		
+
 		"DOTA_Tooltip_modifier_electric_wire_caught"							"Electric Trap Slowed"
 		"DOTA_Tooltip_modifier_electric_wire_caught_Description"				"Caught in an electric trap"
 
@@ -217,3 +224,4 @@
 		"DOTA_Tooltip_ability_item_example_item_damage"							"DAMAGE:"
 	}
 }
+
