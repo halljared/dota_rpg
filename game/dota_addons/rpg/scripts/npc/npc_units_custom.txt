@@ -265,7 +265,7 @@
 	}
 
 	//=================================================================================
-	// Creature: Corpselord
+	// Creature: Corpse Lord
 	//=================================================================================
 	"npc_dota_creature_corpselord"
 	{
@@ -364,5 +364,54 @@
 				"Wearable4"			{"ItemDef"	"394"}
 			}
 		}
+	}
+
+	//=================================================================================
+	// Creature: Ice Lord
+	//=================================================================================
+	"npc_dota_creature_icelord"
+	{
+		"Model"						"models/heroes/ancient_apparition/ancient_apparition.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Hero_ancient_apparition"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
+		"IdleSoundLoop"				"Hero_Ancient_Apparition.IdleLoop"
+		"ModelScale" 				".84"
+		"CanBeDominated"			"0"
+
+		"Ability1"					"freezing_explosion"
+
+		"ArmorPhysical"				"-1"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"			"19"
+		"AttackDamageMax"			"29"
+		"AttackRate"				"1.7"
+		"AttackAnimationPoint"		"0.45"
+		"AttackAcquisitionRange"	"800"
+		"AttackRange"				"600"
+		"ProjectileModel"			"particles/units/heroes/hero_ancient_apparition/ancient_apparition_base_attack.vpcf"
+		"ProjectileSpeed"			"1250"
+		"RingRadius"				"70"
+		"HealthBarOffset"			"190"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_FLY"
+		"MovementSpeed"				"195"
+		"MovementTurnRate"			"0.6"
+		"StatusHealth"				"1500"
+		"StatusHealthRegen"			"25"
+		"StatusMana"				"0"
+		"StatusManaRegen"			"0.0"
+		"VisionDaytimeRange"		"1400"
+		"VisionNighttimeRange"		"800"
+
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_STRONG"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
+		"VoiceFile"					"soundevents/voscripts/game_sounds_vo_ancient_apparition.vsndevts"
+
+		"vscripts"					"ai/ai_abilities.lua"
 	}
 }
