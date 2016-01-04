@@ -3053,8 +3053,6 @@
 			"particle"		"particles/units/heroes/hero_ancient_apparition/ancient_apparition_ice_blast_explode.vpcf"
 			"particle"		"particles/generic_gameplay/generic_slowed_cold.vpcf"
 			"particle"		"particles/status_fx/status_effect_frost.vpcf"
-			"particle"		"particles/units/heroes/hero_ancient_apparition/ancient_apparition_ice_blast_debuff.vpcf"
-			"particle"		"particles/status_fx/status_effect_iceblast.vpcf"
 			"particle"		"particles/units/heroes/hero_ancient_apparition/ancient_ice_vortex.vpcf"
 		}
 
@@ -3073,19 +3071,14 @@
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"slow_amount"			"-40"
+				"slow_amount"			"-10"
 			}
 			"04"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"vortex_slow_amount"	"-10"
-			}
-			"05"
 			{
 				"var_type"				"FIELD_FLOAT"
 				"vortex_duration"		"8.0"
 			}
-			"06"
+			"05"
 			{
 				"var_type"				"FIELD_FLOAT"
 				"delay"					"1.0"
@@ -3143,11 +3136,6 @@
 								"Type"		"DAMAGE_TYPE_MAGICAL"
 								"Damage"	"%AbilityDamage"
 							}
-							"ApplyModifier"
-							{
-								"Target"		"TARGET"
-								"ModifierName"	"ice_blast_slow"
-							}
 						}
 					}
 				}
@@ -3158,7 +3146,7 @@
 
 		"Modifiers"
 		{
-			"ice_vortex_slow"
+			"modifier_ice_vortex_slow"
 			{
 				"Duration"				"0.1"
 				"EffectName"			"particles/generic_gameplay/generic_slowed_cold.vpcf"
@@ -3166,28 +3154,14 @@
 				"StatusEffectPriority"	"41"
 				"Properties"
 				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%vortex_slow_amount"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%vortex_slow_amount"
-				}
-			}
-
-			"ice_blast_slow"
-			{
-				"Duration"				"%slow_duration"
-				"EffectName"			"particles/units/heroes/hero_ancient_apparition/ancient_apparition_ice_blast_debuff.vpcf"
-				"StatusEffectName"		"particles/status_fx/status_effect_iceblast.vpcf"
-				"StatusEffectPriority"	"61"
-				"Properties"
-				{
 					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_amount"
 					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%slow_amount"
-					"MODIFIER_PROPERTY_DISABLE_HEALING"				"1"
 				}
 			}
 
 			"ice_vortex_thinker"
 			{
-				"Aura"					"ice_vortex_slow"
+				"Aura"					"modifier_ice_vortex_slow"
 				"Aura_Radius"			"%radius"
 				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
