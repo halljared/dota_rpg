@@ -63,6 +63,14 @@
 		"AbilityCastRange"				"1000"
 	}
 
+	"death_prophet_carrion_swarm"
+	{
+		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"MaxLevel"						"1"
+		"AbilityCastRange"				"1000"
+	}
+
 	"lycan_shapeshift"
 	{
 		"AbilityManaCost"				"0"

@@ -376,7 +376,7 @@
 		"SoundSet"					"Hero_ancient_apparition"
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
 		"IdleSoundLoop"				"Hero_Ancient_Apparition.IdleLoop"
-		"ModelScale" 				".84"
+		"ModelScale" 				"1"
 		"CanBeDominated"			"0"
 
 		"Ability1"					"freezing_explosion"
@@ -413,5 +413,188 @@
 		"VoiceFile"					"soundevents/voscripts/game_sounds_vo_ancient_apparition.vsndevts"
 
 		"vscripts"					"ai/ai_abilities.lua"
+	}
+
+	//=================================================================================
+	// Creature: Ghost Lord
+	//=================================================================================
+	"npc_dota_creature_ghostlord"
+	{
+		"Model"						"models/heroes/death_prophet/death_prophet.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Hero_death_prophet"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_death_prophet.vsndevts"
+		"IdleSoundLoop"				"Hero_Death_Prophet.IdleLoop"
+		"ModelScale" 				"1"
+		"CanBeDominated"			"0"
+
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_death_prophet/death_prophet_base_attack.vpcf"
+		}
+
+		"Ability1"					"freezing_explosion"
+		"Ability2"					"death_prophet_carrion_swarm"
+
+		"ArmorPhysical"				"-1"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"			"19"
+		"AttackDamageMax"			"29"
+		"AttackRate"				"1.7"
+		"AttackAnimationPoint"		"0.45"
+		"AttackAcquisitionRange"	"800"
+		"AttackRange"				"600"
+		"ProjectileModel"			"particles/units/heroes/hero_death_prophet/death_prophet_base_attack.vpcf"
+		"ProjectileSpeed"			"1250"
+		"RingRadius"				"70"
+		"HealthBarOffset"			"190"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_FLY"
+		"MovementSpeed"				"195"
+		"MovementTurnRate"			"0.6"
+		"StatusHealth"				"1500"
+		"StatusHealthRegen"			"25"
+		"StatusMana"				"0"
+		"StatusManaRegen"			"0.0"
+		"VisionDaytimeRange"		"1400"
+		"VisionNighttimeRange"		"800"
+
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_STRONG"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_death_prophet.vsndevts"
+		"VoiceFile"					"soundevents/voscripts/game_sounds_vo_death_prophet.vsndevts"
+
+		"vscripts"					"ai/ai_abilities.lua"
+
+		"Creature"
+		{
+			"CanRespawn"			"0"
+
+			"DefaultState"			"Invade"
+			"States"
+			{
+				"Invade"
+				{
+					"Name"			"Invade"
+					"Aggression"	"70.0"
+					"Avoidance"		"0.0"
+					"Support"		"0.0"
+				}
+			}
+
+			"HPGain"				"75"
+			"DamageGain"			"5"
+			"ArmorGain"				"0.25"
+			"MagicResistGain"		"0.1"
+			"MoveSpeedGain"			"1"
+			"BountyGain"			"3"
+			"XPGain"				"13"
+
+			"AttachWearables"
+			{
+				"Wearable1"			{"ItemDef"	"168"}	//dress
+				"Wearable2"			{"ItemDef"	"169"}	//hair
+				"Wearable3"			{"ItemDef"	"170"}	//corset
+				"Wearable4"			{"ItemDef"	"171"}	//scarf
+			}
+		}
+	}
+
+
+	//=================================================================================
+	// Creature: Evil Magus
+	//=================================================================================
+	"npc_dota_creature_evil_magus"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/rubick/rubick.vmdl"
+		"SoundSet"					"Hero_rubick"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_rubick.vsndevts"
+		"ModelScale"				"1.12"
+		"Level"						"1"
+		"ConsideredHero"			"0"
+
+		"precache"
+		{
+			"particle_folder"		"particles/units/heroes/hero_rubick/"
+			"model_folder"			"models/heroes/rubick/"
+		}
+
+		"Ability1"					""
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					""
+		"Ability6"					""
+		"Ability7"					""
+		"Ability8"					""
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"			"19"
+		"AttackDamageMax"			"29"
+		"AttackRate"				"1.7"
+		"AttackAnimationPoint"		"0.45"
+		"AttackAcquisitionRange"	"800"
+		"AttackRange"				"600"
+		"ProjectileModel"			"particles/units/heroes/hero_rubick/rubick_base_attack.vpcf"
+		"ProjectileSpeed"			"1250"
+		"RingRadius"				"70"
+		"HealthBarOffset"			"190"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"195"
+		"MovementTurnRate"			"0.6"
+		"StatusHealth"				"1500"
+		"StatusHealthRegen"			"25"
+		"StatusMana"				"0"
+		"StatusManaRegen"			"0.0"
+		"VisionDaytimeRange"		"1400"
+		"VisionNighttimeRange"		"800"
+
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_STRONG"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_rubick.vsndevts"
+		"VoiceFile"					"soundevents/voscripts/game_sounds_vo_rubick.vsndevts"
+
+		"vscripts"					"ai/ai_abilities.lua"
+
+		"Creature"
+		{
+			"CanRespawn"			"0"
+
+			"DefaultState"			"Invade"
+			"States"
+			{
+				"Invade"
+				{
+					"Name"			"Invade"
+					"Aggression"	"70.0"
+					"Avoidance"		"0.0"
+					"Support"		"0.0"
+				}
+			}
+
+			"HPGain"				"75"
+			"DamageGain"			"5"
+			"ArmorGain"				"0.25"
+			"MagicResistGain"		"0.1"
+			"MoveSpeedGain"			"1"
+			"BountyGain"			"3"
+			"XPGain"				"13"
+
+			"AttachWearables"
+			{
+				"Wearable1"			{"ItemDef"	"203"}	//staff
+				"Wearable2"			{"ItemDef"	"204"}	//cape
+				"Wearable3"			{"ItemDef"	"205"}	//shoulder
+				"Wearable4"			{"ItemDef"	"419"}	//head
+				"Wearable5"			{"ItemDef"	"544"}	//staff particle
+			}
+		}
 	}
 }

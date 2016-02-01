@@ -32,6 +32,39 @@
 		}
 	}
 
+	"particle_test"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityTextureName"			"harpy_storm_chain_lightning"
+
+		"MaxLevel"						"1"
+
+		"Modifiers"
+		{
+			"modifier_test_particle"
+			{
+				"Passive"				"1"
+				"IsHidden"				"1"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"Target"		"CASTER"
+						"EffectName"		"particles/demonic_prison/demonic_prison.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"ControlPoints"
+						{
+							"02"	"50 0 0"
+						}
+					}
+				}
+			}
+		}
+	}
+
 	"basic_leap"
 	{
 		// General
