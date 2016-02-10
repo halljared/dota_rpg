@@ -32,6 +32,30 @@
 		}
 	}
 
+	"no_collision"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityTextureName"			"harpy_storm_chain_lightning"
+
+		"MaxLevel"						"1"
+
+		"Modifiers"
+		{
+			"modifier_no_collision"
+			{
+				"Passive"		"1"
+				"IsHidden"		"1"
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+
 	"particle_test"
 	{
 		// General
@@ -41,6 +65,11 @@
 		"AbilityTextureName"			"harpy_storm_chain_lightning"
 
 		"MaxLevel"						"1"
+
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
+		}
 
 		"Modifiers"
 		{
@@ -53,12 +82,8 @@
 					"AttachEffect"
 					{
 						"Target"		"CASTER"
-						"EffectName"		"particles/demonic_prison/demonic_prison.vpcf"
+						"EffectName"		"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
 						"EffectAttachType"	"follow_origin"
-						"ControlPoints"
-						{
-							"02"	"50 0 0"
-						}
 					}
 				}
 			}
