@@ -270,8 +270,8 @@ end
 
 function PrintArgs(keys)
 	--DeepPrintTable(keys.ability)
-	for k,v in pairs(keys) do
-		print(k)
+	for k,v in pairs( keys ) do
+		print( k )
 	end
 
 	if keys.target_points then
@@ -558,4 +558,32 @@ function StopAnimate(keys)
 		local target = keys.script_target == 'TARGET' and keys.target or keys.script_target == 'CASTER' and keys.caster
 		target:RemoveGesture(animation)
 	end
+end
+
+function RemoveModifier(keys)
+	if not keys.target or not keys.modifierName then
+		print ('ERROR: Function test.lua:RemoveModifier has missing arguments')
+		PrintTable(keys)
+	else
+		local target = keys.target
+		target:RemoveModifierByName( keys.modifierName )
+	end
+end
+
+function SpawnPrison(keys)
+	local caster = keys.caster
+	local target = keys.target
+	local ability = keys.ability
+	local dummy = CreateUnitByName( "npc_dota_no_model", target:GetAbsOrigin(), false, caster, caster, DOTA_TEAM_BADGUYS )
+	local duration_prison = ability:GetLevelSpecialValueFor("duration_prison", 1)
+	ability:ApplyDataDrivenModifier(caster, dummy, "modifier_death_monitor", {})
+	dummy.Prisoner = target
+end
+
+function ReleasePrison(keys)
+	print('Releasing Prisoner...')
+	local unit = keys.unit
+	local prisoner = unit.Prisoner
+	local prisonModifierName = keys.prisonModifierName
+	prisoner:RemoveModifierByName(prisonModifierName)
 end

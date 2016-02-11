@@ -24,8 +24,8 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"			"heroes/test.lua"
-						"Function"				"StayDead"
+						"ScriptFile"	"heroes/test.lua"
+						"Function"		"StayDead"
 					}
 				}
 			}
@@ -56,6 +56,8 @@
 		}
 	}
 
+
+	// Use this by adding the particle_test ability to a hero. The particle will display on that hero.
 	"particle_test"
 	{
 		// General
@@ -84,6 +86,83 @@
 						"Target"		"CASTER"
 						"EffectName"		"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
 						"EffectAttachType"	"follow_origin"
+					}
+				}
+			}
+		}
+	}
+
+	"test_ability"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityTextureName"			"bane_fiends_grip"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastRange"				"2000"
+		"AbilityCastPoint"				"0.2"
+		"AbilityDamage"					"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+
+		"MaxLevel"						"1"
+
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"duration_prison"		"5"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"		"TARGET"
+				"ModifierName"	"modifier_imprisoned"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"	"heroes/test.lua"
+				"Function"		"SpawnPrison"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_imprisoned"
+			{
+				"EffectName"			"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
+				"EffectAttachType"		"follow_origin"
+				"OverrideAnimation"		"ACT_DOTA_FLAIL"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_death_monitor"
+			{
+				"OnDeath"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"heroes/test.lua"
+						"Function"		"ReleasePrison"
+						"prisonModifierName"	"modifier_imprisoned"
 					}
 				}
 			}
@@ -2815,8 +2894,8 @@
 
 			"RemoveModifier"
 			{
-				"ModifierName" 			"modifier_stunned"
-				"Target" 				"TARGET"
+				"ModifierName"			"modifier_stunned"
+				"Target"				"TARGET"
 			}
 
 			"RunScript"

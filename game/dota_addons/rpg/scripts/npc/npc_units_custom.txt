@@ -571,7 +571,7 @@
 			"model_folder"			"models/heroes/rubick/"
 		}
 
-		"Ability1"					""
+		"Ability1"					"test_ability"
 		"Ability2"					""
 		"Ability3"					""
 		"Ability4"					""

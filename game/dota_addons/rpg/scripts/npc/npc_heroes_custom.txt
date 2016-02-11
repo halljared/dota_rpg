@@ -162,7 +162,7 @@
 		"Ability4"						"sunder_armor"
 		"Ability5"						"warrior_pounce"
 		"Ability6"						""
-		"Ability7"						"particle_test"
+		"Ability7"						""
 
 		"ArmorPhysical"					"0"
 		"MagicalResistance"				"0"
