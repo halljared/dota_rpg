@@ -246,6 +246,19 @@ function DamageTarget(keys)
 	ApplyDamage(damage_table)
 end
 
+function DamageUnit(unit, attacker, ability, type, damage)
+
+	local damage_table = {}
+
+	damage_table.victim = unit
+	damage_table.attacker = attacker
+	damage_table.ability = ability
+	damage_table.damage_type = type
+	damage_table.damage = damage
+
+	ApplyDamage(damage_table)
+end
+
 function StayDead(keys)
 	local caster = keys.caster
 	caster:SetRespawnsDisabled(true)
@@ -574,17 +587,34 @@ function SpawnPrison(keys)
 	local caster = keys.caster
 	local target = keys.target
 	local ability = keys.ability
-	local dummy = CreateUnitByName( "npc_dota_no_model", target:GetAbsOrigin(), false, caster, caster, DOTA_TEAM_BADGUYS )
+	local dummy = CreateUnitByName( "npc_dota_prison", target:GetAbsOrigin(), false, caster, caster, DOTA_TEAM_BADGUYS )
 	local duration_prison = ability:GetLevelSpecialValueFor("duration_prison", 1)
 	ability:ApplyDataDrivenModifier(caster, dummy, "modifier_death_monitor", {})
-	dummy.Prisoner = target
+	ability.Prisoner = target
+	ability.Prison = dummy
 end
 
 function ReleasePrison(keys)
 	print('Releasing Prisoner...')
-	local unit = keys.unit
-	local prisoner = unit.Prisoner
+	local caster = keys.caster
+	local ability = keys.ability
+	local prisoner = ability.Prisoner
+	local prison = ability.Prison
 	local prisonModifierName = keys.prisonModifierName
-	prisoner:RemoveModifierByName(prisonModifierName)
-	unit:Destroy()
+	if not prisoner:IsNull() then 
+		prisoner:RemoveModifierByName(prisonModifierName)
+	end
+	if not prison:IsNull() then
+		prison:Destroy()
+	end
+end
+
+function DestroyPrison(keys)
+	print('Destroying Prison...')
+	local caster = keys.caster
+	local ability = keys.ability
+	local prisoner = ability.Prisoner
+	local prison = ability.Prison
+	--prison:SetModel('models/development/invisiblebox.vmdl')
+	prison:Destroy()
 end

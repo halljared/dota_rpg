@@ -3027,8 +3027,8 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"AbilityCastRange"				"2000"
 		"AbilityCastPoint"				"0.2"
-		"AbilityDamage"					"50"
-		"AbilityCooldown"				"0"
+		"AbilityDamage"					"75"
+		"AbilityCooldown"				"20"
 		"AbilityManaCost"				"0"
 
 		"MaxLevel"						"1"
@@ -3050,7 +3050,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"think_interval"		".33"
+				"think_interval"		".5"
 			}
 		}
 
@@ -3105,6 +3105,15 @@
 						"Damage"		"%AbilityDamage"
 					}
 
+				}
+
+				"OnDeath"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"DestroyPrison"
+					}
 				}
 			}
 
@@ -3362,6 +3371,11 @@
 			{
 				"var_type"				"FIELD_FLOAT"
 				"delay"					"1.0"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"attack_slow_amount"	"-10"
 			}
 		}
 

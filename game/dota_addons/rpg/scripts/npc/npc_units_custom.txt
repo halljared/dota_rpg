@@ -98,9 +98,9 @@
 	}
 
 	//=================================================================================
-	// Creature: No Model
+	// Creature: Prison
 	//=================================================================================
-	"npc_dota_no_model"
+	"npc_dota_prison"
 	{
 		"BaseClass"					"npc_dota_creature"
 		"Model"						"models/props_structures/bad_ancient002.vmdl"
@@ -571,7 +571,7 @@
 			"model_folder"			"models/heroes/rubick/"
 		}
 
-		"Ability1"					"test_ability"
+		"Ability1"					"demonic_prison"
 		"Ability2"					""
 		"Ability3"					""
 		"Ability4"					""
