@@ -586,4 +586,5 @@ function ReleasePrison(keys)
 	local prisoner = unit.Prisoner
 	local prisonModifierName = keys.prisonModifierName
 	prisoner:RemoveModifierByName(prisonModifierName)
+	unit:Destroy()
 end

@@ -106,7 +106,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"AbilityCastRange"				"2000"
 		"AbilityCastPoint"				"0.2"
-		"AbilityDamage"					"0"
+		"AbilityDamage"					"50"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"0"
 
@@ -115,6 +115,8 @@
 		"precache"
 		{
 			"particle"		"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
+			"particle"		"particles/demonic_prison/cast_purple_bubbles.vpcf"
+			"particle"		"particles/demonic_prison/cast_staff_bubbles.vpcf"
 		}
 
 		"AbilitySpecial"
@@ -124,20 +126,39 @@
 				"var_type"				"FIELD_INTEGER"
 				"duration_prison"		"5"
 			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"think_interval"		".33"
+			}
 		}
 
 		"OnSpellStart"
 		{
+			"FireEffect"
+			{
+				"EffectName"		"particles/demonic_prison/cast_smoke.vpcf"
+				"Target"			"CASTER"
+				"EffectAttachType"	"world_origin"
+			}
+
+			"FireEffect"
+			{
+				"EffectName"		"particles/demonic_prison/cast_purple_bubbles.vpcf"
+				"Target"			"CASTER"
+				"EffectAttachType"	"world_origin"
+			}
+
 			"ApplyModifier"
 			{
-				"Target"		"TARGET"
-				"ModifierName"	"modifier_imprisoned"
+				"Target"				"TARGET"
+				"ModifierName"			"modifier_imprisoned"
 			}
 
 			"RunScript"
 			{
-				"ScriptFile"	"heroes/test.lua"
-				"Function"		"SpawnPrison"
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"SpawnPrison"
 			}
 		}
 
@@ -151,6 +172,18 @@
 				"States"
 				{
 					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"ThinkInterval"			"%think_interval"
+				"OnIntervalThink"
+				{
+					"Damage"
+					{
+						"Target"		"TARGET"
+						"Type"			"DAMAGE_TYPE_MAGICAL"
+						"Damage"		"%AbilityDamage"
+					}
+
 				}
 			}
 
@@ -2980,6 +3013,116 @@
 		}
 	}
 
+	"demonic_prison"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityTextureName"			"bane_fiends_grip"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastRange"				"2000"
+		"AbilityCastPoint"				"0.2"
+		"AbilityDamage"					"50"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+
+		"MaxLevel"						"1"
+
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
+			"particle"		"particles/demonic_prison/cast_purple_bubbles.vpcf"
+			"particle"		"particles/demonic_prison/cast_staff_bubbles.vpcf"
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"duration_prison"		"5"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"think_interval"		".33"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"			"particles/demonic_prison/cast_smoke.vpcf"
+				"Target"				"CASTER"
+				"EffectAttachType"		"world_origin"
+			}
+
+			"FireEffect"
+			{
+				"EffectName"			"particles/demonic_prison/cast_purple_bubbles.vpcf"
+				"Target"				"CASTER"
+				"EffectAttachType"		"world_origin"
+			}
+
+			"ApplyModifier"
+			{
+				"Target"				"TARGET"
+				"ModifierName"			"modifier_imprisoned"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"SpawnPrison"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_imprisoned"
+			{
+				"EffectName"			"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
+				"EffectAttachType"		"follow_origin"
+				"OverrideAnimation"		"ACT_DOTA_FLAIL"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"ThinkInterval"			"%think_interval"
+				"OnIntervalThink"
+				{
+					"Damage"
+					{
+						"Target"		"TARGET"
+						"Type"			"DAMAGE_TYPE_MAGICAL"
+						"Damage"		"%AbilityDamage"
+					}
+
+				}
+			}
+
+			"modifier_death_monitor"
+			{
+				"OnDeath"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"ReleasePrison"
+						"prisonModifierName"	"modifier_imprisoned"
+					}
+				}
+			}
+		}
+	}
+
 
 	// NPC: ZOMBIE
 	//=============================================================
@@ -3278,8 +3421,6 @@
 				}
 			}
 		}
-
-
 
 		"Modifiers"
 		{

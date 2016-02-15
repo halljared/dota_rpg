@@ -11,7 +11,7 @@ function Spawn(args)
 	DebugPrint('spawn')
 	local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
 	Timers:CreateTimer(0, function()
-			--local units = {'npc_dota_creature_ancient_apparition', 'npc_dota_creature_corpselord'}
+			--local units = {'npc_dota_creature_icelord', 'npc_dota_creature_corpselord'}
 			local units = {'npc_dota_creature_evil_magus'}
 			local unit = units[ RandomInt(1, #units) ]
 			unit = CreateUnitByName( unit, spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
