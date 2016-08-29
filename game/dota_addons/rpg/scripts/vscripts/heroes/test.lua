@@ -26,6 +26,23 @@ function TestGravityFunc(args)
 	args.target:SetAbsOrigin(targetPos + vec)
 end
 
+function MoveParticle(keys)
+	local caster = keys.caster
+	local particleName = "particles/green_prison.vpcf"
+	local particlePos = keys.target:GetAbsOrigin()
+	--local dummy = MakeDummyTargetGeneric(keys)
+
+	-- Fire effect
+	local fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_CUSTOMORIGIN, caster )
+	ParticleManager:SetParticleControl(fxIndex, 0, particlePos)
+	Timers:CreateTimer(0, function()
+			particlePos = particlePos + (Vector(particlePos.x, particlePos.y, 0):Normalized() * 5.0)
+			ParticleManager:SetParticleControl(fxIndex, 0, particlePos)
+			return (1.0/60.0) 
+		end
+	)
+end
+
 -- Could be used to "enhance" the movement of a unit, but it would have to be turned off when they stop
 function EnhanceSpeedFunc(args)
 	local casterPos = args.caster:GetAbsOrigin()
@@ -262,6 +279,16 @@ end
 function StayDead(keys)
 	local caster = keys.caster
 	caster:SetRespawnsDisabled(true)
+end
+
+function MakeDummyTargetGeneric(keys)
+	--DeepPrintTable(keys.ability)
+	local ability = keys.ability
+	local caster = keys.caster
+	local refModifierName = "modifier_dummy_unit_datadriven"
+	local dummy = CreateUnitByName( "npc_dummy_blank", keys.target_points[1], false, caster, caster, caster:GetTeamNumber() )
+	ability:ApplyDataDrivenModifier( caster, dummy, refModifierName, {} )
+	return dummy
 end
 
 function MakeDummyTarget(keys)

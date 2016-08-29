@@ -202,6 +202,91 @@
 		}
 	}
 
+	// Give this ability to a unit and the unit will move around with the particle attached
+	"moving_particle_test"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"vengefulspirit_magic_missile"
+
+		"MaxLevel"						"1"
+
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
+			"particle"		"particles/green_prison.vpcf"
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"travel_distance"		"1000"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"leap_speed"			"1000.0"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stun_duration"			"3.0"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stun_radius"			"200"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage"				"500"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"leap_vertical_ratio"	"3"
+			}
+			"07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"leap_distance"			"500"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+			    "ScriptFile"    		"heroes/test.lua"
+			    "Function"				"MoveParticle"
+			    "Target"				"POINT"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_dummy_unit_datadriven"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_INVULNERABLE"					"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"					"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NOT_ON_MINIMAP"					"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"					"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+
 	"basic_leap"
 	{
 		// General
