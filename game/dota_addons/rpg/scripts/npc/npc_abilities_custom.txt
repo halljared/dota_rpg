@@ -206,13 +206,14 @@
 	"moving_particle_test"
 	{
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilityTextureName"			"vengefulspirit_magic_missile"
+		"AbilityCastPoint"				"0.0"
 
 		"MaxLevel"						"1"
 
@@ -259,6 +260,16 @@
 				"var_type"				"FIELD_INTEGER"
 				"leap_distance"			"500"
 			}
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"hero_hit_radius"		"100"
+			}
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"collision_damage"		"500"
+			}
 		}
 
 		"OnSpellStart"
@@ -268,6 +279,7 @@
 			    "ScriptFile"    		"heroes/test.lua"
 			    "Function"				"MoveParticle"
 			    "Target"				"POINT"
+			    "collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
 			}
 		}
 
@@ -282,6 +294,37 @@
 					"MODIFIER_STATE_NO_UNIT_COLLISION"				"MODIFIER_STATE_VALUE_ENABLED"
 					"MODIFIER_STATE_NOT_ON_MINIMAP"					"MODIFIER_STATE_VALUE_ENABLED"
 					"MODIFIER_STATE_UNSELECTABLE"					"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_dummy_collision_with_hero_datadriven"
+			{
+				"Aura"					"modifier_dummy_trigger_explode_datadriven"
+				"Aura_Radius"			"%hero_hit_radius"
+				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+			}
+
+			"modifier_dummy_trigger_explode_datadriven"
+			{
+				"Duration"				".03"
+				"IsHidden"				"1"
+				"Attributes"			"MODIFIER_ATTRIBUTE_MULTIPLE"
+
+				"OnCreated"
+				{
+					"Damage"
+					{
+						"Target"		"TARGET"
+						"Type"			"DAMAGE_TYPE_PHYSICAL"
+						"Damage"		"%collision_damage"
+					}
+
+					"RunScript"
+					{
+						"ScriptFile"	"heroes/test.lua"
+						"Function"		"DestroyDummy"
+					}
 				}
 			}
 		}

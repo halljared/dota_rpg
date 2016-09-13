@@ -28,19 +28,57 @@ end
 
 function MoveParticle(keys)
 	local caster = keys.caster
-	local particleName = "particles/green_prison.vpcf"
-	local particlePos = keys.target:GetAbsOrigin()
-	--local dummy = MakeDummyTargetGeneric(keys)
+	local ability = keys.ability
+	local particleName = "particles/units/heroes/hero_wisp/wisp_guardian_.vpcf"
+	local particlePos = caster:GetAbsOrigin()
+	local dummy = MakeDummyTargetGeneric(keys)
+	ability:ApplyDataDrivenModifier( dummy, dummy, keys.collision_modifier, {} )
 
 	-- Fire effect
-	local fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_CUSTOMORIGIN, caster )
+	local fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_ABSORIGIN_FOLLOW, dummy )
+	local t = 0
+	local r = 600
+	local r2
+	dummy.pfx = fxIndex
 	ParticleManager:SetParticleControl(fxIndex, 0, particlePos)
 	Timers:CreateTimer(0, function()
-			particlePos = particlePos + (Vector(particlePos.x, particlePos.y, 0):Normalized() * 5.0)
-			ParticleManager:SetParticleControl(fxIndex, 0, particlePos)
-			return (1.0/60.0) 
+			local dt
+			if dummy:IsAlive() then
+				--r2 = r + ( math.abs( .5 * r * math.sin( t * 2) ) )
+				r2 = r + ( math.abs( ( r * 2 / math.pi) * math.asin( math.sin( 2 * math.pi *  t / 2 ) ) ) )
+				local particleX = r2 * math.cos( t )
+				local particleY = r2 * math.sin( t )
+				-- particlePos = particlePos + (Vector(particlePos.x, particlePos.y, 0):Normalized() * 5.0)
+				dummy:SetAbsOrigin( particlePos + Vector( particleX, particleY, 0 ) )
+				-- ParticleManager:SetParticleControl(fxIndex, 0, particlePos)
+				dt = (1.0/30.0)
+				t = t + dt
+			else 
+				dt = nil
+			end
+			return dt
 		end
 	)
+	Timers:CreateTimer(6.283, function()	
+			if dummy:IsAlive() then
+				ParticleManager:DestroyParticle( dummy.pfx, false )
+				dummy:ForceKill( true )
+			end
+		end
+	)
+end
+
+function DestroyDummy( event )
+	local dummy	= event.caster
+	if dummy:IsAlive() then
+		ParticleManager:DestroyParticle( dummy.pfx, false )
+		dummy:ForceKill( true )
+	end
+end
+
+
+function ExplodeAuraCreated( keys )
+	print('ExplodeAuraCreated')
 end
 
 -- Could be used to "enhance" the movement of a unit, but it would have to be turned off when they stop
@@ -286,9 +324,17 @@ function MakeDummyTargetGeneric(keys)
 	local ability = keys.ability
 	local caster = keys.caster
 	local refModifierName = "modifier_dummy_unit_datadriven"
-	local dummy = CreateUnitByName( "npc_dummy_blank", keys.target_points[1], false, caster, caster, caster:GetTeamNumber() )
+	local dummy = CreateUnitByName( "npc_dummy_blank", keys.target_points[1], false, caster, caster, caster:GetTeam() )
 	ability:ApplyDataDrivenModifier( caster, dummy, refModifierName, {} )
 	return dummy
+end
+
+function OnDestroyDummy( event )
+	local dummy	= event.target
+	local ability = event.ability
+	
+	ParticleManager:DestroyParticle( dummy.pfx, false )
+	dummy:ForceKill( true )
 end
 
 function MakeDummyTarget(keys)
@@ -316,6 +362,10 @@ function PrintArgs(keys)
 
 	if keys.target_points then
 		print(keys.target_points[1])
+	end
+
+	if keys.caster and keys.caster.pfx then
+		print('pfx: aka caster is dummy')
 	end
 end
 
