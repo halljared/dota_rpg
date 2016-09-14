@@ -219,21 +219,21 @@
 
 		"precache"
 		{
-			"particle"		"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
-			"particle"		"particles/green_prison.vpcf"
+			"particle"		"particles/units/heroes/hero_wisp/wisp_guardian_explosion.vpcf"
+			"particle"		"particles/units/heroes/hero_wisp/wisp_guardian_.vpcf"
 		}
 
 		"AbilitySpecial"
 		{
 			"01"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"travel_distance"		"1000"
+				"var_type"				"FIELD_FLOAT"
+				"radius"				"300.0"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"leap_speed"			"1000.0"
+				"particle_duration"		"6.283"
 			}
 			"03"
 			{
@@ -244,11 +244,6 @@
 			{
 				"var_type"				"FIELD_INTEGER"
 				"stun_radius"			"200"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"damage"				"500"
 			}
 			"06"
 			{
@@ -270,21 +265,48 @@
 				"var_type"				"FIELD_INTEGER"
 				"collision_damage"		"500"
 			}
+			"10"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"particle_interval"		".25"
+			}
+			"11"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"5"
+			}
 		}
 
 		"OnSpellStart"
 		{
-			"RunScript"
+			"ApplyModifier"
 			{
-			    "ScriptFile"    		"heroes/test.lua"
-			    "Function"				"MoveParticle"
-			    "Target"				"POINT"
-			    "collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
+				"ModifierName"			"modifier_particle_maker"
+				"Target"				"CASTER"
+				"Duration"				"%duration"
 			}
 		}
 
 		"Modifiers"
 		{
+			"modifier_particle_maker"
+			{
+				"IsHidden"				"1"
+				"ThinkInterval"			"%particle_interval"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"MoveParticle"
+						"Target"				"POINT"
+						"particle_name"			"particles/units/heroes/hero_wisp/wisp_guardian_.vpcf"
+						"collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
+						"radius"				"%radius"
+						"particle_duration"		"%particle_duration"
+					}
+				}
+			}
 			"modifier_dummy_unit_datadriven"
 			{
 				"States"
@@ -318,6 +340,13 @@
 						"Target"		"TARGET"
 						"Type"			"DAMAGE_TYPE_PHYSICAL"
 						"Damage"		"%collision_damage"
+					}
+
+					"FireEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_wisp/wisp_guardian_explosion.vpcf"
+						"EffectAttachType"	"attach_origin"
+						"Target"			"TARGET"
 					}
 
 					"RunScript"

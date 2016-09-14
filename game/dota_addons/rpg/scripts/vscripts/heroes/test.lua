@@ -29,7 +29,7 @@ end
 function MoveParticle(keys)
 	local caster = keys.caster
 	local ability = keys.ability
-	local particleName = "particles/units/heroes/hero_wisp/wisp_guardian_.vpcf"
+	local particleName = keys.particle_name
 	local particlePos = caster:GetAbsOrigin()
 	local dummy = MakeDummyTargetGeneric(keys)
 	ability:ApplyDataDrivenModifier( dummy, dummy, keys.collision_modifier, {} )
@@ -37,8 +37,9 @@ function MoveParticle(keys)
 	-- Fire effect
 	local fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_ABSORIGIN_FOLLOW, dummy )
 	local t = 0
-	local r = 600
+	local r = keys.radius
 	local r2
+	local particleDuration = keys.particle_duration
 	dummy.pfx = fxIndex
 	ParticleManager:SetParticleControl(fxIndex, 0, particlePos)
 	Timers:CreateTimer(0, function()
@@ -48,9 +49,7 @@ function MoveParticle(keys)
 				r2 = r + ( math.abs( ( r * 2 / math.pi) * math.asin( math.sin( 2 * math.pi *  t / 2 ) ) ) )
 				local particleX = r2 * math.cos( t )
 				local particleY = r2 * math.sin( t )
-				-- particlePos = particlePos + (Vector(particlePos.x, particlePos.y, 0):Normalized() * 5.0)
 				dummy:SetAbsOrigin( particlePos + Vector( particleX, particleY, 0 ) )
-				-- ParticleManager:SetParticleControl(fxIndex, 0, particlePos)
 				dt = (1.0/30.0)
 				t = t + dt
 			else 
@@ -59,7 +58,7 @@ function MoveParticle(keys)
 			return dt
 		end
 	)
-	Timers:CreateTimer(6.283, function()	
+	Timers:CreateTimer(particleDuration, function()	
 			if dummy:IsAlive() then
 				ParticleManager:DestroyParticle( dummy.pfx, false )
 				dummy:ForceKill( true )
