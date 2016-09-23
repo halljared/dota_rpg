@@ -26,53 +26,85 @@ function TestGravityFunc(args)
 	args.target:SetAbsOrigin(targetPos + vec)
 end
 
+function MoveParticleStart(keys)
+	local caster = keys.caster
+	local particlePos = caster:GetAbsOrigin()
+	local ability = keys.ability
+	ability.particlePos = particlePos
+end
+
 function MoveParticle(keys)
 	local caster = keys.caster
 	local ability = keys.ability
 	local particleName = keys.particle_name
-	local particlePos = caster:GetAbsOrigin()
-	local dummy = MakeDummyTargetGeneric(keys)
-	ability:ApplyDataDrivenModifier( dummy, dummy, keys.collision_modifier, {} )
-
-	-- Fire effect
-	local fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_ABSORIGIN_FOLLOW, dummy )
-	local t = 0
-	local r = keys.radius
-	local r2
+	local particlePos = ability.particlePos
+	local dummy = {}
+	local fxIndex
+	local r
+	local phase = keys.phase and keys.phase or 1
+	local rStart = keys.radius
+	local rEnd = keys.radius_end
+	local calculatedRadius
 	local particleDuration = keys.particle_duration
-	dummy.pfx = fxIndex
-	ParticleManager:SetParticleControl(fxIndex, 0, particlePos)
-	Timers:CreateTimer(0, function()
-			local dt
-			if dummy:IsAlive() then
-				--r2 = r + ( math.abs( .5 * r * math.sin( t * 2) ) )
-				r2 = r + ( math.abs( ( r * 2 / math.pi) * math.asin( math.sin( 2 * math.pi *  t / 2 ) ) ) )
-				local particleX = r2 * math.cos( t )
-				local particleY = r2 * math.sin( t )
-				dummy:SetAbsOrigin( particlePos + Vector( particleX, particleY, 0 ) )
-				dt = (1.0/30.0)
-				t = t + dt
-			else 
-				dt = nil
+	local batch = keys.batch and keys.batch or 1 -- use the batch that is passed in else default batch of 1
+	for i=1,batch do
+		-- circle split into # of batch chunks; offset is the i'th chunk
+		local t = 0
+		local offset = ((2 * math.pi) / batch) * (i - 1) * (1 / phase)
+		Timers:CreateTimer(0, function()
+				local dt
+				if not dummy[i] or (dummy[i] and dummy[i]:IsAlive()) then
+					local rInterp
+					if rEnd ~= nil then
+						local fraction = t / particleDuration
+						local rDiff = rEnd - rStart
+						rInterp = rStart + (fraction * rDiff)
+					end
+					r = rInterp and rInterp or rStart
+					--calculatedRadius = r + ( math.abs( ( r * 2 / math.pi) * math.asin( math.sin( 2 * math.pi *  t / 2 ) ) ) )
+					calculatedRadius = r
+					local particleX = calculatedRadius * math.cos( phase * (t + offset) )
+					local particleY = calculatedRadius * math.sin( phase * (t + offset) )
+
+					-- Setting up the dummy/particle only once we know its starting position.
+					-- This stops particle trails from going everywhere when it spawns
+					if not dummy[i] then
+						dummy[i] = MakeDummyTargetGeneric(keys)
+						local thisDummy = dummy[i]
+						thisDummy:SetAbsOrigin( particlePos + Vector( particleX, particleY, 0 ) )
+						ability:ApplyDataDrivenModifier( thisDummy, thisDummy, keys.collision_modifier, {} )
+						fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_ABSORIGIN_FOLLOW, thisDummy )
+						thisDummy.pfx = fxIndex
+					else
+						dummy[i]:SetAbsOrigin( particlePos + Vector( particleX, particleY, 0 ) )
+					end
+
+
+					dt = (1.0/30.0)
+					t = t + dt
+				else 
+					dt = nil
+				end
+				return dt
 			end
-			return dt
-		end
-	)
-	Timers:CreateTimer(particleDuration, function()	
-			if dummy:IsAlive() then
-				ParticleManager:DestroyParticle( dummy.pfx, false )
-				dummy:ForceKill( true )
+		)
+		Timers:CreateTimer(particleDuration, function()	
+				if dummy[i] and (not dummy[i]:IsNull() and dummy[i]:IsAlive()) then
+					ParticleManager:DestroyParticle( dummy[i].pfx, false )
+					dummy[i]:ForceKill( true )
+				end
 			end
-		end
-	)
+		)
+	end
 end
 
 function DestroyDummy( event )
-	local dummy	= event.caster
-	if dummy:IsAlive() then
-		ParticleManager:DestroyParticle( dummy.pfx, false )
-		dummy:ForceKill( true )
-	end
+	Timers:CreateTimer(1/30, function()	
+			local dummy	= event.caster
+			if dummy and not dummy:IsNull() and dummy:IsAlive() then dummy:ForceKill( true ) end
+			if dummy and dummy.pfx then ParticleManager:DestroyParticle( dummy.pfx, false ) end
+		end
+	)
 end
 
 
@@ -323,7 +355,7 @@ function MakeDummyTargetGeneric(keys)
 	local ability = keys.ability
 	local caster = keys.caster
 	local refModifierName = "modifier_dummy_unit_datadriven"
-	local dummy = CreateUnitByName( "npc_dummy_blank", keys.target_points[1], false, caster, caster, caster:GetTeam() )
+	local dummy = CreateUnitByName( "npc_dummy_blank", caster:GetAbsOrigin(), false, caster, caster, caster:GetTeam() )
 	ability:ApplyDataDrivenModifier( caster, dummy, refModifierName, {} )
 	return dummy
 end

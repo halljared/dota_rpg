@@ -221,6 +221,7 @@
 		{
 			"particle"		"particles/units/heroes/hero_wisp/wisp_guardian_explosion.vpcf"
 			"particle"		"particles/units/heroes/hero_wisp/wisp_guardian_.vpcf"
+			"particle"		"particles/test_convert_projectile/attack.vpcf"
 		}
 
 		"AbilitySpecial"
@@ -228,17 +229,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"radius"				"300.0"
+				"radius"				"400.0"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"particle_duration"		"6.283"
+				"particle_duration"		"25.13"
 			}
 			"03"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"stun_duration"			"3.0"
+				"var_type"				"FIELD_FLOAT"
+				"radius_end"			"400.0"
 			}
 			"04"
 			{
@@ -253,7 +254,7 @@
 			"07"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"leap_distance"			"500"
+				"batch"					"4"
 			}
 			"08"
 			{
@@ -268,12 +269,17 @@
 			"10"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"particle_interval"		".25"
+				"particle_interval"		"1"
 			}
 			"11"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"5"
+				"ability_duration"		".5"
+			}
+			"12"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"phase"					"2"
 			}
 		}
 
@@ -283,7 +289,26 @@
 			{
 				"ModifierName"			"modifier_particle_maker"
 				"Target"				"CASTER"
-				"Duration"				"%duration"
+				"Duration"				"%ability_duration"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"MoveParticleStart"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"MoveParticle"
+				"particle_name"			"particles/test_convert_projectile/attack.vpcf"
+				"collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
+				"radius"				"%radius"
+				"radius_end"			"%radius_end"
+				"particle_duration"		"%particle_duration"
+				"batch"					"%batch"
+				"phase"					"%phase"
 			}
 		}
 
@@ -299,11 +324,13 @@
 					{
 						"ScriptFile"			"heroes/test.lua"
 						"Function"				"MoveParticle"
-						"Target"				"POINT"
-						"particle_name"			"particles/units/heroes/hero_wisp/wisp_guardian_.vpcf"
+						"particle_name"			"particles/test_convert_projectile/attack.vpcf"
 						"collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
 						"radius"				"%radius"
+						"radius_end"			"%radius_end"
 						"particle_duration"		"%particle_duration"
+						"batch"					"%batch"
+						"phase"					"%phase"
 					}
 				}
 			}
