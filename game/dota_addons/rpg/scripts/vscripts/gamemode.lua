@@ -3,7 +3,7 @@
 
 -- Set this to true if you want to see a complete debug output of all events/processes done by barebones
 -- You can also change the cvar 'barebones_spew' at any time to 1 or 0 for output/no output
-BAREBONES_DEBUG_SPEW = false 
+BAREBONES_DEBUG_SPEW = false
 
 if GameMode == nil then
 		DebugPrint( '[BAREBONES] creating barebones game mode' )
@@ -100,6 +100,9 @@ end
 ]]
 function GameMode:OnGameInProgress()
 	DebugPrint("[BAREBONES] The game has officially begun")
+	--GameMode:DoStartSequence()
+	Convars:RegisterCommand('do_start_sequence', Dynamic_Wrap(GameMode, 'DoStartSequence'), "do_start_sequence", 0)
+	Convars:RegisterCommand('do_vscript_check', Dynamic_Wrap(GameMode, 'DoVscriptCheck'), "do_vscript_check", 0)
 
 	Timers:CreateTimer(30, -- Start this timer 30 game-time seconds later
 		function()
@@ -121,4 +124,28 @@ function GameMode:InitGameMode()
 	-- Check out internals/gamemode to see/modify the exact code
 	GameMode:_InitGameMode()
 	DebugPrint('[BAREBONES] Done loading Barebones gamemode!\n\n')
+end
+
+
+function GameMode:DoStartSequence()
+	DebugPrint("gamemode.lua:GameMode:DoStartSequence")
+	Timers:CreateTimer(0,
+		function()
+			local hero = Entities:FindByName(nil, 'npc_dota_hero_omniknight')
+			hero:EmitSoundParams('rubick_rubick_levelup_05', 200, 200, 1)
+			--EmitGlobalSound('rubick_rubick_levelup_05')
+			return nil
+		end)
+end
+
+function GameMode:DoVscriptCheck()
+	DebugPrint("gamemode.lua:GameMode:DoVscriptCheck")
+	Timers:CreateTimer(0,
+		function()
+			local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
+			local unit = CreateUnitByName( 'npc_dota_creature_icelord', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
+			local _rpgAI = unit._rpgAI
+			print(_rpgAI)
+			return nil
+		end)
 end

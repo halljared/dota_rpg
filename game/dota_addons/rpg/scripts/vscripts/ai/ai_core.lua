@@ -34,6 +34,13 @@ DOTA_UNIT_ORDER_CAST_RUNE
 
 AICore = {}
 
+AICore.__index = AICore
+
+function AICore:new()
+	local self = setmetatable({}, AICore)
+	return self
+end
+
 function AICore:RandomEnemyHeroInRange( entity, range )
 	local enemies = FindUnitsInRadius( DOTA_TEAM_BADGUYS, entity:GetOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false )
 	if #enemies > 0 then
@@ -117,3 +124,15 @@ function AICore:CreateBehaviorSystem( behaviors )
 
 	return BehaviorSystem
 end
+
+local metatable = {
+	__call = function()
+      local self = {}
+      setmetatable(self, { __index = AICore })
+      return self
+   end
+}
+
+setmetatable(AICore, metatable)
+
+return AICore

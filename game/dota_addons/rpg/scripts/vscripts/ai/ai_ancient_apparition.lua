@@ -2,15 +2,22 @@
 Ancient Apparition AI
 ]]
 require( "../ai/ai_core" )
+require( "../ai/ai_basic" )
 
 behaviorSystem = {} -- create the global so we can assign to it
+local AIAncientApparition = new AIBasic() 
 
 function Spawn( entityKeyValues )
-	thisEntity:SetContextThink( "AIThink", AIThink, 0.25 )
+	local ai_ancient_apparition = new AIAncientApparition()
+	ai_ancient_apparition:Spawn(entityKeyValues)
+end
+
+function AIAncientApparition:Spawn( entityKeyValues )
+	thisEntity:SetContextThink( "AIThink", self.AIThink, 0.25 )
 	behaviorSystem = AICore:CreateBehaviorSystem( { BehaviorOrbit, BehaviorLaunchOrb, BehaviorAttackAncient } )--, BehaviorRun }-- } )
 end
 
-function AIThink()
+function AIAncientApparition:AIThink()
 	if thisEntity:IsNull() or not thisEntity:IsAlive() then
 		return nil -- deactivate this think function
 	end

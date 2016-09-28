@@ -81,6 +81,7 @@ function GameMode:_InitGameMode()
   ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(GameMode, 'OnPlayerPickHero'), self)
   ListenToGameEvent('dota_team_kill_credit', Dynamic_Wrap(GameMode, 'OnTeamKillCredit'), self)
   ListenToGameEvent("player_reconnected", Dynamic_Wrap(GameMode, 'OnPlayerReconnect'), self)
+  ListenToGameEvent("game_start", Dynamic_Wrap(GameMode, 'OnGameStart'), self)
 
   ListenToGameEvent("dota_illusions_created", Dynamic_Wrap(GameMode, 'OnIllusionsCreated'), self)
   ListenToGameEvent("dota_item_combined", Dynamic_Wrap(GameMode, 'OnItemCombined'), self)
@@ -99,8 +100,7 @@ function GameMode:_InitGameMode()
   --ListenToGameEvent('dota_combatlog', Dynamic_Wrap(GameMode, 'OnCombatLogEvent'), self)
   --ListenToGameEvent('dota_player_killed', Dynamic_Wrap(GameMode, 'OnPlayerKilled'), self)
   --ListenToGameEvent('player_team', Dynamic_Wrap(GameMode, 'OnPlayerTeam'), self)
-
-  --[[This block is only used for testing events handling in the event that Valve adds more in the future
+--[[
   Convars:RegisterCommand('events_test', function()
       GameMode:StartEventTest()
     end, "events test", 0)]]
@@ -111,7 +111,7 @@ function GameMode:_InitGameMode()
   end
 
   -- TODO: This line is a bug in barebones. Game crashes on restart unless commented see http://dev.dota2.com/showthread.php?t=184521&p=1285671&viewfull=1#post1285671
-  --Convars:RegisterConvar('barebones_spew', tostring(spew), 'Set to 1 to start spewing barebones debug info.  Set to 0 to disable.', 0)
+  Convars:RegisterConvar('barebones_spew', tostring(spew), 'Set to 1 to start spewing barebones debug info.  Set to 0 to disable.', 0)
 
   -- Change random seed
   local timeTxt = string.gsub(string.gsub(GetSystemTime(), ':', ''), '0','')

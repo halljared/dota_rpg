@@ -1,30 +1,22 @@
 function DebugPrint(...)
---  local spew = Convars:GetInt('barebones_spew') or -1
---  if spew == -1 and BAREBONES_DEBUG_SPEW then
---    spew = 1
---  end
+  local spew = Convars:GetInt('barebones_spew') or -1
+  if spew == -1 and BAREBONES_DEBUG_SPEW then
+    spew = 1
+  end
 
---  if spew == 1 then
---    print(...)
- -- end
-  local spew = BAREBONES_DEBUG_SPEW
-  if spew then
+  if spew == 1 then
     print(...)
   end
 end
 
 function DebugPrintTable(...)
---  local spew = Convars:GetInt('barebones_spew') or -1
---  if spew == -1 and BAREBONES_DEBUG_SPEW then
---    spew = 1
---  end
+  local spew = Convars:GetInt('barebones_spew') or -1
+  if spew == -1 and BAREBONES_DEBUG_SPEW then
+    spew = 1
+  end
 
---  if spew == 1 then
---    PrintTable(...)
---  end
-  local spew = BAREBONES_DEBUG_SPEW
-  if spew then
-    print(...)
+  if spew == 1 then
+    PrintTable(...)
   end
 end
 
@@ -84,3 +76,50 @@ COLOR_PURPLE = '\x1A'
 COLOR_ORANGE = '\x1B'
 COLOR_LRED = '\x1C'
 COLOR_GOLD = '\x1D'
+
+
+function DebugAllCalls()
+    if not GameRules.DebugCalls then
+        print("Starting DebugCalls")
+        GameRules.DebugCalls = true
+
+        debug.sethook(function(...)
+            local info = debug.getinfo(2)
+            local src = tostring(info.short_src)
+            local name = tostring(info.name)
+            if name ~= "__index" then
+                print("Call: ".. src .. " -- " .. name .. " -- " .. info.currentline)
+            end
+        end, "c")
+    else
+        print("Stopped DebugCalls")
+        GameRules.DebugCalls = false
+        debug.sethook(nil, "c")
+    end
+end
+
+
+
+
+--[[Author: Noya
+  Date: 09.08.2015.
+  Hides all dem hats
+]]
+function HideWearables( unit )
+  unit.hiddenWearables = {} -- Keep every wearable handle in a table to show them later
+    local model = unit:FirstMoveChild()
+    while model ~= nil do
+        if model:GetClassname() == "dota_item_wearable" then
+            model:AddEffects(EF_NODRAW) -- Set model hidden
+            table.insert(unit.hiddenWearables, model)
+        end
+        model = model:NextMovePeer()
+    end
+end
+
+function ShowWearables( unit )
+
+  for i,v in pairs(unit.hiddenWearables) do
+    v:RemoveEffects(EF_NODRAW)
+  end
+end

@@ -460,7 +460,7 @@
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
 		"VoiceFile"					"soundevents/voscripts/game_sounds_vo_ancient_apparition.vsndevts"
 
-		"vscripts"					"ai/ai_abilities.lua"
+		"vscripts"					"ai/ai_basic.lua"
 	}
 
 	//=================================================================================
