@@ -129,13 +129,24 @@ end
 
 function GameMode:DoStartSequence()
 	DebugPrint("gamemode.lua:GameMode:DoStartSequence")
-	Timers:CreateTimer(0,
-		function()
-			local hero = Entities:FindByName(nil, 'npc_dota_hero_omniknight')
-			hero:EmitSoundParams('rubick_rubick_levelup_05', 200, 200, 1)
-			--EmitGlobalSound('rubick_rubick_levelup_05')
+--	Timers:CreateTimer(0,
+--		function()
+--			local hero = Entities:FindByName(nil, 'npc_dota_hero_omniknight')
+--			hero:EmitSoundParams('rubick_rubick_levelup_05', 200, 200, 1)
+--			--EmitGlobalSound('rubick_rubick_levelup_05')
+--			return nil
+--		end)
+	Timers:CreateTimer(0, function()
+		local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
+		local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
+		local _rpgAI = unit._rpgAI
+		_rpgAI:Freeze()
+		Timers:CreateTimer(10, function()
+			_rpgAI:Unfreeze()
 			return nil
 		end)
+		return nil
+	end)
 end
 
 function GameMode:DoVscriptCheck()

@@ -3,6 +3,7 @@ Ability AI -- Uses abilities at random
 ]]
 require("ai/ai/core")
 require("ai/behaviors/idle")
+require("internal/util")
 
 AIBasic = {}
 
@@ -30,22 +31,36 @@ end
 
 function AIBasic:AIThink()
 	if self.stopThinking or self.entity:IsNull() or not self.entity:IsAlive() then
-		print ('stop thinking')
+		DebugPrint('stopped thinking')
 		return nil -- deactivate this think function
 	end
 	return self.abilityBehaviorSystem:Think()
 end
 
 function AIBasic:StopThinking()
-	print('AIBasic:StopThinking')
+	DebugPrint('AIBasic:StopThinking')
 	self.stopThinking = true;
 end
 
 function AIBasic:StartThinking()
-	print('AIBasic:StartThinking')
+	DebugPrint('AIBasic:StartThinking')
 	self.stopThinking = false
 	local _self = self
 	self.entity:SetContextThink( "AIThink", function()
 		return _self:AIThink()
 	end, 0.25 )
+end
+
+function AIBasic:Freeze()
+	self:StopThinking()
+	self.entityAttackCapability = self.entity:GetAttackCapability()
+	self.entityMoveCapability = self.entity:HasFlyMovementCapability() and DOTA_UNIT_CAP_MOVE_FLY or self.entity:HasGroundMovementCapability() and DOTA_UNIT_CAP_MOVE_GROUND or DOTA_UNIT_CAP_MOVE_NONE 
+	self.entity:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
+	self.entity:SetMoveCapability(DOTA_UNIT_CAP_MOVE_NONE)
+end
+
+function AIBasic:Unfreeze()
+	self.entity:SetAttackCapability(self.entityAttackCapability)
+	self.entity:SetMoveCapability(self.entityMoveCapability)
+	self:StartThinking()
 end
