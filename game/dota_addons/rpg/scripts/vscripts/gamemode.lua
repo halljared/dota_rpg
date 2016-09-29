@@ -140,12 +140,10 @@ end
 
 function GameMode:DoVscriptCheck()
 	DebugPrint("gamemode.lua:GameMode:DoVscriptCheck")
-	Timers:CreateTimer(0,
-		function()
-			local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
-			local unit = CreateUnitByName( 'npc_dota_creature_icelord', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
-			local _rpgAI = unit._rpgAI
-			print(_rpgAI)
-			return nil
-		end)
+	Timers:CreateTimer(0, function()
+		local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
+		local unit = CreateUnitByName( 'npc_dota_creature_ghostlord', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
+		local _rpgAI = unit._rpgAI
+		return nil
+	end)
 end

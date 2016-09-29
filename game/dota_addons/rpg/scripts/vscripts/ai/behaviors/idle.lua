@@ -30,7 +30,7 @@ function BehaviorIdle:MakeOrder()
 	local vNew = GetPointNearPoint(thisEntity:GetAbsOrigin(), 400)
 	return {
 			UnitIndex = thisEntity:entindex(),
-			OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+			OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
 			Position = vNew
 		}
 end

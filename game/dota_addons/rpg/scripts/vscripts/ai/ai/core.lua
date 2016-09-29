@@ -100,7 +100,6 @@ function AICore:CreateBehaviorSystem( behaviors )
 		end
 
 		if self.currentBehavior.Think then self.currentBehavior:Think(self.thinkDuration) end
-
 		return self.thinkDuration
 	end
 
