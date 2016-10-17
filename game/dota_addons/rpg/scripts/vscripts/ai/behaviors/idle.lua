@@ -12,7 +12,7 @@ function BehaviorIdle.new(entity)
 	local self = setmetatable({}, BehaviorIdle)
 	self.entity = entity
 	self.baseDesire = 1
-	self.maxDesireIncrease = 2
+	self.maxDesireIncrease = 1
 	self.desire = self.baseDesire
 	return self
 end

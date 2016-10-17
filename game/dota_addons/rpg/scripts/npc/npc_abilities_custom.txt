@@ -92,6 +92,43 @@
 		}
 	}
 
+	// Use this by adding the particle_test ability to a hero. The particle will display on that hero.
+	"particle_test_target"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityTextureName"			"harpy_storm_chain_lightning"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+
+		"MaxLevel"						"1"
+
+		"precache"
+		{
+			"particle"		"particles/chilling_touch/cast.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"AttachEffect"
+			{
+				"Target"			"TARGET"
+				"EffectName"		"particles/chilling_touch/cast.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"ControlPointEntities"
+				{
+					"CASTER"		"attach_origin" // Control Point 0
+					"CASTER"		"attach_origin" // Control Point 1
+					"TARGET"		"attach_origin" // Control Point 2
+					"TARGET"		"attach_origin" // Control Point 3
+					"CASTER"		"attach_origin" // Control Point 4
+				}
+			}
+		}
+	}
+
 	"test_ability"
 	{
 		// General
@@ -222,6 +259,7 @@
 			"particle"		"particles/units/heroes/hero_wisp/wisp_guardian_explosion.vpcf"
 			"particle"		"particles/units/heroes/hero_wisp/wisp_guardian_.vpcf"
 			"particle"		"particles/test_convert_projectile/attack.vpcf"
+			"particle"		"particles/econ/items/rubick/rubick_force_ambient/rubick_telekinesis_force_rings.vpcf"
 		}
 
 		"AbilitySpecial"
@@ -229,17 +267,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"radius"				"400.0"
+				"radius"				"200.0"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"particle_duration"		"25.13"
+				"particle_duration"		"12.566"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"radius_end"			"400.0"
+				"radius_end"			"600.0"
 			}
 			"04"
 			{
@@ -264,7 +302,7 @@
 			"09"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"collision_damage"		"500"
+				"collision_damage"		"200"
 			}
 			"10"
 			{
@@ -274,41 +312,28 @@
 			"11"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"ability_duration"		".5"
+				"ability_duration"		"0"
 			}
 			"12"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"phase"					"2"
+				"phase"					"1"
 			}
 		}
 
 		"OnSpellStart"
 		{
-			"ApplyModifier"
-			{
-				"ModifierName"			"modifier_particle_maker"
-				"Target"				"CASTER"
-				"Duration"				"%ability_duration"
-			}
-
 			"RunScript"
 			{
 				"ScriptFile"			"heroes/test.lua"
 				"Function"				"MoveParticleStart"
 			}
 
-			"RunScript"
+			"ApplyModifier"
 			{
-				"ScriptFile"			"heroes/test.lua"
-				"Function"				"MoveParticle"
-				"particle_name"			"particles/test_convert_projectile/attack.vpcf"
-				"collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
-				"radius"				"%radius"
-				"radius_end"			"%radius_end"
-				"particle_duration"		"%particle_duration"
-				"batch"					"%batch"
-				"phase"					"%phase"
+				"ModifierName"			"modifier_particle_maker"
+				"Target"				"CASTER"
+				"Duration"				"%ability_duration"
 			}
 		}
 
@@ -318,13 +343,30 @@
 			{
 				"IsHidden"				"1"
 				"ThinkInterval"			"%particle_interval"
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"MoveParticle"
+						"particle_name"			"particles/rubick_twister/evil_magus_twister.vpcf"
+						"collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
+						"radius"				"%radius"
+						"radius_end"			"%radius_end"
+						"particle_duration"		"%particle_duration"
+						"batch"					"%batch"
+						"phase"					"%phase"
+					}
+				}
+
 				"OnIntervalThink"
 				{
 					"RunScript"
 					{
 						"ScriptFile"			"heroes/test.lua"
 						"Function"				"MoveParticle"
-						"particle_name"			"particles/test_convert_projectile/attack.vpcf"
+						"particle_name"			"particles/rubick_twister/evil_magus_twister.vpcf"
 						"collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
 						"radius"				"%radius"
 						"radius_end"			"%radius_end"
@@ -810,7 +852,7 @@
 		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"AbilityTextureName"				"omniknight_guardian_angel"
 		"AbilityType"						"DOTA_ABILITY_TYPE_ULTIMATE"
-		"AbilityUnitDamageType"				"DAMAGE_TYPE_PURE"
+		"AbilityUnitDamageType"				"DAMAGE_TYPE_MAGICAL"
 		"AbilityCooldown"					"8.0"
 		"AbilityManaCost"					"5"
 		"AbilityChannelTime"				"4.0"
@@ -2621,7 +2663,7 @@
 	{
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"AbilityCastAnimation"			"ACT_DOTA_ATTACK"
 		"FightRecapLevel"				"1"
 		"AbilityTextureName"			"sven_storm_bolt"
@@ -2674,7 +2716,7 @@
 				{
 					"Damage"
 					{
-						"Type"			"DAMAGE_TYPE_PURE"
+						"Type"			"DAMAGE_TYPE_PHYSICAL"
 						"Damage"		"%AbilityDamage"
 						"Target"
 						{
@@ -2979,11 +3021,11 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"800"
+		"AbilityDamage"					"500"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"20"
+		"AbilityManaCost"				"0"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -3316,6 +3358,133 @@
 		}
 	}
 
+	// Rewrite of Alchemist Acid Spray
+	// Author: Noya
+	// Date: October 13, 2015
+	// Version: 6.85
+	// Type: Datadriven
+	//
+	// ----- FILE REQUIREMENTS -----
+	// Script files:
+	// scripts/vscripts/heroes/hero_alchemist/acid_spray.lua
+	"evil_magus_lava"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityTextureName"			"alchemist_acid_spray"
+		"AOERadius"						"250"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+		"AbilityCastRange"				"900"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"10.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"250"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"6.0"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage"				"50"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"tick_rate"				"1.0"
+			}
+		}
+
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_alchemist.vsndevts"
+			"particle"  "particles/units/heroes/hero_alchemist/alchemist_acid_spray.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+		 	"CreateThinker"
+		 	{
+		 		"ModifierName"			"modifier_acid_spray_thinker"
+		 		"Target" 				"POINT"
+		 	}
+		}
+
+		"Modifiers"
+		{
+			"modifier_acid_spray_thinker"
+			{
+				"Aura"					"modifier_acid_spray"
+				"Aura_Radius"			"%radius"
+				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+				"Aura_Flags"			"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+				"Duration"				"%duration"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_alchemist/alchemist_acid_spray.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPoints"
+						{
+							"00" "0 0 0"
+							"01" "%radius 1 1"
+							"15" "25 150 25"
+							"16" "0 0 0"
+						}
+					}
+				}
+			}
+
+			"modifier_acid_spray"
+			{
+				"IsDebuff"				"1"
+				"ThinkInterval"			"%tick_rate"
+				"OnIntervalThink"
+				{
+					"FireSound"
+					{
+						"EffectName" 	"Hero_Alchemist.AcidSpray.Damage"
+						"Target"		"TARGET"
+					}
+					"Damage"
+					{
+						"Target"		 "TARGET"
+						"Type"			 "DAMAGE_TYPE_PHYSICAL"
+						"Damage"		 "%damage"
+					}
+				}
+			}
+		}
+	}
+
+
+
 
 	// NPC: ZOMBIE
 	//=============================================================
@@ -3584,27 +3753,27 @@
 
 			"DelayedAction"
 			{
-				"Delay"						"%delay"
+				"Delay"					"%delay"
 				"Action"
 				{
 					"FireEffect"
 					{
-						"EffectName"		"particles/units/heroes/hero_ancient_apparition/ancient_apparition_ice_blast_explode.vpcf"
-						"Target"			"POINT"
+						"EffectName"	"particles/units/heroes/hero_ancient_apparition/ancient_apparition_ice_blast_explode.vpcf"
+						"Target"		"POINT"
 					}
 					"FireSound"
 					{
-						"EffectName"		"Hero_Ancient_Apparition.IceBlast.Target"
-						"Target"			"POINT"
+						"EffectName"	"Hero_Ancient_Apparition.IceBlast.Target"
+						"Target"		"POINT"
 					}
 					"ActOnTargets"
 					{
 						"Target"
 						{
-							"Center"		"POINT"
-							"Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-							"Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
-							"Radius"		"%radius"
+							"Center"	"POINT"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+							"Radius"	"%radius"
 						}
 						"Action"
 						{
@@ -3654,6 +3823,137 @@
 						{
 							"05"		"%radius %radius %radius"
 						}
+					}
+				}
+			}
+		}
+	}
+
+	"touch_of_cold"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityTextureName"			"crystal_maiden_brilliance_aura"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY | DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.3"
+		"AbilityCooldown"				"11.0"
+		"AbilityManaCost"				"0"
+		"AbilityDamage"					"0"
+
+		"MaxLevel"						"1"
+
+		"precache"
+		{
+			"particle"		"particles/chilling_touch/cast.vpcf"
+			"particle"		"particles/units/heroes/hero_ancient_apparition/ancient_apparition_cold_feet_marker.vpcf"
+			"particle"		"particles/status_fx/status_effect_frost.vpcf"
+			"particle"		"particles/chilling_touch/slow.vpcf"
+			"soundfile"		"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"10.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"damage_interval"		"0.5"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"slow_percentage"		"-33"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"AttachEffect"
+			{
+				"Target"				"TARGET"
+				"EffectName"			"particles/chilling_touch/cast.vpcf"
+				"EffectAttachType"		"follow_origin"
+				"ControlPointEntities"
+				{
+					"CASTER"			"attach_origin" // Control Point 0
+					"CASTER"			"attach_origin" // Control Point 1
+					"TARGET"			"attach_origin" // Control Point 2
+					"TARGET"			"attach_origin" // Control Point 3
+					"CASTER"			"attach_origin" // Control Point 4
+				}
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"			"modifier_touch_of_cold"
+				"Target" 				"TARGET"
+				"Duration"				"%duration"
+			}
+
+			"Random"
+			{
+				"Chance"			"50"
+				"OnSuccess"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"heroes/test.lua"
+						"Function"		"FireSoundForPlayer"
+						"Target"		"TARGET"
+						"sound"			"ancient_apparition_appa_ability_coldfeet_03"
+					}
+				}
+				"OnFailure"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"heroes/test.lua"
+						"Function"		"FireSoundForPlayer"
+						"Target"		"TARGET"
+						"sound"			"ancient_apparition_appa_ability_coldfeet_04"
+					}
+				}
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_touch_of_cold"
+			{
+				"IsHidden"				"0"
+				"TextureName"			"crystal_maiden_brilliance_aura"
+
+				"EffectName"			"particles/chilling_touch/slow.vpcf"
+				"StatusEffectName"		"particles/status_fx/status_effect_frost.vpcf"
+				"EffectAttachType"		"follow_origin"
+				"StatusEffectPriority"	"41"
+
+				"ThinkInterval"			"%damage_interval"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow_percentage"
+				}
+
+				"OnIntervalThink"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Ancient_Apparition.ColdFeetTick"
+						"Target" 		"TARGET"
+					}
+					"Damage"
+					{
+						"Target"		"TARGET"
+						"Type"			"DAMAGE_TYPE_MAGICAL"
+						"Damage"		"%AbilityDamage"
 					}
 				}
 			}

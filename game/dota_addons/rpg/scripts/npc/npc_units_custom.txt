@@ -424,10 +424,11 @@
 		"SoundSet"					"Hero_ancient_apparition"
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
 		"IdleSoundLoop"				"Hero_Ancient_Apparition.IdleLoop"
-		"ModelScale" 				"1"
+		"ModelScale" 				"1.25"
 		"CanBeDominated"			"0"
 
 		"Ability1"					"freezing_explosion"
+		"Ability2"					"touch_of_cold"
 
 		"ArmorPhysical"				"-1"
 
@@ -460,7 +461,7 @@
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
 		"VoiceFile"					"soundevents/voscripts/game_sounds_vo_ancient_apparition.vsndevts"
 
-		"vscripts"					"ai/ai_basic.lua"
+		"vscripts"					"ai/ai_abilities.lua"
 	}
 
 	//=================================================================================
@@ -571,15 +572,19 @@
 			"model_folder"			"models/heroes/rubick/"
 		}
 
-		"Ability1"					"demonic_prison"
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"AbilityLayout"					"5"
+
+		"Ability1"					"evil_magus_lava"
+		"Ability2"					"rift_bolt"
+		"Ability3"					"evil_magus_lava"
+		"Ability4"					"demonic_prison"
 		"Ability5"					""
 		"Ability6"					""
 		"Ability7"					""
 		"Ability8"					""
 
+		"ArmorPhysical"				"40"
+		"MagicalResistance"			"75"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"			"19"
 		"AttackDamageMax"			"29"
@@ -595,7 +600,7 @@
 		"MovementSpeed"				"195"
 		"MovementTurnRate"			"0.6"
 		"StatusHealth"				"1500"
-		"StatusHealthRegen"			"25"
+		"StatusHealthRegen"			"0"
 		"StatusMana"				"0"
 		"StatusManaRegen"			"0.0"
 		"VisionDaytimeRange"		"1400"

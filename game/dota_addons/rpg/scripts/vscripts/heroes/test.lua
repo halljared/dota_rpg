@@ -15,6 +15,12 @@ function StopSoundDataDriven( keys )
 	StopSoundEvent(keys.eventName, caster)
 end
 
+function FireSoundForPlayer( keys )
+	local target = keys.target
+	EmitSoundOn(keys.sound, target)
+end
+
+
 -- This function is the "Gravity Controller" that is applied in the ability KV's
 function TestGravityFunc(args)
 	local targetPos = args.target:GetAbsOrigin()

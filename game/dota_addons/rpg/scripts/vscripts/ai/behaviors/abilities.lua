@@ -11,7 +11,7 @@ setmetatable(BehaviorAbilities, {
 function BehaviorAbilities.new(entity)
 	local self = setmetatable({}, BehaviorAbilities)
 	self.entity = entity
-	self.baseDesire = 1
+	self.baseDesire = 2
 	self.maxDesireIncrease = 4
 	self.desire = self.baseDesire
 	return self

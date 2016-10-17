@@ -103,6 +103,8 @@ function GameMode:OnGameInProgress()
 	--GameMode:DoStartSequence()
 	Convars:RegisterCommand('do_start_sequence', Dynamic_Wrap(GameMode, 'DoStartSequence'), "do_start_sequence", 0)
 	Convars:RegisterCommand('do_vscript_check', Dynamic_Wrap(GameMode, 'DoVscriptCheck'), "do_vscript_check", 0)
+	Convars:RegisterCommand('do_freeze_players', Dynamic_Wrap(GameMode, 'DoFreezePlayers'), "do_freeze_players", 0)
+	Convars:RegisterCommand('do_unfreeze_players', Dynamic_Wrap(GameMode, 'DoUnfreezePlayers'), "do_unfreeze_players", 0)
 
 	Timers:CreateTimer(30, -- Start this timer 30 game-time seconds later
 		function()
@@ -138,13 +140,8 @@ function GameMode:DoStartSequence()
 --		end)
 	Timers:CreateTimer(0, function()
 		local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
-		local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
+		local unit = CreateUnitByName( 'npc_dota_creature_icelord', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
 		local _rpgAI = unit._rpgAI
-		_rpgAI:Freeze()
-		Timers:CreateTimer(10, function()
-			_rpgAI:Unfreeze()
-			return nil
-		end)
 		return nil
 	end)
 end
@@ -157,4 +154,20 @@ function GameMode:DoVscriptCheck()
 		local _rpgAI = unit._rpgAI
 		return nil
 	end)
+end
+
+function GameMode:DoFreezePlayers()
+	DebugPrint("gamemode.lua:GameMode:DoFreezePlayers")
+	local heroes = GetPlayerHeroes()
+	for i=1, table.getn(heroes) do
+		if heroes[i] then heroes[i]:SetMoveCapability(DOTA_UNIT_CAP_MOVE_NONE) end
+	end
+end
+
+function GameMode:DoUnfreezePlayers()
+	DebugPrint("gamemode.lua:GameMode:DoUnfreezePlayers")
+	local heroes = GetPlayerHeroes()
+	for i=1, table.getn(heroes) do
+		if heroes[i] then heroes[i]:SetMoveCapability(DOTA_UNIT_CAP_MOVE_GROUND) end
+	end
 end
