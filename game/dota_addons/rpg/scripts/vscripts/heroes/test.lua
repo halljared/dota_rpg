@@ -282,19 +282,22 @@ end
 function ShootDummyTarget(keys)
 	local caster = keys.caster
 	local ability = keys.ability
+	local dummy = ability[keys.dummyName]
 	local targetTeam = ability:GetAbilityTargetTeam() -- DOTA_UNIT_TARGET_TEAM_ENEMY
 	local targetType = ability:GetAbilityTargetType() -- DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO
 	local targetFlags = ability:GetAbilityTargetFlags() -- DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	local damageType = ability:GetAbilityDamageType()
-	local targetPos = caster.FireballDummy:GetAbsOrigin()
+	local targetPos = dummy:GetAbsOrigin()
 	local casterPos = caster:GetAbsOrigin()
-	local direction = (targetPos - caster:GetAbsOrigin()):Normalized()
+	local vector_distance = targetPos - casterPos
+	local distance = (vector_distance):Length2D()
+	local direction = (vector_distance):Normalized()
 
 	ProjectileManager:CreateLinearProjectile( {
 		Ability				= ability,
 		EffectName			= keys.effectName,
 		vSpawnOrigin		= casterPos + Vector(0,0,100),
-		fDistance			= keys.distance,
+		fDistance			= keys.distance or distance,
 		fStartRadius		= keys.start_radius,
 		fEndRadius			= keys.end_radius,
 		Source				= caster,
@@ -304,7 +307,7 @@ function ShootDummyTarget(keys)
 		iUnitTargetFlags	= targetFlags,
 		iUnitTargetType		= targetType,
 	--	fExpireTime			= ,
-		bDeleteOnHit		= true,
+		bDeleteOnHit		= keys.deleteOnHit or true,
 		vVelocity			= direction * keys.speed,
 		bProvidesVision		= false,
 	--	iVisionRadius		= ,
@@ -381,13 +384,12 @@ function MakeDummyTarget(keys)
 	local refModifierName = "modifier_dummy_unit_datadriven"
 	local dummy = CreateUnitByName( "npc_dummy_blank", keys.target_points[1], false, caster, caster, caster:GetTeamNumber() )
 	ability:ApplyDataDrivenModifier( caster, dummy, refModifierName, {} )
-	caster.FireballDummy = dummy
+	ability[keys.dummyName] = dummy
 end
 
 function DestroyDummyTarget(keys)
-	--DeepPrintTable(keys.ability)
-	local caster = keys.caster
-	caster.FireballDummy:ForceKill( true )
+	local ability = keys.ability
+	ability[keys.dummyName]:ForceKill( true )
 end
 
 
@@ -514,13 +516,48 @@ function FireEffectCustom(keys)
 	local caster = keys.caster
 	local casterLocation = keys.caster:GetAbsOrigin()
 	local particleName = keys.particleName
-	local attackPoint = keys.target_points[1]
+	local attackPoint = keys.target_points and keys.target_points[1] or nil
 	local duration = keys.duration
+	local attach = keys.attach
 	local fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_CUSTOMORIGIN, caster )
 	ParticleManager:SetParticleControl( fxIndex, 0, attackPoint )
 	Timers:CreateTimer( duration, function()
 		ParticleManager:DestroyParticle(fxIndex, false)
 	end )
+end
+
+function FireSnowConeEffect(keys)
+	local caster = keys.caster
+	local target = keys.target
+	local ability = keys.ability
+	local dummy = ability[keys.dummyName]
+	local casterLocation = caster:GetAbsOrigin()
+	local dummyLocation = dummy:GetAbsOrigin()
+	local particleName = keys.particleName
+	local duration = keys.duration
+	local attach = keys.attach
+	local fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_CUSTOMORIGIN, caster )
+	ability.target = target
+	ParticleManager:SetParticleControlEnt(fxIndex, 0, caster, PATTACH_ABSORIGIN_FOLLOW, follow_origin, casterLocation, true)
+	ParticleManager:SetParticleControlEnt(fxIndex, 1, dummy, PATTACH_ABSORIGIN_FOLLOW, follow_origin, dummyLocation, true)
+	Timers:CreateTimer( duration, function()
+		ParticleManager:DestroyParticle(fxIndex, false)
+	end )
+end
+
+function MoveDummyTargetForSnowCone(keys)
+	local caster = keys.caster
+	local ability = keys.ability
+	local target = ability.target
+	local distance = keys.distance
+	local dummy = ability[keys.dummyName]
+	local casterLocation = caster:GetAbsOrigin()
+	local targetLocation = target:GetAbsOrigin()
+	local dummyLocation = dummy:GetAbsOrigin()
+	local vector_distance = targetLocation - casterLocation
+	local direction = (vector_distance):Normalized()
+	local newDummyPos = casterLocation + (direction * distance)
+	dummy:SetAbsOrigin(newDummyPos)
 end
 
 function CasterLeap( keys )

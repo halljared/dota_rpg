@@ -206,7 +206,7 @@
 		"Ability1"						"rift_bolt"
 		"Ability2"						"tractor_beam"
 		"Ability3"						"demonic_prison"
-		"Ability4"						"touch_of_cold"
+		"Ability4"						"snow_cone"
 		"Ability5"						""
 		"Ability6"						""
 		"Ability7"						""

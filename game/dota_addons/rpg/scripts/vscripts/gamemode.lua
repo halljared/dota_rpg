@@ -141,6 +141,7 @@ function GameMode:DoStartSequence()
 	Timers:CreateTimer(0, function()
 		local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
 		local unit = CreateUnitByName( 'npc_dota_creature_icelord', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
+		local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
 		local _rpgAI = unit._rpgAI
 		return nil
 	end)

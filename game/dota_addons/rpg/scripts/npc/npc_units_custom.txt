@@ -429,6 +429,7 @@
 
 		"Ability1"					"freezing_explosion"
 		"Ability2"					"touch_of_cold"
+		"Ability3"					"snow_cone"
 
 		"ArmorPhysical"				"-1"
 

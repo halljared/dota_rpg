@@ -83,7 +83,7 @@
 				{
 					"AttachEffect"
 					{
-						"Target"		"CASTER"
+						"Target"			"CASTER"
 						"EffectName"		"particles/units/heroes/hero_bane/bane_fiends_grip.vpcf"
 						"EffectAttachType"	"follow_origin"
 					}
@@ -107,23 +107,20 @@
 
 		"precache"
 		{
-			"particle"		"particles/chilling_touch/cast.vpcf"
+			"particle"		"particles/ice_cone/snow_cone.vpcf"
 		}
 
 		"OnSpellStart"
 		{
-			"AttachEffect"
+			"FireEffect"
 			{
-				"Target"			"TARGET"
-				"EffectName"		"particles/chilling_touch/cast.vpcf"
+				"Target"			"CASTER"
+				"EffectName"		"particles/ice_cone/snow_cone.vpcf"
 				"EffectAttachType"	"follow_origin"
 				"ControlPointEntities"
 				{
-					"CASTER"		"attach_origin" // Control Point 0
-					"CASTER"		"attach_origin" // Control Point 1
-					"TARGET"		"attach_origin" // Control Point 2
-					"TARGET"		"attach_origin" // Control Point 3
-					"CASTER"		"attach_origin" // Control Point 4
+					"CASTER"		"follow_origin" // Control Point 0
+					"TARGET"		"follow_origin" // Control Point 1
 				}
 			}
 		}
@@ -1825,6 +1822,7 @@
 				"ScriptFile"				"heroes/test.lua"
 				"Function"					"MakeDummyTarget"
 				"Target"					"POINT"
+				"dummyName"					"FireballDummy"
 			}
 			"ApplyModifier"
 			{
@@ -1874,6 +1872,7 @@
 						"end_radius"		"%end_radius"
 						"speed"				"%speed"
 						"effectName"		"particles/red_fireball/red_fireball2.vpcf"
+						"dummyName"			"FireballDummy"
 					}
 
 					"RunScript"
@@ -1894,6 +1893,7 @@
 					{
 						"ScriptFile"		"heroes/test.lua"
 						"Function"			"DestroyDummyTarget"
+						"dummyName"			"FireballDummy"
 					}
 				}
 			}
@@ -3954,6 +3954,182 @@
 						"Target"		"TARGET"
 						"Type"			"DAMAGE_TYPE_MAGICAL"
 						"Damage"		"%AbilityDamage"
+					}
+				}
+			}
+		}
+	}
+
+	"snow_cone"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityTextureName"			"crystal_maiden_brilliance_aura"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityDamage"					"100"
+		"AbilityCooldown"				"7"
+		"AbilitymanaCost"				"0'"
+
+		"MaxLevel"						"1"
+
+		"precache"
+		{
+			"particle"		"particles/ice_cone/snow_cone.vpcf"
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"5.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"damage_interval"		"0.5"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"slow_percentage"		"-33"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"travel_speed"			"800"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"start_radius"			"150"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"end_radius"			"600"
+			}
+			"07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"travel_distance"		"1500"
+			}
+			"08"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"slow_duration"			"3"
+			}
+			"09"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"slow_percentage"		"-20"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"			"modifier_channeling_snow"
+				"Target" 				"CASTER"
+				"Duration"				"%duration"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"MakeDummyTarget"
+				"Target"				"POINT"
+				"dummyName"				"SnowConeDummy"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"			"heroes/test.lua"
+				"Function"				"FireSnowConeEffect"
+				"particleName"			"particles/ice_cone/snow_cone.vpcf"
+				"duration"				"%duration"
+				"dummyName"				"SnowConeDummy"
+			}
+		}
+
+		"OnProjectileHitUnit"
+		{
+			"Damage"
+			{
+				"Target"				"TARGET"
+				"Damage"				"%AbilityDamage"
+				"Type"					"DAMAGE_TYPE_MAGICAL"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"			"modifier_cone_of_cold_slow"
+				"Target" 				"TARGET"
+				"Duration"				"%slow_duration"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_cone_of_cold_slow"
+			{
+				"EffectName"			"particles/generic_gameplay/generic_slowed_cold.vpcf"
+				"StatusEffectName"		"particles/status_fx/status_effect_frost_lich.vpcf"
+				"StatusEffectPriority"	"10"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow_percentage"
+				}
+			}
+
+			"modifier_dummy_unit_datadriven"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_INVULNERABLE"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NOT_ON_MINIMAP"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_channeling_snow"
+			{
+				"ThinkInterval"				"%damage_interval"
+
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"heroes/test.lua"
+						"Function"			"ShootDummyTarget"
+						"start_radius"		"%start_radius"
+						"end_radius"		"%end_radius"
+						"speed"				"%travel_speed"
+						"effectName"		"particles/invisible.vpcf"
+						"dummyName"			"SnowConeDummy"
+					}
+
+					"RunScript"
+					{
+						"ScriptFile"		"heroes/test.lua"
+						"Function"			"MoveDummyTargetForSnowCone"
+						"dummyName"			"SnowConeDummy"
+						"distance"			"%travel_distance"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"heroes/test.lua"
+						"Function"			"DestroyDummyTarget"
+						"dummyName"			"SnowConeDummy"
 					}
 				}
 			}
