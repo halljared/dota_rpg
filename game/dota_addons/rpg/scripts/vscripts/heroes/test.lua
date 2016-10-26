@@ -71,6 +71,10 @@ function MoveParticle(keys)
 					calculatedRadius = r
 					local particleX = calculatedRadius * math.cos( phase * (t + offset) )
 					local particleY = calculatedRadius * math.sin( phase * (t + offset) )
+					local tangentAngle = math.pi / 2
+					local tangentX = particleX * math.cos(tangentAngle) - particleY * math.sin(tangentAngle)
+					local tangentY = particleX * math.sin(tangentAngle) + particleY * math.cos(tangentAngle)
+					local forwardVector = Vector(tangentX, tangentY, 0)
 
 					-- Setting up the dummy/particle only once we know its starting position.
 					-- This stops particle trails from going everywhere when it spawns
@@ -81,8 +85,10 @@ function MoveParticle(keys)
 						ability:ApplyDataDrivenModifier( thisDummy, thisDummy, keys.collision_modifier, {} )
 						fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_ABSORIGIN_FOLLOW, thisDummy )
 						thisDummy.pfx = fxIndex
+						thisDummy:SetForwardVector( forwardVector )
 					else
 						dummy[i]:SetAbsOrigin( particlePos + Vector( particleX, particleY, 0 ) )
+						dummy[i]:SetForwardVector( forwardVector )
 					end
 
 
@@ -536,29 +542,33 @@ function FireSnowConeEffect(keys)
 	local particleName = keys.particleName
 	local duration = keys.duration
 	local attach = keys.attach
+	local distance = keys.distance
 	local fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_CUSTOMORIGIN, caster )
-	ability.target = target
 	ParticleManager:SetParticleControlEnt(fxIndex, 0, caster, PATTACH_ABSORIGIN_FOLLOW, follow_origin, casterLocation, true)
 	ParticleManager:SetParticleControlEnt(fxIndex, 1, dummy, PATTACH_ABSORIGIN_FOLLOW, follow_origin, dummyLocation, true)
 	Timers:CreateTimer( duration, function()
 		ParticleManager:DestroyParticle(fxIndex, false)
 	end )
+
+	Timers:CreateTimer( 0, function()
+		local update = 0
+		if not dummy:IsNull() and dummy:IsAlive() then
+			casterLocation = caster:GetAbsOrigin()
+			targetLocation = target:GetAbsOrigin()
+			dummyLocation = dummy:GetAbsOrigin()
+			local vector_distance = targetLocation - casterLocation
+			local direction = (vector_distance):Normalized()
+			local newDummyPos = casterLocation + (direction * distance)
+			dummy:SetAbsOrigin(newDummyPos)
+			update = 0.1
+		else
+			update = 0
+		end
+		return update
+	end)
 end
 
-function MoveDummyTargetForSnowCone(keys)
-	local caster = keys.caster
-	local ability = keys.ability
-	local target = ability.target
-	local distance = keys.distance
-	local dummy = ability[keys.dummyName]
-	local casterLocation = caster:GetAbsOrigin()
-	local targetLocation = target:GetAbsOrigin()
-	local dummyLocation = dummy:GetAbsOrigin()
-	local vector_distance = targetLocation - casterLocation
-	local direction = (vector_distance):Normalized()
-	local newDummyPos = casterLocation + (direction * distance)
-	dummy:SetAbsOrigin(newDummyPos)
-end
+
 
 function CasterLeap( keys )
 	local caster = keys.caster

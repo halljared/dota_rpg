@@ -113,10 +113,8 @@ function GameMode:OnGameInProgress()
 		end)
 end
 
-
-
 -- This function initializes the game mode and is called before anyone loads into the game
--- It can be used to pre-initialize any values/tables that will be needed later
+-- It can be used to pre-initiggGggalize any values/tables that will be needed later
 function GameMode:InitGameMode()
 	GameMode = self
 	DebugPrint('[BAREBONES] Starting to load Barebones gamemode...')
@@ -128,6 +126,14 @@ function GameMode:InitGameMode()
 	DebugPrint('[BAREBONES] Done loading Barebones gamemode!\n\n')
 end
 
+function GameMode:SpawnNPCs()
+	local spawnLocation0 = Entities:FindByName( nil, "zombie_spawner0" ):GetAbsOrigin()
+	local spawnLocation1 = Entities:FindByName( nil, "zombie_spawner1" ):GetAbsOrigin()
+	local spawnLocation2 = Entities:FindByName( nil, "zombie_spawner2" ):GetAbsOrigin()
+	local unit = CreateUnitByName( 'npc_dota_creature_icelord', spawnLocation0, true, nil, nil, DOTA_TEAM_BADGUYS )
+	local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation1, true, nil, nil, DOTA_TEAM_BADGUYS )
+	local unit = CreateUnitByName( 'npc_dota_creature_ghostlord', spawnLocation2, true, nil, nil, DOTA_TEAM_BADGUYS )
+end
 
 function GameMode:DoStartSequence()
 	DebugPrint("gamemode.lua:GameMode:DoStartSequence")
@@ -141,7 +147,8 @@ function GameMode:DoStartSequence()
 	Timers:CreateTimer(0, function()
 		local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
 		local unit = CreateUnitByName( 'npc_dota_creature_icelord', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
-		local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
+		--local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
+		local unit = CreateUnitByName( 'npc_dota_creature_ghostlord', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
 		local _rpgAI = unit._rpgAI
 		return nil
 	end)

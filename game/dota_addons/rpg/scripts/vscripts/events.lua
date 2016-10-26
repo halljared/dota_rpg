@@ -337,3 +337,10 @@ function GameMode:OnGameStart(keys)
   DebugPrint('[BAREBONES] OnGameStart')
   DebugPrintTable(keys)
 end
+
+function GameMode:OnPlayerChat(keys)
+  DebugPrint('[BAREBONES] OnPlayerChat')
+  if keys.text == "-spawn" then
+    GameMode:SpawnNPCs()
+  end
+end

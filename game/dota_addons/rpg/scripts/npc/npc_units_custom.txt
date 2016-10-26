@@ -424,15 +424,15 @@
 		"SoundSet"					"Hero_ancient_apparition"
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
 		"IdleSoundLoop"				"Hero_Ancient_Apparition.IdleLoop"
-		"ModelScale" 				"1.25"
+		"ModelScale" 				"1.5"
 		"CanBeDominated"			"0"
 
 		"Ability1"					"freezing_explosion"
 		"Ability2"					"touch_of_cold"
 		"Ability3"					"snow_cone"
 
-		"ArmorPhysical"				"-1"
-
+		"ArmorPhysical"				"40"
+		"MagicalResistance"			"75"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"			"19"
 		"AttackDamageMax"			"29"
@@ -475,7 +475,7 @@
 		"SoundSet"					"Hero_death_prophet"
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_death_prophet.vsndevts"
 		"IdleSoundLoop"				"Hero_Death_Prophet.IdleLoop"
-		"ModelScale" 				"1"
+		"ModelScale" 				"1.5"
 		"CanBeDominated"			"0"
 
 		"precache"
@@ -483,11 +483,12 @@
 			"particle"		"particles/units/heroes/hero_death_prophet/death_prophet_base_attack.vpcf"
 		}
 
-		"Ability1"					"freezing_explosion"
-		"Ability2"					"death_prophet_carrion_swarm"
+		"Ability1"					"haunting_spirit"
+		"Ability2"					"spirit_swarm"
+		"Ability3"					"death_prophet_carrion_swarm"
 
-		"ArmorPhysical"				"-1"
-
+		"ArmorPhysical"				"40"
+		"MagicalResistance"			"75"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"			"19"
 		"AttackDamageMax"			"29"
@@ -563,7 +564,7 @@
 		"Model"						"models/heroes/rubick/rubick.vmdl"
 		"SoundSet"					"Hero_rubick"
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_rubick.vsndevts"
-		"ModelScale"				"1.12"
+		"ModelScale"				"1.5"
 		"Level"						"1"
 		"ConsideredHero"			"0"
 
@@ -573,7 +574,7 @@
 			"model_folder"			"models/heroes/rubick/"
 		}
 
-		"AbilityLayout"					"5"
+		"AbilityLayout"				"5"
 
 		"Ability1"					"evil_magus_lava"
 		"Ability2"					"rift_bolt"

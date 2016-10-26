@@ -57,8 +57,8 @@
 		"Ability1"						"electric_fence"
 		"Ability2"						"templar_assassin_blink"
 		"Ability3"						"riki_smoke_screen"
-		"Ability4"						"fury_swipes"
-		"Ability5"						"crippling_attacks"
+		"Ability4"						"crippling_attacks"
+		"Ability5"						"fury_swipes"
 		"Ability6"						""
 		"Ability7"						""
 
@@ -206,8 +206,8 @@
 		"Ability1"						"rift_bolt"
 		"Ability2"						"tractor_beam"
 		"Ability3"						"demonic_prison"
-		"Ability4"						"snow_cone"
-		"Ability5"						""
+		"Ability4"						"spirit_swarm"
+		"Ability5"						"haunting_spirit"
 		"Ability6"						""
 		"Ability7"						""
 
