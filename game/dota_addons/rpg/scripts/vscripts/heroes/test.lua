@@ -533,6 +533,9 @@ function FireEffectCustom(keys)
 end
 
 function FireSnowConeEffect(keys)
+
+	
+
 	local caster = keys.caster
 	local target = keys.target
 	local ability = keys.ability
@@ -543,6 +546,18 @@ function FireSnowConeEffect(keys)
 	local duration = keys.duration
 	local attach = keys.attach
 	local distance = keys.distance
+
+	function moveDummy()
+		casterLocation = caster:GetAbsOrigin()
+		targetLocation = target:GetAbsOrigin()
+		dummyLocation = dummy:GetAbsOrigin()
+		local vector_distance = targetLocation - casterLocation
+		local direction = (vector_distance):Normalized()
+		local newDummyPos = casterLocation + (direction * distance)
+		dummy:SetAbsOrigin(newDummyPos)
+	end
+
+	moveDummy() --initial call so that dummy is positioned before the pfx is created
 	local fxIndex = ParticleManager:CreateParticle( particleName, PATTACH_CUSTOMORIGIN, caster )
 	ParticleManager:SetParticleControlEnt(fxIndex, 0, caster, PATTACH_ABSORIGIN_FOLLOW, follow_origin, casterLocation, true)
 	ParticleManager:SetParticleControlEnt(fxIndex, 1, dummy, PATTACH_ABSORIGIN_FOLLOW, follow_origin, dummyLocation, true)
@@ -550,16 +565,11 @@ function FireSnowConeEffect(keys)
 		ParticleManager:DestroyParticle(fxIndex, false)
 	end )
 
+	-- Set up a timer to keep the dummy in the correct position
 	Timers:CreateTimer( 0, function()
 		local update = 0
 		if not dummy:IsNull() and dummy:IsAlive() then
-			casterLocation = caster:GetAbsOrigin()
-			targetLocation = target:GetAbsOrigin()
-			dummyLocation = dummy:GetAbsOrigin()
-			local vector_distance = targetLocation - casterLocation
-			local direction = (vector_distance):Normalized()
-			local newDummyPos = casterLocation + (direction * distance)
-			dummy:SetAbsOrigin(newDummyPos)
+			moveDummy()
 			update = 0.1
 		else
 			update = 0
