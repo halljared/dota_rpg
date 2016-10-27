@@ -613,7 +613,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"							"ability_datadriven"
-		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET || DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"				"DAMAGE_TYPE_MAGICAL"
@@ -642,11 +642,11 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"						"800"
+		"AbilityDamage"						"400"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"					"20"
+		"AbilityManaCost"					"10"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -655,12 +655,22 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"magic_missile_speed"		"900"
+				"travel_speed"				"900"
 			}
 			"02"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"magic_missile_stun"		"1.45 1.55 1.65 1.75"
+				"var_type"					"FIELD_INTEGER"
+				"travel_distance"			"1000"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"radius_start"				"50"
+			}
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"radius_end"				"50"
 			}
 		}
 
@@ -671,15 +681,19 @@
 				"EffectName"				"Hero_VengefulSpirit.MagicMissile"
 				"Target" 					"CASTER"
 			}
-
-			"TrackingProjectile"
+			"LinearProjectile"
 			{
-				"Target"           			"TARGET"
+				"Target"					"POINT"
 				"EffectName"				"particles/purple_fireball/purple_fireball.vpcf"
-				"Dodgeable"					"1"
+				"MoveSpeed"					"%travel_speed"
+				"StartRadius"				"%radius_start"
+				"EndRadius"					"%radius_end"
+				"StartPosition"				"attach_attack1"
+				"FixedDistance"				"%travel_distance"
+				"TargetTeams"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"HasFrontalCone"			"0"
 				"ProvidesVision"			"0"
-				"MoveSpeed"        			"%magic_missile_speed"
-				"SourceAttachment"			"DOTA_PROJECTILE_ATTACHMENT_ATTACK_1"
 			}
 		}
 
@@ -725,7 +739,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"					"0"
+		"AbilityManaCost"					"20"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -738,7 +752,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"duration_tooltip"			"5"
+				"duration_tooltip"			"2"
 			}
 			"02"
 			{
@@ -898,7 +912,7 @@
 		"AbilityType"						"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityUnitDamageType"				"DAMAGE_TYPE_MAGICAL"
 		"AbilityCooldown"					"8.0"
-		"AbilityManaCost"					"5"
+		"AbilityManaCost"					"30"
 		"AbilityChannelTime"				"4.0"
 		"AbilityCastPoint"					"0.1"
 		"AbilityModifierSupportValue"		"0.35"  // Primarily about the damage
@@ -1123,7 +1137,6 @@
 			{
 				"ScriptFile"				"heroes/test.lua"
 				"Function"					"PurgeTarget"
-				"target"					"TARGET"
 			}
 			"FireEffect"
 			{
@@ -1417,7 +1430,7 @@
 
 		"AbilityCastPoint"					"0.1"
 		"AbilityCooldown"					"0.0"
-		"AbilityManaCost"					"10"
+		"AbilityManaCost"					"15"
 		"AbilityCastRange"					"0"
 
 		// Special
@@ -1460,8 +1473,9 @@
 		"MaxLevel"							"1"
 
 		"AbilityCastRange"					"200"
-		"AbilityCastPoint"					"0"
-		"AbilityDamage"						"900"
+		"AbilityCastPoint"					".1"
+		"AbilityDamage"						"500"
+		"AbilityManaCost"					"7"
 
 		// Precache
 		//-------------------------------------------------------------------------------------------------------------
@@ -3884,7 +3898,7 @@
 		"AbilityCastPoint"				"0.3"
 		"AbilityCooldown"				"11.0"
 		"AbilityManaCost"				"0"
-		"AbilityDamage"					"0"
+		"AbilityDamage"					"50"
 
 		"MaxLevel"						"1"
 
@@ -3902,7 +3916,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"10.0"
+				"duration"				"5.0"
 			}
 			"02"
 			{
@@ -3942,7 +3956,7 @@
 
 			"Random"
 			{
-				"Chance"			"50"
+				"Chance"				"50"
 				"OnSuccess"
 				{
 					"RunScript"
@@ -3971,6 +3985,8 @@
 			"modifier_touch_of_cold"
 			{
 				"IsHidden"				"0"
+				"IsPurgable"       		"1"
+				"IsDebuff"				"1"
 				"TextureName"			"crystal_maiden_brilliance_aura"
 
 				"EffectName"			"particles/chilling_touch/slow.vpcf"
@@ -4125,6 +4141,8 @@
 				"EffectName"			"particles/generic_gameplay/generic_slowed_cold.vpcf"
 				"StatusEffectName"		"particles/status_fx/status_effect_frost_lich.vpcf"
 				"StatusEffectPriority"	"10"
+				"IsPurgable"       		"1"
+				"IsDebuff"				"1"
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%slow_percentage"
@@ -4151,22 +4169,22 @@
 				{
 					"RunScript"
 					{
-						"ScriptFile"		"heroes/test.lua"
-						"Function"			"ShootDummyTarget"
-						"start_radius"		"%start_radius"
-						"end_radius"		"%end_radius"
-						"speed"				"%travel_speed"
-						"effectName"		"particles/invisible.vpcf"
-						"dummyName"			"SnowConeDummy"
+						"ScriptFile"	"heroes/test.lua"
+						"Function"		"ShootDummyTarget"
+						"start_radius"	"%start_radius"
+						"end_radius"	"%end_radius"
+						"speed"			"%travel_speed"
+						"effectName"	"particles/invisible.vpcf"
+						"dummyName"		"SnowConeDummy"
 					}
 				}
 				"OnDestroy"
 				{
 					"RunScript"
 					{
-						"ScriptFile"		"heroes/test.lua"
-						"Function"			"DestroyDummyTarget"
-						"dummyName"			"SnowConeDummy"
+						"ScriptFile"	"heroes/test.lua"
+						"Function"		"DestroyDummyTarget"
+						"dummyName"		"SnowConeDummy"
 					}
 				}
 			}
@@ -4385,48 +4403,48 @@
 		{
 			"01"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"travel_distance"			"1000"
+				"var_type"				"FIELD_INTEGER"
+				"travel_distance"		"1000"
 			}
 			"02"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"travel_speed"				"200"
+				"var_type"				"FIELD_INTEGER"
+				"travel_speed"			"200"
 			}
 			"03"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"radius_start"				"175"
+				"var_type"				"FIELD_INTEGER"
+				"radius_start"			"175"
 			}
 			"04"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"radius_end"				"225"
+				"var_type"				"FIELD_INTEGER"
+				"radius_end"			"225"
 			}
 			"05"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"end_vision_duration"		"1.75"
+				"var_type"				"FIELD_FLOAT"
+				"end_vision_duration"	"1.75"
 			}
 			"06"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"damage"					"40"
+				"var_type"				"FIELD_FLOAT"
+				"damage"				"40"
 			}
 			"07"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"knockback_duration"		"1"
+				"var_type"				"FIELD_FLOAT"
+				"knockback_duration"	"1"
 			}
 			"08"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"knockback_distance"		"100"
+				"var_type"				"FIELD_FLOAT"
+				"knockback_distance"	"100"
 			}
 			"09"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"knockback_height"			"50"
+				"var_type"				"FIELD_FLOAT"
+				"knockback_height"		"50"
 			}
 		}
 
@@ -4434,14 +4452,14 @@
 		{
 			"Damage"
 			{
-				"Target"		"TARGET"
-				"Type"			"DAMAGE_TYPE_MAGICAL"
-				"Damage"		"%AbilityDamage"
+				"Target"				"TARGET"
+				"Type"					"DAMAGE_TYPE_MAGICAL"
+				"Damage"				"%AbilityDamage"
 			}
 			"FireSound"
 			{
-				"EffectName"	"n_creep_fellbeast.Death"
-				"Target"		"TARGET"
+				"EffectName"			"n_creep_fellbeast.Death"
+				"Target"				"TARGET"
 			}
 		}
 
@@ -4449,12 +4467,12 @@
 		{
 			"TrackingProjectile"
 			{
-				"Target"           			"TARGET"
-				"EffectName"				"particles/ghost_with_trails/main.vpcf"
-				"Dodgeable"					"1"
-				"ProvidesVision"			"0"
-				"MoveSpeed"        			"%travel_speed"
-				"SourceAttachment"			"DOTA_PROJECTILE_ATTACHMENT_HITLOCATION"
+				"Target"           		"TARGET"
+				"EffectName"			"particles/ghost_with_trails/main.vpcf"
+				"Dodgeable"				"1"
+				"ProvidesVision"		"0"
+				"MoveSpeed"        		"%travel_speed"
+				"SourceAttachment"		"DOTA_PROJECTILE_ATTACHMENT_HITLOCATION"
 			}
 
 			"Random"

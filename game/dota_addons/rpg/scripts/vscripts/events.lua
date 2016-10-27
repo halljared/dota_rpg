@@ -344,3 +344,18 @@ function GameMode:OnPlayerChat(keys)
     GameMode:SpawnNPCs()
   end
 end
+
+function GameMode:OnEntityKilled(keys)
+  DebugPrint('[BAREBONES] OnEntityKilled')
+  local entity = EntIndexToHScript(keys.entindex_killed)
+  local unitName = entity:GetUnitName()
+  if unitName == 'npc_dota_creature_evil_magus' and keys.entindex_inflictor ~= keys.entindex_killed then
+    GameMode:EvilMagusDied()
+  end
+ 
+  --[   VScript   ]: damagebits: 0
+  --[   VScript   ]: entindex_attacker: 320
+  --[   VScript   ]: entindex_inflictor: 322
+  --[   VScript   ]: entindex_killed: 379
+  --[   VScript   ]: splitscreenplayer: -1
+end

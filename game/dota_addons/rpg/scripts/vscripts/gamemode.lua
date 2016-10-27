@@ -30,6 +30,7 @@ require('settings')
 -- events.lua is where you can specify the actions to be taken when any event occurs and is one of the core barebones files.
 require('events')
 
+local evilMagusDied = false
 
 --[[
 	This function should be used to set up Async precache calls at the beginning of the gameplay.
@@ -111,6 +112,31 @@ function GameMode:OnGameInProgress()
 			DebugPrint("This function is called 30 seconds after the game begins, and every 30 seconds thereafter")
 			return 30.0 -- Rerun this timer every 30 game-time seconds 
 		end)
+
+	local heroes = GetPlayerHeroes()
+	for i=1, table.getn(heroes) do
+		if heroes[i] then heroes[i]:SetRespawnsDisabled(true) end
+	end
+
+	Timers:CreateTimer(10, -- Start this timer 30 game-time seconds later
+		function()
+			local heroes = GetPlayerHeroes()
+			local allDead = true
+			for i=1, table.getn(heroes) do
+				if heroes[i] and heroes[i]:IsAlive() then allDead = false end
+			end
+			if allDead then
+				evilMagusDied = false
+				local units = Entities:FindAllByClassname('npc_dota_creature')
+				for i=1, table.getn(units) do
+					if units[i] then units[i]:ForceKill(false) end
+				end
+				for i=1, table.getn(heroes) do
+					if heroes[i] then heroes[i]:RespawnHero(false, false, false) end
+				end
+			end
+			return 10.0 -- Rerun this timer every 30 game-time seconds 
+		end)
 end
 
 -- This function initializes the game mode and is called before anyone loads into the game
@@ -128,11 +154,7 @@ end
 
 function GameMode:SpawnNPCs()
 	local spawnLocation0 = Entities:FindByName( nil, "zombie_spawner0" ):GetAbsOrigin()
-	local spawnLocation1 = Entities:FindByName( nil, "zombie_spawner1" ):GetAbsOrigin()
-	local spawnLocation2 = Entities:FindByName( nil, "zombie_spawner2" ):GetAbsOrigin()
-	local unit = CreateUnitByName( 'npc_dota_creature_icelord', spawnLocation0, true, nil, nil, DOTA_TEAM_BADGUYS )
-	local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation1, true, nil, nil, DOTA_TEAM_BADGUYS )
-	local unit = CreateUnitByName( 'npc_dota_creature_ghostlord', spawnLocation2, true, nil, nil, DOTA_TEAM_BADGUYS )
+	local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation0, true, nil, nil, DOTA_TEAM_BADGUYS )
 end
 
 function GameMode:DoStartSequence()
@@ -177,5 +199,16 @@ function GameMode:DoUnfreezePlayers()
 	local heroes = GetPlayerHeroes()
 	for i=1, table.getn(heroes) do
 		if heroes[i] then heroes[i]:SetMoveCapability(DOTA_UNIT_CAP_MOVE_GROUND) end
+	end
+end
+
+function GameMode:EvilMagusDied()
+	DebugPrint("gamemode.lua:GameMode:EvilMagusDied")
+	if not evilMagusDied then
+		evilMagusDied = true
+		local spawnLocation1 = Entities:FindByName( nil, "zombie_spawner1" ):GetAbsOrigin()
+		local spawnLocation2 = Entities:FindByName( nil, "zombie_spawner2" ):GetAbsOrigin()
+		local unit = CreateUnitByName( 'npc_dota_creature_icelord', spawnLocation1, true, nil, nil, DOTA_TEAM_BADGUYS )
+		local unit = CreateUnitByName( 'npc_dota_creature_ghostlord', spawnLocation2, true, nil, nil, DOTA_TEAM_BADGUYS )
 	end
 end
