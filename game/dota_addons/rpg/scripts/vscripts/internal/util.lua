@@ -127,7 +127,7 @@ end
 
 function GetPlayerHeroes()
   local hero1 = Entities:FindByName(nil, 'npc_dota_hero_omniknight')
-  local hero2 = Entities:FindByName(nil, 'npc_dota_hero_dazzle')
+  local hero2 = Entities:FindByName(nil, 'npc_dota_hero_witch_doctor')
   local hero3 = Entities:FindByName(nil, 'npc_dota_hero_invoker')
   local hero4 = Entities:FindByName(nil, 'npc_dota_hero_templar_assassin')
   local heroes = {hero1, hero2, hero3, hero4}

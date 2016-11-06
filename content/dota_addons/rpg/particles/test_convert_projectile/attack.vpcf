@@ -2,22 +2,42 @@
 {
 	_class = "CParticleSystemDefinition"
 	m_bShouldHitboxesFallbackToRenderBounds = false
-	m_nMaxParticles = 50
-	m_flConstantRadius = 2.0
-	m_ConstantColor = [ 77, 255, 69, 255 ]
-	m_Renderers = 
+	m_nMaxParticles = 1
+	m_Operators = 
 	[
 		{
-			_class = "C_OP_RenderModels"
-			m_ActivityName = "ACT_DOTA_RUN"
-			m_ModelList = 
-			[
-				{
-					m_model = resource:"models/creeps/neutral_creeps/n_creep_ghost_a/n_creep_ghost_a.vmdl"
-				},
-			]
-			m_bOrientZ = true
-			m_bAnimated = true
+			_class = "C_OP_EndCapTimedDecay"
+		},
+		{
+			_class = "C_OP_MovementPlaceOnGround"
+			m_flOffset = 96.0
+			m_bIncludeWater = true
+			m_flMaxTraceLength = 1024.0
+			m_flTraceOffset = 256.0
+			m_CollisionGroupName = "DEBRIS"
+		},
+		{
+			_class = "C_OP_SetChildControlPoints"
+		},
+		{
+			_class = "C_OP_BasicMovement"
+		},
+		{
+			_class = "C_OP_MaxVelocity"
+			m_flMaxVelocity = 3000.0
+		},
+		{
+			_class = "C_OP_DampenToCP"
+			m_flRange = 32.0
+		},
+		{
+			_class = "C_OP_SetToCP"
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			_class = "C_INIT_CreateWithinSphere"
 		},
 	]
 	m_Emitters = 
@@ -25,6 +45,20 @@
 		{
 			_class = "C_OP_InstantaneousEmitter"
 			m_nParticlesToEmit = 1
+		},
+	]
+	m_ForceGenerators = 
+	[
+		{
+			_class = "C_OP_AttractToControlPoint"
+			m_fFalloffPower = 0.0
+			m_fForceAmount = 10000.0
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/test_convert_projectile/rubick_base_attack_b.vpcf"
 		},
 	]
 }

@@ -113,11 +113,6 @@ function GameMode:OnGameInProgress()
 			return 30.0 -- Rerun this timer every 30 game-time seconds 
 		end)
 
-	local heroes = GetPlayerHeroes()
-	for i=1, table.getn(heroes) do
-		if heroes[i] then heroes[i]:SetRespawnsDisabled(true) end
-	end
-
 	Timers:CreateTimer(10, -- Start this timer 30 game-time seconds later
 		function()
 			local heroes = GetPlayerHeroes()

@@ -69,8 +69,10 @@ function MoveParticle(keys)
 					r = rInterp and rInterp or rStart
 					--calculatedRadius = r + ( math.abs( ( r * 2 / math.pi) * math.asin( math.sin( 2 * math.pi *  t / 2 ) ) ) )
 					calculatedRadius = r
-					local particleX = calculatedRadius * math.cos( phase * (t + offset) )
-					local particleY = calculatedRadius * math.sin( phase * (t + offset) )
+					local _t = t
+					if keys.no_rotate then _t = 0 end
+					local particleX = calculatedRadius * math.cos( phase * (_t + offset) )
+					local particleY = calculatedRadius * math.sin( phase * (_t + offset) )
 					local tangentAngle = math.pi / 2
 					local tangentX = particleX * math.cos(tangentAngle) - particleY * math.sin(tangentAngle)
 					local tangentY = particleX * math.sin(tangentAngle) + particleY * math.cos(tangentAngle)

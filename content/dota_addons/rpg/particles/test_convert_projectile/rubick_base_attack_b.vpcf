@@ -24,14 +24,6 @@
 			_class = "C_OP_Decay"
 		},
 		{
-			_class = "C_OP_PositionLock"
-			m_nControlPointNumber = 3
-			m_flStartTime_min = 0.0
-			m_flStartTime_max = 0.0
-			m_flEndTime_min = 0.25
-			m_flEndTime_max = 0.5
-		},
-		{
 			_class = "C_OP_FadeOutSimple"
 			m_flFadeOutTime = 1.0
 			m_nFieldOutput = 16
@@ -40,12 +32,14 @@
 			_class = "C_OP_ColorInterpolate"
 			m_ColorFade = [ 99, 42, 94, 255 ]
 		},
+		{
+			_class = "C_OP_MovementMaintainOffset"
+		},
 	]
 	m_Initializers = 
 	[
 		{
 			_class = "C_INIT_CreateWithinSphere"
-			m_nControlPointNumber = 3
 			m_fSpeedMax = 150.0
 		},
 		{
@@ -89,10 +83,10 @@
 			m_ChildRef = resource:"particles/test_convert_projectile/rubick_base_attack_core.vpcf"
 		},
 		{
-			m_ChildRef = resource:"particles/units/heroes/hero_rubick/rubick_base_attack_core_b.vpcf"
+			m_ChildRef = resource:"particles/test_convert_projectile/rubick_base_attack_core_b.vpcf"
 		},
 		{
-			m_ChildRef = resource:"particles/units/heroes/hero_rubick/rubick_base_attack_d.vpcf"
+			m_ChildRef = resource:"particles/test_convert_projectile/rubick_base_attack_d.vpcf"
 		},
 	]
 }

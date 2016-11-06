@@ -207,7 +207,7 @@
 		"Ability2"						"tractor_beam"
 		"Ability3"						"demonic_prison"
 		"Ability4"						"spirit_swarm"
-		"Ability5"						"haunting_spirit"
+		"Ability5"						"moving_particle_test"
 		"Ability6"						""
 		"Ability7"						""
 

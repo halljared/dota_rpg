@@ -26,10 +26,6 @@
 			_class = "C_OP_Decay"
 		},
 		{
-			_class = "C_OP_PositionLock"
-			m_nControlPointNumber = 3
-		},
-		{
 			_class = "C_OP_InterpolateRadius"
 			m_flBias = 0.25
 			m_flEndScale = 0.0
@@ -58,7 +54,6 @@
 			_class = "C_INIT_CreateWithinSphere"
 			m_fSpeedMax = 32.0
 			m_fRadiusMax = 2.0
-			m_nControlPointNumber = 3
 		},
 		{
 			_class = "C_INIT_InitialVelocityNoise"
@@ -66,7 +61,6 @@
 			m_vecOutputMin = [ -214.0, -214.0, -100.0 ]
 			m_flNoiseScaleLoc = 0.1
 			m_flNoiseScale = 5.0
-			m_nControlPointNumber = 3
 		},
 	]
 	m_Emitters = 

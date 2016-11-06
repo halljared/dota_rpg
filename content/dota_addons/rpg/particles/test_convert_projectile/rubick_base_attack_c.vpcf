@@ -33,12 +33,6 @@
 			m_flEndScale = 2.0
 		},
 		{
-			_class = "C_OP_PositionLock"
-			m_flStartTime_max = 0.4
-			m_flStartTime_min = 0.25
-			m_nControlPointNumber = 3
-		},
-		{
 			_class = "C_OP_RampScalarLinearSimple"
 			m_flEndTime = 99999.0
 			m_Rate = -100.0
@@ -49,7 +43,6 @@
 	[
 		{
 			_class = "C_INIT_CreateWithinSphere"
-			m_nControlPointNumber = 3
 		},
 		{
 			_class = "C_INIT_RandomLifeTime"
