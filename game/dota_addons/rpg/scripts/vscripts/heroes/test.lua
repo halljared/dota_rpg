@@ -788,3 +788,26 @@ function DestroyPrison(keys)
 	--prison:SetModel('models/development/invisiblebox.vmdl')
 	prison:Destroy()
 end
+
+function InitResurrect(keys)
+	local caster = keys.caster
+	local stackCount = 2
+	if caster.resurrectCount == 0 or caster.resurrectCount == 1 then
+		stackCount = caster.resurrectCount
+	end
+	caster.resurrectCount = stackCount
+	Timers:CreateTimer(1, function()	
+			local modifier = caster:FindModifierByName('modifier_resurrect')
+			print(modifier)
+			if modifier then modifier:SetStackCount(stackCount) end
+			return nil
+		end
+	)	
+end
+
+function DecrementResurrect(keys)
+	local caster = keys.caster
+	local caster = keys.caster
+	caster.resurrectCount = caster.resurrectCount - 1
+	if caster.resurrectCount < 0 then caster.resurrectCount = 0 end
+end

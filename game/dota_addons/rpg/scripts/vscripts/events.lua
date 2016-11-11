@@ -343,6 +343,9 @@ function GameMode:OnPlayerChat(keys)
   if keys.text == "-spawn" then
     GameMode:SpawnNPCs()
   end
+  if keys.text == "-despawn" then
+    GameMode:KillNPCs()
+  end
 end
 
 function GameMode:OnEntityKilled(keys)

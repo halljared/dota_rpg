@@ -29,6 +29,7 @@ require('internal/events')
 require('settings')
 -- events.lua is where you can specify the actions to be taken when any event occurs and is one of the core barebones files.
 require('events')
+require('lua_modifiers/resurrect')
 
 local evilMagusDied = false
 
@@ -107,30 +108,12 @@ function GameMode:OnGameInProgress()
 	Convars:RegisterCommand('do_freeze_players', Dynamic_Wrap(GameMode, 'DoFreezePlayers'), "do_freeze_players", 0)
 	Convars:RegisterCommand('do_unfreeze_players', Dynamic_Wrap(GameMode, 'DoUnfreezePlayers'), "do_unfreeze_players", 0)
 
+	GameMode:RefreshGame()
+
 	Timers:CreateTimer(30, -- Start this timer 30 game-time seconds later
 		function()
 			DebugPrint("This function is called 30 seconds after the game begins, and every 30 seconds thereafter")
 			return 30.0 -- Rerun this timer every 30 game-time seconds 
-		end)
-
-	Timers:CreateTimer(10, -- Start this timer 30 game-time seconds later
-		function()
-			local heroes = GetPlayerHeroes()
-			local allDead = true
-			for i=1, table.getn(heroes) do
-				if heroes[i] and heroes[i]:IsAlive() then allDead = false end
-			end
-			if allDead then
-				evilMagusDied = false
-				local units = Entities:FindAllByClassname('npc_dota_creature')
-				for i=1, table.getn(units) do
-					if units[i] then units[i]:ForceKill(false) end
-				end
-				for i=1, table.getn(heroes) do
-					if heroes[i] then heroes[i]:RespawnHero(false, false, false) end
-				end
-			end
-			return 10.0 -- Rerun this timer every 30 game-time seconds 
 		end)
 end
 
@@ -147,28 +130,38 @@ function GameMode:InitGameMode()
 	DebugPrint('[BAREBONES] Done loading Barebones gamemode!\n\n')
 end
 
+function GameMode:KillNPCs()
+	local units = Entities:FindAllByClassname('npc_dota_creature')
+	for i=1, table.getn(units) do
+		if units[i] then units[i]:ForceKill(false) end
+	end
+end
+
 function GameMode:SpawnNPCs()
 	local spawnLocation0 = Entities:FindByName( nil, "zombie_spawner0" ):GetAbsOrigin()
 	local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation0, true, nil, nil, DOTA_TEAM_BADGUYS )
 end
 
+function GameMode:RefreshGame()
+	local heroes = GetPlayerHeroes()
+	print('RefreshGame')
+	for i=1, table.getn(heroes) do
+		local hero = heroes[i]
+		hero:SetRespawnsDisabled(false)
+		if not hero:IsAlive() then
+			hero:RespawnHero(false, false, false)
+		end
+		hero:AddNewModifier(hero, nil, 'modifier_resurrect_lua', {})
+		local modifier = hero:FindModifierByName('modifier_resurrect_lua')
+		if modifier then 
+			modifier:SetStackCount(2)
+		end
+	end
+end
+
 function GameMode:DoStartSequence()
 	DebugPrint("gamemode.lua:GameMode:DoStartSequence")
---	Timers:CreateTimer(0,
---		function()
---			local hero = Entities:FindByName(nil, 'npc_dota_hero_omniknight')
---			hero:EmitSoundParams('rubick_rubick_levelup_05', 200, 200, 1)
---			--EmitGlobalSound('rubick_rubick_levelup_05')
---			return nil
---		end)
-	Timers:CreateTimer(0, function()
-		local spawnLocation = Entities:FindByName( nil, "zombie_spawner" ):GetAbsOrigin()
-		local unit = CreateUnitByName( 'npc_dota_creature_icelord', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
-		--local unit = CreateUnitByName( 'npc_dota_creature_evil_magus', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
-		local unit = CreateUnitByName( 'npc_dota_creature_ghostlord', spawnLocation, true, nil, nil, DOTA_TEAM_BADGUYS )
-		local _rpgAI = unit._rpgAI
-		return nil
-	end)
+	GameMode:RefreshGame()
 end
 
 function GameMode:DoVscriptCheck()
