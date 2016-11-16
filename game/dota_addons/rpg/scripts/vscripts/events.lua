@@ -346,6 +346,9 @@ function GameMode:OnPlayerChat(keys)
   if keys.text == "-despawn" then
     GameMode:KillNPCs()
   end
+  if keys.text == "-restart" then
+    GameMode:DoStartSequence()
+  end
 end
 
 function GameMode:OnEntityKilled(keys)

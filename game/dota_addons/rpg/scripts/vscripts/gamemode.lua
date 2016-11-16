@@ -143,8 +143,9 @@ function GameMode:SpawnNPCs()
 end
 
 function GameMode:RefreshGame()
+	DebugPrint("gamemode.lua:GameMode:RefreshGame")
 	local heroes = GetPlayerHeroes()
-	print('RefreshGame')
+	evilMagusDied = false
 	for i=1, table.getn(heroes) do
 		local hero = heroes[i]
 		hero:SetRespawnsDisabled(false)
