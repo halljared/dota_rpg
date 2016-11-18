@@ -14,7 +14,8 @@ end
 
 function modifier_resurrect_lua:DeclareFunctions()
 	local funcs = {
-		MODIFIER_EVENT_ON_DEATH
+		MODIFIER_EVENT_ON_DEATH,
+		MODIFIER_EVENT_ON_RESPAWN
 	}
 	return funcs
 end
@@ -43,6 +44,14 @@ function modifier_resurrect_lua:OnDeath(keys)
 		local unit = keys.unit
 		local modifier = unit:FindModifierByName('modifier_resurrect_lua')
 		if modifier then modifier:DecrementStackCount() end
+	end
+end
+
+function modifier_resurrect_lua:OnRespawn(keys)
+	-- Apply the rot modifier if the toggle is on
+	if IsServer() then
+		local unit = keys.unit
+		local modifier = unit:FindModifierByName('modifier_resurrect_lua')
 		if modifier and modifier:GetStackCount() == 0 then
 			unit:RemoveModifierByName('modifier_resurrect_lua')
 			unit:SetRespawnsDisabled(true)

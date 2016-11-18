@@ -578,7 +578,7 @@
 
 		"Ability1"					"evil_magus_lava"
 		"Ability2"					"rift_bolt"
-		"Ability3"					"moving_particle_test"
+		"Ability3"					"energy_spiral"
 		"Ability4"					"demonic_prison"
 		"Ability5"					""
 		"Ability6"					""

@@ -144,6 +144,7 @@ end
 
 function GameMode:RefreshGame()
 	DebugPrint("gamemode.lua:GameMode:RefreshGame")
+	GameMode:KillNPCs()
 	local heroes = GetPlayerHeroes()
 	evilMagusDied = false
 	for i=1, table.getn(heroes) do

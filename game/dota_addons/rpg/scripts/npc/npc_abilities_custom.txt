@@ -4519,5 +4519,213 @@
 			}
 		}
 	}
+
+	"energy_spiral"
+	{
+		"BaseClass"							"ability_datadriven"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetTeam"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"				"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"					"1"
+		"AbilityTextureName"				"vengefulspirit_magic_missile"
+		"AbilityCastPoint"					"0.0"
+
+		"MaxLevel"							"1"
+
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_wisp/wisp_guardian_explosion.vpcf"
+			"particle"		"particles/units/heroes/hero_wisp/wisp_guardian_.vpcf"
+			"particle"		"particles/test_convert_projectile/attack.vpcf"
+			"particle"		"particles/econ/items/rubick/rubick_force_ambient/rubick_telekinesis_force_rings.vpcf"
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"radius"					"1000.0"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"particle_duration"			"3.141"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"radius_end"				"100.0"
+			}
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"stun_radius"				"200"
+			}
+			"06"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"leap_vertical_ratio"		"3"
+			}
+			"07"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"batch"						"6"
+			}
+			"08"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"hero_hit_radius"			"100"
+			}
+			"09"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"collision_damage"			"200"
+			}
+			"10"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"particle_interval"			"1.5"
+			}
+			"11"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"ability_duration"			"1.5"
+			}
+			"12"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"phase"						"1"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"				"heroes/test.lua"
+				"Function"					"MoveParticleStart"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"				"modifier_particle_maker"
+				"Target"					"CASTER"
+				"Duration"					"%ability_duration"
+			}
+
+			"DelayedAction"
+			{
+				"Delay"						"%particle_duration + %ability_duration"
+				"Action"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"MoveParticle"
+						"particle_name"			"particles/test_convert_projectile/attack.vpcf"
+						"collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
+						"radius"				"%radius_end"
+						"radius_end"			"%radius"
+						"particle_duration"		"%particle_duration / 4"
+						"batch"					"%batch"
+						"phase"					"%phase"
+						"no_rotate"				"1"
+					}
+				}
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_particle_maker"
+			{
+				"IsHidden"					"1"
+				"ThinkInterval"				"%particle_interval"
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"MoveParticle"
+						"particle_name"			"particles/test_convert_projectile/attack.vpcf"
+						"collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
+						"radius"				"%radius"
+						"radius_end"			"%radius_end"
+						"particle_duration"		"%particle_duration"
+						"batch"					"%batch"
+						"phase"					"%phase"
+					}
+				}
+
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"heroes/test.lua"
+						"Function"				"MoveParticle"
+						"particle_name"			"particles/test_convert_projectile/attack.vpcf"
+						"collision_modifier"	"modifier_dummy_collision_with_hero_datadriven"
+						"radius"				"%radius"
+						"radius_end"			"%radius_end"
+						"particle_duration"		"%particle_duration"
+						"batch"					"%batch"
+						"phase"					"%phase"
+					}
+				}
+			}
+
+			"modifier_dummy_unit_datadriven"
+			{
+				"States"
+				{
+					"MODIFIER_STATE_INVULNERABLE"					"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"					"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_UNIT_COLLISION"				"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NOT_ON_MINIMAP"					"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE"					"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_dummy_collision_with_hero_datadriven"
+			{
+				"Aura"						"modifier_dummy_trigger_explode_datadriven"
+				"Aura_Radius"				"%hero_hit_radius"
+				"Aura_Teams"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+			}
+
+			"modifier_dummy_trigger_explode_datadriven"
+			{
+				"IsHidden"					"1"
+
+				"OnCreated"
+				{
+					"Damage"
+					{
+						"Target"			"TARGET"
+						"Type"				"DAMAGE_TYPE_PHYSICAL"
+						"Damage"			"%collision_damage"
+					}
+
+					"FireEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_wisp/wisp_guardian_explosion.vpcf"
+						"EffectAttachType"	"attach_origin"
+						"Target"			"TARGET"
+					}
+
+					"RunScript"
+					{
+						"ScriptFile"		"heroes/test.lua"
+						"Function"			"DestroyDummy"
+					}
+				}
+			}
+		}
+	}
 }
 
